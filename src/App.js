@@ -1,10 +1,12 @@
 import './App.css';
-import {MyButton} from '@/components/ui/Button'
+import { RouterProvider } from 'react-router-dom';
+import {router} from './router'
+import './styles/index.scss'
 function App() {
   return (
    <div>
     <h1>hello </h1>
-    < MyButton />
+    <RouterProvider router={router} />
    </div>
   );
 }
