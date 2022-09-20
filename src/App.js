@@ -1,10 +1,10 @@
 import './App.css';
-import  Login from '@/views/sys/Login'
+import {MyButton} from '@/components/ui/Button'
 function App() {
   return (
    <div>
     <h1>hello </h1>
-    < Login />
+    < MyButton />
    </div>
   );
 }
