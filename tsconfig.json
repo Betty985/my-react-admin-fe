@@ -14,11 +14,10 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx":"react",
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
         "@/*":["src/*"]
     },
    },
-   "include": ["./**/*.ts"],
    "exclude": ["node_modules/**/*"]
 }
