@@ -1,30 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { Menu } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { menu } from '@/router/config';
 const items = menu.map((item, index) => {
     let label = (
-        // <Draggable key={item.label} draggableId={item.label} index={index}>
-        //     {(provided, snapshot) => (
-        //         <div
-        //             ref={provided.innerRef}
-        //             {...provided.draggableProps}
-        //             {...provided.dragHandleProps}
-        //             onDragStart={(e: React.DragEvent<any>) =>
-        //                 provided.dragHandleProps && provided.dragHandleProps.onDragStart(e as any)
-        //             }
-        //         >
-        <Link to={item.path}>{item.label}</Link>
-        //         </div>
-        //     )}
-        // </Draggable>
+        <Draggable key={item.label} draggableId={item.label} index={index}>
+            {(provided, snapshot) => (
+                <div
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                    onDragStart={(e: React.DragEvent<any>) =>
+                        provided.dragHandleProps && provided.dragHandleProps.onDragStart(e as any)
+                    }
+                >
+      {item.label}
+                </div>
+            )}
+        </Draggable>
     );
     let tmp = Object.assign({},item, { label }) as any;
     return tmp;
 }) as any;
 const MyMenu = () => {
     const [dragItems, setDragItems] = useState<any[]>(items);
+    const navigate=useNavigate()
     useEffect(() => {
         setDragItems(items);
     }, [items]);
@@ -43,25 +44,13 @@ const MyMenu = () => {
         const _items = reorder(dragItems, result.source.index, result.destination.index);
         setDragItems(_items);
     };
+    const onclick=(e:any)=>{navigate(e.key)}
     return (
         <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="droppable">
           {provided => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
-              {dragItems.map((t, i) => (
-                <Draggable draggableId={i+''} key={i} index={i}>
-                  {p => (
-                    <h1
-                      ref={p.innerRef}
-                      {...p.draggableProps}
-                      {...p.dragHandleProps}
-                      key={i+''}
-                    >
-                      <p>{t.label}</p>
-                    </h1>
-                  )}
-                </Draggable>
-              ))}
+               <Menu theme={'dark'} onClick={onclick} items={dragItems} />
             </div>
           )}
         </Droppable>

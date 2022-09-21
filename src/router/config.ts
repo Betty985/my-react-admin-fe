@@ -1,7 +1,7 @@
 import React from "react";
 
 export interface IMenu{
-    path: string;
+    key: string;
     label: string;
     icon?: string;
     element?: string;
@@ -10,11 +10,11 @@ export interface IMenu{
 }
 const menu:IMenu[]=[
     { 
-        path: "/",
+        key: "/s",
         label:'button',
       },
       {
-        path: "/login",
+        key: "/login",
         label:'login'
       },
 ]

@@ -6,7 +6,7 @@ import {MyMenu} from '@/components/Menu'
 const router=createBrowserRouter([
   {
     path: "/",
-    element: <MyButton />,
+    element: <MyMenu />,
   },
   {
     path: "/login",
@@ -14,7 +14,7 @@ const router=createBrowserRouter([
   },
   {
     path: "/s",
-    element: <MyMenu />,
+    element: <MyButton />,
   },
 ])
 export {router}
