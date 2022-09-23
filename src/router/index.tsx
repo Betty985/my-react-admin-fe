@@ -2,19 +2,21 @@ import { createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
 import React from 'react';
 import {MyButton} from '@/components/ui/Button'
 import {Login} from '@/views/Login'
-import {MyMenu} from '@/components/Menu'
+import {Dashboard} from '@/components/Dashboard'
 const router=createBrowserRouter([
   {
     path: "/",
-    element: <MyMenu />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/s",
-    element: <MyButton />,
-  },
+    element: <Dashboard />,
+    children:[
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "button",
+        element: <MyButton />,
+      },
+    ]
+  }, 
 ])
 export {router}

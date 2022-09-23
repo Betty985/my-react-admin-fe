@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu } from 'antd';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { menu } from '@/router/config';
 const items = menu.map((item, index) => {
@@ -15,17 +15,17 @@ const items = menu.map((item, index) => {
                         provided.dragHandleProps && provided.dragHandleProps.onDragStart(e as any)
                     }
                 >
-      {item.label}
+                    {item.label}
                 </div>
             )}
         </Draggable>
     );
-    let tmp = Object.assign({},item, { label }) as any;
+    let tmp = Object.assign({}, item, { label }) as any;
     return tmp;
 }) as any;
 const MyMenu = () => {
     const [dragItems, setDragItems] = useState<any[]>(items);
-    const navigate=useNavigate()
+    const navigate = useNavigate();
     useEffect(() => {
         setDragItems(items);
     }, [items]);
@@ -40,20 +40,22 @@ const MyMenu = () => {
         if (!result.destination) {
             return;
         }
-        console.log(result)
         const _items = reorder(dragItems, result.source.index, result.destination.index);
         setDragItems(_items);
     };
-    const onclick=(e:any)=>{navigate(e.key)}
+    const onclick = (e: any) => {
+        navigate(e.key);
+    };
     return (
         <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="droppable">
-          {provided => (
-            <div ref={provided.innerRef} {...provided.droppableProps}>
-               <Menu theme={'dark'} onClick={onclick} items={dragItems} />
-            </div>
-          )}
-        </Droppable>
+            <Droppable droppableId="droppable">
+                {(provided) => (
+                    <div ref={provided.innerRef} {...provided.droppableProps}>
+                        <Menu theme={'dark'} onClick={onclick} items={dragItems} />
+                        {provided.placeholder}
+                    </div>
+                )}
+            </Droppable>
         </DragDropContext>
     );
 };

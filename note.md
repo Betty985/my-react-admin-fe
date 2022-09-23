@@ -13,3 +13,27 @@ global.d.ts  `declare module '*.scss'`
 - [react-beautiful-dnd-i-get-unable-to-find-draggable](https://stackoverflow.com/questions/60029734/react-beautiful-dnd-i-get-unable-to-find-draggable-with-id-1)
 
 删除 StrictMode
+### react-beautiful-dnd需要jsx拼接，ant design menu不需要
+拼装好放到label属性里
+### TODO:meno 变量
+# react-router-dom
+## 嵌套路由
+```js
+const routes=[
+  {
+    path: "/",
+    element: <Dashboard />,
+    children:[
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "button",
+        element: <MyButton />,
+      },
+    ]
+  },
+]
+```
+在组件中通过`<Outlet/>`组件拿到子组件

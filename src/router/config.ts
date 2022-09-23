@@ -10,7 +10,7 @@ export interface IMenu{
 }
 const menu:IMenu[]=[
     { 
-        key: "/s",
+        key: "/button",
         label:'button',
       },
       {

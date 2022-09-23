@@ -5,8 +5,7 @@ import './styles/index.scss'
 function App() {
   return (
    <div>
-    <h1>hello </h1>
-    <RouterProvider router={router} />
+    <RouterProvider  router={router} />
    </div>
   );
 }
