@@ -1,11 +1,4 @@
-export interface IMenu {
-    key: string;
-    label: string;
-    icon?: string;
-    element?: string;
-    query?: string;
-    children?: any;
-}
+import {IBreads,IMenu} from '@/types'
 const menu: IMenu[] = [
     {
         key: '/button',
@@ -34,4 +27,12 @@ const menu: IMenu[] = [
         ],
     },
 ];
-export { menu };
+function generateRoutes() {
+    let tmp = JSON.stringify(menu),breads:IBreads[];
+    tmp=tmp.replace(/\"key\":/g, '"path":').replace(/\"label\":/g, '"breadcrumbName":');
+    breads=JSON.parse(tmp)
+    return {
+        menu,breads
+    }
+}
+export {generateRoutes}

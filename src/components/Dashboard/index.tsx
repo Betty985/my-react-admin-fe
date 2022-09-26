@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 import { MyMenu } from './MyMenu';
 import { Layout } from 'antd';
 import {Logo} from "@/assets/logo"
-
+import {MyBreadcrumb} from './MyBreadcrumb'
 const { Header, Content, Sider } = Layout;
 const Dashboard: FC = () => {
     const [collapsed, setCollapsed] = useState(false);
@@ -19,7 +19,7 @@ const Dashboard: FC = () => {
             </Sider>
             <Layout>
             <Header>
-                
+                <MyBreadcrumb />
             </Header>
             <Content style={{ margin: '0 16px' }}>
                 <Outlet />

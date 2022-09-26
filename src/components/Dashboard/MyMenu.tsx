@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-import { menu } from '@/router/config';
+import {menu} from '@/consts'
 const items = menu.map((item, index) => {
     let label = (
         <Draggable key={item.label} draggableId={item.label} index={index}>
