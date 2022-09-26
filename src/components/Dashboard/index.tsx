@@ -19,7 +19,7 @@ const Dashboard: FC = () => {
             </Sider>
             <Layout>
             <Header>
-                <header>wwwww</header>
+                
             </Header>
             <Content style={{ margin: '0 16px' }}>
                 <Outlet />

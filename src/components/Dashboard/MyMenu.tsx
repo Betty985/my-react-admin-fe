@@ -43,7 +43,7 @@ const MyMenu = () => {
         const _items = reorder(dragItems, result.source.index, result.destination.index);
         setDragItems(_items);
     };
-    const onclick = (e: any) => {
+    const onHandleClick = (e: any) => {
         navigate(e.key);
     };
     return (
@@ -51,7 +51,7 @@ const MyMenu = () => {
             <Droppable droppableId="droppable">
                 {(provided) => (
                     <div ref={provided.innerRef} {...provided.droppableProps}>
-                        <Menu theme={'dark'} onClick={onclick} items={dragItems} />
+                        <Menu theme={'dark'} onClick={onHandleClick} items={dragItems} mode="inline"/>
                         {provided.placeholder}
                     </div>
                 )}

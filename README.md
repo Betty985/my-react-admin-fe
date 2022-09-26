@@ -61,3 +61,16 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# features
+- [ ] 动态可拖拽多级菜单
+- [ ] 数据大屏
+- [ ] 路由守卫
+- [ ] RABC权限控制
+- [ ] 表格
+- [ ] 面包屑
+- [ ] 工具栏：全屏、动态换肤、设置
+- [ ] 新手指引
+- [ ] 响应式
+- [ ] 支持MarkDown的富文本
+- [ ] 轮播图
+- [ ] 标签页
