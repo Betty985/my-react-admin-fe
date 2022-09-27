@@ -16,8 +16,13 @@ $fontColor:#fafafa;
     line-height: 64px;
 }
 .toolbal{
-    color:$fontColor ;
+    color:$fontColor;
     .icon{
         font-size: 1.2rem;
+        color:$fontColor ;
     }
+       
+}
+.list{
+    width: 30rem;
 }
