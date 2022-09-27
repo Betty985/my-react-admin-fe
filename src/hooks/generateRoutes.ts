@@ -1,6 +1,10 @@
 import {IBreads,IMenu} from '@/types'
 const menu: IMenu[] = [
     {
+        key: '/home',
+        label: 'home',
+    },
+    {
         key: '/button',
         label: 'button',
     },

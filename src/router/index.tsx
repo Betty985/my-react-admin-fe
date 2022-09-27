@@ -4,6 +4,7 @@ import {MyButton} from '@/components/ui/Button'
 import {Login} from '@/views/Login'
 import {Dashboard} from '@/components/Dashboard'
 import {Error_403,Error_404,Error_500} from "@/views/Errors"
+import { Home } from '@/views/Home';
 const routes=[
   {
     path: "/",
@@ -29,7 +30,10 @@ const routes=[
         path: "500",
         element: <Error_500 />,
       },
-
+      {
+        path: "home",
+        element: <Home />,
+      },
     ]
   }, 
 ]
