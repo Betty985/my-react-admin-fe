@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Badge, Col, Row, Popover, Tabs, List, Avatar } from 'antd';
+import { Badge, Col, Row, Popover, Tabs, List, Avatar, Dropdown, Menu } from 'antd';
 import screenfull from 'screenfull';
 import { FullscreenOutlined, FullscreenExitOutlined, BellOutlined } from '@ant-design/icons';
 import { useSetState } from 'ahooks';
@@ -9,7 +9,7 @@ const data = [
     },
     {
         title: 'Lily  回复了你',
-    }
+    },
 ];
 const NotificationList = () => (
     <div className="list">
@@ -43,6 +43,31 @@ const items = [
     },
 ];
 const Notifications = () => <Tabs defaultActiveKey="1" size="small" items={items} />;
+/**
+ * 用户菜单
+ */
+const menu = (
+    <Menu
+        items={[
+            {
+                key: '1',
+                label: (
+                    <span>
+                        个人中心
+                    </span>
+                ),
+            },
+            {
+                key: '2',
+                label: (
+                    <span>
+                        退出
+                    </span>
+                ),
+            },
+        ]}
+    />
+);
 const MyToolBar: FC = () => {
     const [state, setState] = useSetState({
         screenfull: false,
@@ -76,6 +101,11 @@ const MyToolBar: FC = () => {
                         <BellOutlined className="icon" />
                     </Badge>
                 </Popover>
+            </Col>
+            <Col>
+                <Dropdown overlay={menu} placement="bottom" arrow={{ pointAtCenter: true }}>
+                    <Avatar src="https://joeschmoe.io/api/v1/random" />
+                </Dropdown>
             </Col>
         </Row>
     );
