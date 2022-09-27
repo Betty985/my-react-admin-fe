@@ -74,3 +74,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 - [ ] 支持MarkDown的富文本
 - [ ] 轮播图
 - [ ] 标签页
+- [ ] 首页：滚动列表
