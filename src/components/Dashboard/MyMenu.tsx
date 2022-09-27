@@ -51,7 +51,7 @@ const MyMenu = () => {
             <Droppable droppableId="droppable">
                 {(provided) => (
                     <div ref={provided.innerRef} {...provided.droppableProps}>
-                        <Menu theme={'dark'} onClick={onHandleClick} items={dragItems} mode="inline"/>
+                        <Menu  onClick={onHandleClick} items={dragItems} mode="inline" theme='dark'/>
                         {provided.placeholder}
                     </div>
                 )}

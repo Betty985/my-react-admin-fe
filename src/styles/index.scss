@@ -5,3 +5,19 @@
     border-radius: 14px;
     padding: 4px;
 }
+$fontColor:#fafafa;
+.logo{
+    display: inline-flex;
+    height: 64px;
+    color: $fontColor;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: end;
+    line-height: 64px;
+}
+.toolbal{
+    color:$fontColor ;
+    .icon{
+        font-size: 1.2rem;
+    }
+}
