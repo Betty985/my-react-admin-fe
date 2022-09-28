@@ -3,11 +3,27 @@ import classNames from 'classnames';
 import ResizeObserver from 'rc-resize-observer';
 import React, { useEffect, useRef, useState } from 'react';
 import { VariableSizeGrid as Grid } from 'react-window';
-
+import { data } from './mock';
+// Usage
+const columns = [
+    { title: '标签', dataIndex: 'key', width: 100 },
+    { title: '部门', dataIndex: 'key', width: 100 },
+    { title: '事件', dataIndex: 'key', width: 220 },
+    { title: '时间', dataIndex: 'key', width: 150 },
+];
+/**
+ * 配置
+ * @param props
+ * @returns
+ */
+const columnWidths = [200, 100, 440, 150];
+const speed = 500;
 const VirtualTable = (props: Parameters<typeof Table>[0]) => {
     const { columns, scroll } = props;
     const [tableWidth, setTableWidth] = useState(0);
-
+    const [isScroll, setScroll] = useState(true);
+    const child = useRef<any>();
+    const wrapper = useRef<any>();
     const widthColumnCount = columns!.filter(({ width }) => !width).length;
     const mergedColumns = columns!.map((column) => {
         if (column.width) {
@@ -48,25 +64,30 @@ const VirtualTable = (props: Parameters<typeof Table>[0]) => {
     };
 
     useEffect(() => resetVirtualGrid, [tableWidth]);
+    //TODO:自动滚动
+    // useEffect(()=>{
+    //     let timer:string | number | NodeJS.Timeout | undefined;
+    //     if(isScroll){
+    //         timer=setInterval(()=>{
+    //             console.log( wrapper.current.scrollHeight);
+    //             wrapper.current.scrollTop>=child.current.scrollHeight?(wrapper.current.scrollTop=0):wrapper.current.scrollTop++
+    //         },speed)
+    //     }
+    //     return ()=>clearInterval(timer)
+    // },[isScroll])
 
     const renderVirtualList = (rawData: object[], { scrollbarSize, ref, onScroll }: any) => {
         ref.current = connectObject;
-        const totalHeight = rawData.length * 54;
 
         return (
             <Grid
                 ref={gridRef}
                 className="virtual-grid"
                 columnCount={mergedColumns.length}
-                columnWidth={(index: number) => {
-                    const { width } = mergedColumns[index];
-                    return totalHeight > scroll!.y! && index === mergedColumns.length - 1
-                        ? (width as number) - scrollbarSize - 1
-                        : (width as number);
-                }}
+                columnWidth={(index: number) => columnWidths[index]}
                 height={scroll!.y as number}
                 rowCount={rawData.length}
-                rowHeight={() => 54}
+                rowHeight={() => 50}
                 width={tableWidth}
                 onScroll={({ scrollLeft }: { scrollLeft: number }) => {
                     onScroll({ scrollLeft });
@@ -87,7 +108,7 @@ const VirtualTable = (props: Parameters<typeof Table>[0]) => {
                         })}
                         style={style}
                     >
-                        {(rawData[rowIndex] as any)[(mergedColumns as any)[columnIndex].dataIndex]}
+                        {(rawData[rowIndex] as any)[columnIndex]}
                     </div>
                 )}
             </Grid>
@@ -95,12 +116,14 @@ const VirtualTable = (props: Parameters<typeof Table>[0]) => {
     };
 
     return (
-        <ResizeObserver
+        <div  ref={wrapper}>
+ <ResizeObserver
             onResize={({ width }) => {
                 setTableWidth(width);
             }}
         >
             <Table
+                ref={child}
                 {...props}
                 className="virtual-table"
                 columns={mergedColumns}
@@ -110,17 +133,10 @@ const VirtualTable = (props: Parameters<typeof Table>[0]) => {
                 }}
             />
         </ResizeObserver>
+        </div>
+       
     );
 };
-
-// Usage
-const columns = [
-    { title: '标签', dataIndex: 'key', width: 180 },
-    { title: '部门', dataIndex: 'key', width: 150 },
-    { title: '事件', dataIndex: 'key', width: 200 },
-    { title: '时间', dataIndex: 'key', width: 150 },
-];
-const data = Array.from({ length: 100000 }, (_, key) => ({ key }));
 
 export const MyTable: React.FC = () => (
     <VirtualTable columns={columns} dataSource={data} scroll={{ y: 300, x: '100%' }} />

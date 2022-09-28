@@ -27,10 +27,14 @@ const Home = () => {
             </Row>
 
             <Row gutter={16} className="row">
-                <Col span={24}>
-                <Card title='滚动新闻' hoverable>
-                    <MyTable />
-                    </Card></Col>
+                <Col span={16}>
+                    <Card title="滚动新闻" hoverable>
+                        <MyTable />
+                    </Card>
+                </Col>
+                <Col span={8}>
+                <Card title='hi'>hi</Card>
+                </Col>
             </Row>
         </>
     );

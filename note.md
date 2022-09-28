@@ -15,7 +15,7 @@ global.d.ts  `declare module '*.scss'`
 删除 StrictMode
 ### react-beautiful-dnd需要jsx拼接，ant design menu不需要
 拼装好放到label属性里
-### TODO:meno 变量
+
 # react-router-dom
 ## 嵌套路由
 ```js
@@ -37,3 +37,5 @@ const routes=[
 ]
 ```
 在组件中通过`<Outlet/>`组件拿到子组件
+# 虚拟列表
+- [react-window](https://react-window.vercel.app/#/examples/grid/variable-size)
