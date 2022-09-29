@@ -159,7 +159,7 @@ const dataBJ = [
 export const Radar = () => (
     <ReactEcharts
         option={option}
-        style={{height: '210px', width: '100%'}}
+        style={{height: '210px', width: '90%'}}
     />
 );
 

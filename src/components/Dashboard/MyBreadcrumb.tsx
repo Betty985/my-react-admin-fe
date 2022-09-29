@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { Breadcrumb } from 'antd';
+import { Breadcrumb, Col, Row } from 'antd';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { breads } from '@/consts';
 function itemRender(route: any, params: any, routes: any, paths: string[]) {
     const last = routes.indexOf(route) === routes.length - 1;
@@ -12,9 +13,10 @@ function itemRender(route: any, params: any, routes: any, paths: string[]) {
 }
 const MyBreadcrumb: FC = () => {
     return (
-        <div className="breadcrumb">
-            <Breadcrumb routes={breads} itemRender={itemRender}/>
-        </div>
+            <Row align="middle" className="breadcrumb">
+                <ExclamationCircleOutlined className='breadcrumbIcon'/>
+                <Breadcrumb routes={breads} itemRender={itemRender} />
+            </Row>
     );
 };
 

@@ -101,5 +101,5 @@ const option = {
   ]
 };
 export const PictorialBar=()=>(
-    <ReactEcharts option={option} style={{height: '210px', width: '100%'}}/>
+    <ReactEcharts option={option} style={{height: '210px', width: '90%'}}/>
 )

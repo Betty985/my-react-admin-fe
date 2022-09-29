@@ -2,8 +2,10 @@
 @import "./home.scss";
 .breadcrumb{
     background-color: #fff;
+    color: black;
     border-radius: 14px;
-    padding: 4px;
+    width:30rem;
+    height: 2rem;
 }
 $fontColor:#fafafa;
 .logo{
@@ -26,4 +28,6 @@ $fontColor:#fafafa;
 .list{
     width: 30rem;
 }
-
+.breadcrumbIcon{
+    margin: 0 0.5rem;
+}

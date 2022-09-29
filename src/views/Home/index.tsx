@@ -33,7 +33,7 @@ const Home = () => {
                     </Card>
                 </Col>
                 <Col span={8}>
-                    <Card title="时间轴">
+                    <Card title="时间轴" hoverable>
                         <Timeline mode="alternate"  pending="Recording..." style={{height:'354px'}}>
                             <Timeline.Item color="green">
                                创建项目 2022-09-17

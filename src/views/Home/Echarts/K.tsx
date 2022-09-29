@@ -18,5 +18,5 @@ const option = {
     ]
   };
   export const K=()=>(
-    <ReactEcharts option={option} style={{height: '212px', width: '100%'}}/>
+    <ReactEcharts option={option} style={{height: '212px',width: '90%'}}/>
   )
