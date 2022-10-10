@@ -4,6 +4,10 @@ const menu: IMenu[] = [
         key: '/home',
         label: 'home',
     },
+      {
+        key: '/waterfall',
+        label: 'waterfall',
+    },
     {
         key: '/button',
         label: 'button',
