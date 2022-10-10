@@ -20,13 +20,11 @@ const columns = [
  * @returns
  */
 const columnWidths = [200, 100, 440, 150];
-const speed = 500;
+const speed = 50;
 const VirtualTable = (props: Parameters<typeof Table>[0]) => {
     const { columns, scroll } = props;
     const [tableWidth, setTableWidth] = useState(0);
     const [isScroll, setScroll] = useState(true);
-    const child = useRef<any>();
-    const wrapper = useRef<any>();
     const widthColumnCount = columns!.filter(({ width }) => !width).length;
     const mergedColumns = columns!.map((column) => {
         if (column.width) {
@@ -40,6 +38,7 @@ const VirtualTable = (props: Parameters<typeof Table>[0]) => {
     });
 
     const gridRef = useRef<any>();
+    const childRef=useRef<HTMLElement>()
     const [connectObject] = useState<any>(() => {
         const obj = {};
         Object.defineProperty(obj, 'scrollLeft', {
@@ -67,17 +66,19 @@ const VirtualTable = (props: Parameters<typeof Table>[0]) => {
     };
 
     useEffect(() => resetVirtualGrid, [tableWidth]);
-    //TODO:自动滚动
-    // useEffect(()=>{
-    //     let timer:string | number | NodeJS.Timeout | undefined;
-    //     if(isScroll){
-    //         timer=setInterval(()=>{
-    //             console.log( wrapper.current.scrollHeight);
-    //             wrapper.current.scrollTop>=child.current.scrollHeight?(wrapper.current.scrollTop=0):wrapper.current.scrollTop++
-    //         },speed)
-    //     }
-    //     return ()=>clearInterval(timer)
-    // },[isScroll])
+    useEffect(() => {
+        // TODO:fix
+        const child = document.querySelector('.virtual-grid') as HTMLElement;
+        let timer: string | number | NodeJS.Timeout | undefined;
+        if (isScroll&&child) {
+            timer = setInterval(() => {
+                const isBottom =
+                    Math.abs(child.scrollHeight - child.clientHeight - child.scrollTop) < 1;
+                isBottom ? (child.scrollTop = 0) : (child.scrollTop += speed);
+            }, 1000);
+        }
+        return () => clearInterval(timer);
+    }, [isScroll]);
 
     const renderVirtualList = (rawData: object[], { scrollbarSize, ref, onScroll }: any) => {
         ref.current = connectObject;
@@ -119,24 +120,21 @@ const VirtualTable = (props: Parameters<typeof Table>[0]) => {
     };
 
     return (
-        <div ref={wrapper}>
-            <ResizeObserver
-                onResize={({ width }) => {
-                    setTableWidth(width);
+        <ResizeObserver
+            onResize={({ width }) => {
+                setTableWidth(width);
+            }}
+        >
+            <Table
+                {...props}
+                className="virtual-table"
+                columns={mergedColumns}
+                pagination={false}
+                components={{
+                    body: renderVirtualList as any,
                 }}
-            >
-                <Table
-                    ref={child}
-                    {...props}
-                    className="virtual-table"
-                    columns={mergedColumns}
-                    pagination={false}
-                    components={{
-                        body: renderVirtualList as any,
-                    }}
-                />
-            </ResizeObserver>
-        </div>
+            />
+        </ResizeObserver>
     );
 };
 
@@ -193,9 +191,9 @@ export const MyTHead: React.FC = () => {
     const handleExportAll = () => {
         const json = data.map((item) => {
             const [tag, department, event, time] = item;
-            const status=tag.props.children;
+            const status = tag.props.children;
             return {
-                tag:status,
+                tag: status,
                 department,
                 event,
                 time,
@@ -206,8 +204,8 @@ export const MyTHead: React.FC = () => {
     };
     return (
         <div className="flex justify-between">
-            <span >虚拟新闻列表</span>
-            <DownloadOutlined onClick={handleExportAll}/>
+            <span>虚拟新闻列表</span>
+            <DownloadOutlined onClick={handleExportAll} />
         </div>
     );
 };
