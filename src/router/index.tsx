@@ -2,7 +2,7 @@ import { createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
 import React from 'react';
 import { MyButton } from '@/components/ui/Button';
 import { Dashboard } from '@/components/Dashboard';
-import { Error_403, Error_404, Error_500, Home, Login, Waterfall } from '@/views';
+import { Error_403, Error_404, Error_500, Home, Login, Waterfall, T } from '@/views';
 
 const routes = [
     {
@@ -36,6 +36,10 @@ const routes = [
             {
                 path: 'home',
                 element: <Home />,
+            },
+            {
+                path: 't',
+                element: <T />,
             },
         ],
     },

@@ -3,8 +3,9 @@ import { Image } from 'antd';
 import { urls } from './mock';
 export const Waterfall: FC = () => (
     <div className="columns-4  hover:columns-3">
-        {urls.map((i) => (
+        {urls.map((i,index) => (
             <Image
+               key={index}
                 className="w-full"
                 preview={{
                     visible:false,

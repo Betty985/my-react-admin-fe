@@ -15,6 +15,9 @@ const menu: IMenu[] = [
     {
         key: '/login',
         label: 'login',
+    },{
+        key: '/t',
+        label: 't',
     },
     {
         key: '/errors',

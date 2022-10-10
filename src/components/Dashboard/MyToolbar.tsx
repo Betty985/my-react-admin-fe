@@ -1,8 +1,27 @@
-import React, { FC } from 'react';
-import { Badge, Col, Row, Popover, Tabs, List, Avatar, Dropdown, Menu } from 'antd';
+import React, { FC, useState } from 'react';
+import {
+    Badge,
+    Col,
+    Row,
+    Popover,
+    Tabs,
+    List,
+    Avatar,
+    Dropdown,
+    Menu,
+    ConfigProvider,
+    Modal,
+} from 'antd';
 import screenfull from 'screenfull';
-import { FullscreenOutlined, FullscreenExitOutlined, BellOutlined } from '@ant-design/icons';
+import {
+    FullscreenOutlined,
+    FullscreenExitOutlined,
+    BellOutlined,
+    SkinOutlined,
+} from '@ant-design/icons';
 import { useSetState } from 'ahooks';
+import { SketchPicker } from 'react-color';
+/** mock 数据 */
 const data = [
     {
         title: 'Lily  回复了你',
@@ -43,6 +62,7 @@ const items = [
     },
 ];
 const Notifications = () => <Tabs defaultActiveKey="1" size="small" items={items} />;
+
 /**
  * 用户菜单
  */
@@ -51,24 +71,17 @@ const menu = (
         items={[
             {
                 key: '1',
-                label: (
-                    <span>
-                        个人中心
-                    </span>
-                ),
+                label: <span>个人中心</span>,
             },
             {
                 key: '2',
-                label: (
-                    <span>
-                        退出
-                    </span>
-                ),
+                label: <span>退出</span>,
             },
         ]}
     />
 );
-const MyToolBar: FC = () => {
+/** 全屏 */
+const Fullscreen: FC = () => {
     const [state, setState] = useSetState({
         screenfull: false,
     });
@@ -82,14 +95,136 @@ const MyToolBar: FC = () => {
         setState((prev) => ({ screenfull: !prev.screenfull }));
     };
     return (
+        <Col onClick={screenFull}>
+            {state.screenfull ? (
+                <FullscreenExitOutlined className="icon" />
+            ) : (
+                <FullscreenOutlined className="icon" />
+            )}
+        </Col>
+    );
+};
+/** 换肤 */
+const initColor={
+    primaryColor: '#1890ff',
+    errorColor: '#ff4d4f',
+    warningColor: '#faad14',
+    successColor: '#52c41a',
+    infoColor: '#1890ff',
+}
+const ColorChange: FC = () => {
+    const [color, setColor] = useState(()=>initColor);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    // 配置选项卡内容
+    const primary = (
+        <SketchPicker
+            presetColors={['#1890ff', '#25b864', '#ff6f00']}
+            color={color.primaryColor}
+            onChange={({ hex }) => {
+                onColorChange({
+                    primaryColor: hex,
+                });
+            }}
+        />
+    );
+    const error = (
+        <SketchPicker
+            presetColors={['#ff4d4f']}
+            color={color.errorColor}
+            onChange={({ hex }) => {
+                onColorChange({
+                    errorColor: hex,
+                });
+            }}
+        />
+    );
+    const warning = (
+        <SketchPicker
+            presetColors={['#faad14']}
+            color={color.warningColor}
+            onChange={({ hex }) => {
+                onColorChange({
+                    warningColor: hex,
+                });
+            }}
+        />
+    );
+    const success = (
+        <SketchPicker
+            presetColors={['#52c41a']}
+            color={color.successColor}
+            onChange={({ hex }) => {
+                onColorChange({
+                    successColor: hex,
+                });
+            }}
+        />
+    );
+    const info = (
+        <SketchPicker
+            presetColors={['#1890ff']}
+            color={color.infoColor}
+            onChange={({ hex }) => {
+                onColorChange({
+                    infoColor: hex,
+                });
+            }}
+        />
+    );
+    const items = Object.entries({ primary, success, error, warning, info }).map((item) => {
+        const [label, children] = item;
+        return {
+            label,
+            children,
+            key: label,
+        };
+    });
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleOk = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleCancel = () => {
+        setColor(()=>initColor)
+        ConfigProvider.config({
+            theme: initColor,
+        });
+        setIsModalOpen(false);
+    };
+
+    const onColorChange = (nextColor: Partial<typeof color>) => {
+        const mergedNextColor = {
+            ...color,
+            ...nextColor,
+        };
+        setColor(mergedNextColor);
+        ConfigProvider.config({
+            theme: mergedNextColor,
+        });
+    };
+
+    return (
+        <Col>
+            <SkinOutlined className="icon" onClick={showModal} />
+            <Modal
+                title="请选择主题颜色"
+                open={isModalOpen}
+                onOk={handleOk}
+                onCancel={handleCancel}
+            >
+                <Tabs animated={true} items={items} />
+            </Modal>
+        </Col>
+    );
+};
+const MyToolBar: FC = () => {
+    return (
         <Row justify="end" gutter={{ xs: 8, sm: 16, md: 24 }}>
-            <Col onClick={screenFull}>
-                {state.screenfull ? (
-                    <FullscreenExitOutlined className="icon" />
-                ) : (
-                    <FullscreenOutlined className="icon" />
-                )}
-            </Col>
+            <ColorChange />
+            <Fullscreen />
             <Col>
                 <Popover
                     placement="bottomRight"
