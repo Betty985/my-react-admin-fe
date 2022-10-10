@@ -153,7 +153,8 @@
     "sass": "^1.54.9",
     "sass-loader": "^13.0.2",
     "scss": "^0.2.4",
-    "tailwindcss": "^3.1.8"
+    "tailwindcss": "^3.1.8",
+    "xlsx": "^0.18.5"
   },
   "config": {
     "commitizen": {

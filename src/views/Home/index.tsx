@@ -1,7 +1,7 @@
 import React from 'react';
 import { Avatar, Card, Col, Row, Timeline } from 'antd';
 import { Radar, K, PictorialBar } from './Echarts';
-import { MyTable } from './Table';
+import { MyTable ,MyTHead} from './Table';
 const Home = () => {
     return (
         <>
@@ -28,7 +28,7 @@ const Home = () => {
 
             <Row gutter={16} className="row">
                 <Col span={16}>
-                    <Card title="虚拟新闻列表" hoverable>
+                    <Card title={<MyTHead/>} hoverable>
                         <MyTable />
                     </Card>
                 </Col>

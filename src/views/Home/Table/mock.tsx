@@ -14,7 +14,7 @@ const warn = <Tag color="warning">warning</Tag>;
 const initData = [
     [success, 'tag', '表单数据由React组件负责处理', d1],
     [processing, 'button', '正则表达式是用于匹配字符串中字符组合的模式', d2],
-    [error, 'table', '正则表达式是用于匹配字符串中字符组合的模式', d2],
-    [warn, 'alert', '正则表达式是用于匹配字符串中字符组合的模式', d2],
+    [error, 'table', '正则表达式是用于匹配字符串中字符组合的模式', d3],
+    [warn, 'alert', '正则表达式是用于匹配字符串中字符组合的模式', d4],
 ];
 export const data = repeat(initData, 1000);

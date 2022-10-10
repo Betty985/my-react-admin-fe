@@ -1,9 +1,12 @@
 import { Table } from 'antd';
 import classNames from 'classnames';
+import * as XLSX from 'xlsx';
 import ResizeObserver from 'rc-resize-observer';
 import React, { useEffect, useRef, useState } from 'react';
+import { DownloadOutlined } from '@ant-design/icons';
 import { VariableSizeGrid as Grid } from 'react-window';
 import { data } from './mock';
+import { type } from '@/hooks';
 // Usage
 const columns = [
     { title: '标签', dataIndex: 'key', width: 100 },
@@ -116,28 +119,95 @@ const VirtualTable = (props: Parameters<typeof Table>[0]) => {
     };
 
     return (
-        <div  ref={wrapper}>
- <ResizeObserver
-            onResize={({ width }) => {
-                setTableWidth(width);
-            }}
-        >
-            <Table
-                ref={child}
-                {...props}
-                className="virtual-table"
-                columns={mergedColumns}
-                pagination={false}
-                components={{
-                    body: renderVirtualList as any,
+        <div ref={wrapper}>
+            <ResizeObserver
+                onResize={({ width }) => {
+                    setTableWidth(width);
                 }}
-            />
-        </ResizeObserver>
+            >
+                <Table
+                    ref={child}
+                    {...props}
+                    className="virtual-table"
+                    columns={mergedColumns}
+                    pagination={false}
+                    components={{
+                        body: renderVirtualList as any,
+                    }}
+                />
+            </ResizeObserver>
         </div>
-       
     );
 };
 
 export const MyTable: React.FC = () => (
     <VirtualTable columns={columns} dataSource={data} scroll={{ y: 300, x: '100%' }} />
 );
+export const MyTHead: React.FC = () => {
+    const sheet2blob = (sheet: any, sheetName: string = 'sheet1') => {
+        let workbook: XLSX.WorkBook = {
+            SheetNames: [sheetName],
+            Sheets: {
+                sheetName: sheet,
+            },
+        };
+        let wopts: any = {
+            bookType: 'xlsx',
+            bookSST: false,
+            type: 'binary',
+        };
+        let wbount = XLSX.write(workbook, wopts);
+        function s2ab(s: string): any {
+            let buff = new ArrayBuffer(s.length);
+            let view = new Uint8Array(buff);
+            for (var i = 0; i != s.length; ++i) {
+                view[i] = s.charCodeAt(i) & 0xff;
+                return buff;
+            }
+        }
+        let blob = new Blob([s2ab(wbount)], {
+            type: 'application/octet-stream',
+        });
+        return blob;
+    };
+    /**
+     * @description 创建a标签，利用a标签的download属性下载文件
+     * @param url
+     * @param saveName
+     */
+    const openDownloadDialog = (url: any, saveName: string = 'sheet1.xlsx') => {
+        if (type(url) === 'blob') {
+            url = URL.createObjectURL(url);
+        }
+        let aLink = document.createElement('a');
+        aLink.href = url;
+        aLink.download = saveName;
+        let event;
+        if (window.MouseEvent) {
+            event = new MouseEvent('click');
+        } else {
+            event = document.createEvent('MouseEvent');
+        }
+        aLink.dispatchEvent(event);
+    };
+    const handleExportAll = () => {
+        const json = data.map((item) => {
+            const [tag, department, event, time] = item;
+            const status=tag.props.children;
+            return {
+                tag:status,
+                department,
+                event,
+                time,
+            };
+        });
+        const sheet = XLSX.utils.json_to_sheet(json);
+        openDownloadDialog(sheet2blob(sheet, undefined), '虚拟新闻列表.xlsx');
+    };
+    return (
+        <div className="flex justify-between">
+            <span >虚拟新闻列表</span>
+            <DownloadOutlined onClick={handleExportAll}/>
+        </div>
+    );
+};
