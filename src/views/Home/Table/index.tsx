@@ -38,7 +38,6 @@ const VirtualTable = (props: Parameters<typeof Table>[0]) => {
     });
 
     const gridRef = useRef<any>();
-    const childRef=useRef<HTMLElement>()
     const [connectObject] = useState<any>(() => {
         const obj = {};
         Object.defineProperty(obj, 'scrollLeft', {

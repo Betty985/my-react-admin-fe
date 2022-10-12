@@ -21,6 +21,7 @@ import {
 } from '@ant-design/icons';
 import { useSetState } from 'ahooks';
 import { SketchPicker } from 'react-color';
+import { Link } from 'react-router-dom';
 /** mock 数据 */
 const data = [
     {
@@ -71,7 +72,7 @@ const menu = (
         items={[
             {
                 key: '1',
-                label: <span>个人中心</span>,
+                label: <Link to='/profile'>个人中心</Link>,
             },
             {
                 key: '2',
