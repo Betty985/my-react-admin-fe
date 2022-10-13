@@ -1,7 +1,6 @@
 import { createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 import React from 'react';
-import { MyButton } from '@/components/ui/Button';
-import { Dashboard } from '@/components/Dashboard';
+import { MyButton, Dashboard, ErrorPage } from '@/components';
 import {
     Error_403,
     Error_404,
@@ -18,13 +17,14 @@ import {
     EditContact,
     editAction,
     destroyAction,
+    favoriteAction,
     Index,
 } from '@/views';
 const routes = [
     {
         path: '/',
         element: <Dashboard />,
-        errorElement: <Error_404 />,
+        errorElement: <ErrorPage />,
         children: [
             {
                 path: 'login',
@@ -61,6 +61,7 @@ const routes = [
             {
                 path: 'profile',
                 element: <Contacts />,
+                errorElement: <ErrorPage />,
                 loader: contactsLoader,
                 action: contactsAction,
                 children: [
@@ -69,6 +70,7 @@ const routes = [
                         path: 'contacts/:contactId',
                         element: <Contact />,
                         loader: contactLoader,
+                        action: favoriteAction,
                     },
                     {
                         path: 'contacts/:contactId/edit',

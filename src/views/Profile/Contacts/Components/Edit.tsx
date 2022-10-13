@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, useLoaderData, redirect } from 'react-router-dom';
+import { Form, useLoaderData, redirect,useNavigate } from 'react-router-dom';
 import { updateContact } from '../contacts';
 export async function editAction({ request, params }: { request: any; params: any }) {
     const formData = await request.formData();
@@ -9,7 +9,7 @@ export async function editAction({ request, params }: { request: any; params: an
 }
 export function EditContact() {
     const contact = useLoaderData() as any;
-
+    const navigate=useNavigate()
     return (
         <Form method="post" id="contact-form">
             <p>
@@ -54,7 +54,7 @@ export function EditContact() {
             </label>
             <p>
                 <button type="submit">Save</button>
-                <button type="button">Cancel</button>
+                <button type="button" onClick={()=>navigate(-1)}>Cancel</button>
             </p>
         </Form>
     );

@@ -1,14 +1,25 @@
 import React from 'react';
-import { Form, useLoaderData } from 'react-router-dom';
-import { getContact} from '../contacts';
+import { Form, useLoaderData,useFetcher} from 'react-router-dom';
+import { getContact,updateContact} from '../contacts';
 
 export async function contactLoader({params}:any) {
-    
-  return getContact(params.contactId);
+  const contact=await getContact(params.contactId)
+  if(!contact){
+    throw new Response('',{
+        status:404,
+        statusText:'Not Found'
+    })
+  }
+  return contact;
+}
+export async function favoriteAction({request,params}:{request:any,params: any}){
+    let formData=await request.formData()
+    return updateContact(params.contactId,{
+        favorite:formData.get('favorite')==='true'
+    })
 }
 export function Contact() {
     const contact = useLoaderData() as any
-
     return (
         <div id="contact">
             <div>
@@ -58,17 +69,24 @@ export function Contact() {
     );
 }
 
-function Favorite(contact:any) {
+function Favorite({contact}:any) {
     let favorite = contact.favorite;
+    const fetcher=useFetcher()
+    if(fetcher.formData){
+        favorite=fetcher.formData.get('favorite')==='true'
+    }
+ 
     return (
-        <Form method="post">
+        <fetcher.Form method="post">
             <button
                 name="favorite"
                 value={favorite ? 'false' : 'true'}
                 aria-label={favorite ? 'Remove from favorites' : 'Add to favorites'}
             >
+                
                 {favorite ? '★' : '☆'}
             </button>
-        </Form>
+            {`${favorite}`}
+        </fetcher.Form>
     );
 }
