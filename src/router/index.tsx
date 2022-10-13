@@ -1,4 +1,4 @@
-import { createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 import React from 'react';
 import { MyButton, Dashboard, ErrorPage } from '@/components';
 import {
@@ -19,6 +19,7 @@ import {
     destroyAction,
     favoriteAction,
     Index,
+    Profile,
 } from '@/views';
 const routes = [
     {
@@ -26,6 +27,7 @@ const routes = [
         element: <Dashboard />,
         errorElement: <ErrorPage />,
         children: [
+            {index:true,element: <Home />},
             {
                 path: 'login',
                 element: <Login />,
@@ -60,28 +62,34 @@ const routes = [
             },
             {
                 path: 'profile',
-                element: <Contacts />,
-                errorElement: <ErrorPage />,
-                loader: contactsLoader,
-                action: contactsAction,
                 children: [
-                    { index: true, element: <Index /> },
+                    { index: true, element: <Profile /> },
                     {
-                        path: 'contacts/:contactId',
-                        element: <Contact />,
-                        loader: contactLoader,
-                        action: favoriteAction,
-                    },
-                    {
-                        path: 'contacts/:contactId/edit',
-                        element: <EditContact />,
-                        loader: contactLoader,
-                        action: editAction,
-                    },
-                    {
-                        path: 'contacts/:contactId/destroy',
-                        action: destroyAction,
-                        errorElement: <div>Oops! There was an error.</div>,
+                        path: 'contacts',
+                        element: <Contacts />,
+                        errorElement: <ErrorPage />,
+                        loader: contactsLoader,
+                        action: contactsAction,
+                        children: [
+                            { index: true, element: <Index /> },
+                            {
+                                path: ':contactId',
+                                element: <Contact />,
+                                loader: contactLoader,
+                                action: favoriteAction,
+                            },
+                            {
+                                path: ':contactId/edit',
+                                element: <EditContact />,
+                                loader: contactLoader,
+                                action: editAction,
+                            },
+                            {
+                                path: ':contactId/destroy',
+                                action: destroyAction,
+                                errorElement: <div>Oops! There was an error.</div>,
+                            },
+                        ],
                     },
                 ],
             },
