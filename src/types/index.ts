@@ -10,7 +10,14 @@ export interface IBreads {
     path: string;
     breadcrumbName: string;
     children: Array<{
-      path: string;
-      breadcrumbName: string;
+        path: string;
+        breadcrumbName: string;
     }>;
-  }
+}
+export type colorsType = {
+    primaryColor: string;
+    errorColor: string;
+    warningColor: string;
+    successColor: string;
+    infoColor: string;
+};

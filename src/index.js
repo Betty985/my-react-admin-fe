@@ -5,7 +5,8 @@ import 'antd/dist/antd.variable.min.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ConfigProvider } from 'antd';
-
+import { Provider } from 'mobx-react'
+import stores from '@/stores'
 ConfigProvider.config({
   theme: {
     primaryColor: '#25b864',
@@ -13,9 +14,12 @@ ConfigProvider.config({
 });
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  <Provider {...stores}>
     <ConfigProvider>
-        <App />
+      <App />
     </ConfigProvider>
+  </Provider>
+
 );
 
 // If you want to start measuring performance in your app, pass a function

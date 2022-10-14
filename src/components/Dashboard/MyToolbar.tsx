@@ -22,6 +22,8 @@ import {
 import { useSetState } from 'ahooks';
 import { SketchPicker } from 'react-color';
 import { Link } from 'react-router-dom';
+import {useStores} from '@/hooks';
+
 /** mock 数据 */
 const data = [
     {
@@ -116,6 +118,7 @@ const initColor={
 const ColorChange: FC = () => {
     const [color, setColor] = useState(()=>initColor);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const {globalStore}=useStores()
     // 配置选项卡内容
     const primary = (
         <SketchPicker
@@ -202,6 +205,7 @@ const ColorChange: FC = () => {
             ...nextColor,
         };
         setColor(mergedNextColor);
+        globalStore.setTheme(mergedNextColor);
         ConfigProvider.config({
             theme: mergedNextColor,
         });
