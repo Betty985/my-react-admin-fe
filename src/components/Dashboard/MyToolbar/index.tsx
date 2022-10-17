@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Col, Row, Tabs, List, Avatar, Dropdown, Menu } from 'antd';
 import { Link } from 'react-router-dom';
-import { Theme, Fullscreen, Notification } from './components';
+import { Theme, Fullscreen, Notification, Watermark } from './components';
 /** mock 数据 */
 const data = [
     {
@@ -65,6 +65,7 @@ const menu = (
 const MyToolBar: FC = () => {
     return (
         <Row justify="end" gutter={{ xs: 8, sm: 16, md: 24 }}>
+            <Watermark />
             <Theme />
             <Fullscreen />
             <Notification />

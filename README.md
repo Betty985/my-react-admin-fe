@@ -259,4 +259,5 @@ export const MyEditor = () => {
     );
 };
 ```
-## 前端水印
+## [前端水印](https://juejin.cn/post/6964357725652254734#heading-5)
+原理：水印是一个或多个元素，通过[z-index](https://developer.mozilla.org/zh-CN/docs/Web/CSS/z-index)将其设置在上层覆盖所有元素；[pointer-events](pointer-events)设置为none使元素永远不会成为鼠标事件的target。但是，当其后代元素的pointer-events属性指定其他值时，鼠标事件可以指向后代元素，在这种情况下，鼠标事件将在捕获或冒泡阶段触发父元素的事件侦听器。
