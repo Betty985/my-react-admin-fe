@@ -20,6 +20,7 @@ import {
     favoriteAction,
     Index,
     Profile,
+    MyEditor,
 } from '@/views';
 const routes = [
     {
@@ -27,7 +28,7 @@ const routes = [
         element: <Dashboard />,
         errorElement: <ErrorPage />,
         children: [
-            {index:true,element: <Home />},
+            { index: true, element: <Home /> },
             {
                 path: 'login',
                 element: <Login />,
@@ -55,6 +56,10 @@ const routes = [
             {
                 path: 'home',
                 element: <Home />,
+            },
+            {
+                path: 'editor',
+                element: <MyEditor />,
             },
             {
                 path: 't',

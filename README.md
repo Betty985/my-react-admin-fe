@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# Getting Started 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -75,3 +75,134 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 - [ ] 轮播图
 - [ ] 标签页
 - [X] 首页：滚动列表
+# Technical solutions
+## [动态换肤](https://ant.design/components/config-provider-cn/#components-config-provider-demo-theme)
+src/index.js
+```js
+import 'antd/dist/antd.variable.min.css';
+import { ConfigProvider } from 'antd';
+ConfigProvider.config({
+  theme: {
+    primaryColor: '#25b864',
+  },
+});
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+    <ConfigProvider>
+      <App />
+    </ConfigProvider>
+);
+```
+src/components/Dashboard/MyToolbar.tsx
+```js
+const initColor={
+    primaryColor: '#1890ff',
+    errorColor: '#ff4d4f',
+    warningColor: '#faad14',
+    successColor: '#52c41a',
+    infoColor: '#1890ff',
+}
+const ColorChange: FC = () => {
+    const [color, setColor] = useState(()=>initColor);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const {globalStore}=useStores()
+    // 配置选项卡内容
+    const primary = (
+        <SketchPicker
+            presetColors={['#1890ff', '#25b864', '#ff6f00']}
+            color={color.primaryColor}
+            onChange={({ hex }) => {
+                onColorChange({
+                    primaryColor: hex,
+                });
+            }}
+        />
+    );
+    const error = (
+        <SketchPicker
+            presetColors={['#ff4d4f']}
+            color={color.errorColor}
+            onChange={({ hex }) => {
+                onColorChange({
+                    errorColor: hex,
+                });
+            }}
+        />
+    );
+    const warning = (
+        <SketchPicker
+            presetColors={['#faad14']}
+            color={color.warningColor}
+            onChange={({ hex }) => {
+                onColorChange({
+                    warningColor: hex,
+                });
+            }}
+        />
+    );
+    const success = (
+        <SketchPicker
+            presetColors={['#52c41a']}
+            color={color.successColor}
+            onChange={({ hex }) => {
+                onColorChange({
+                    successColor: hex,
+                });
+            }}
+        />
+    );
+    const info = (
+        <SketchPicker
+            presetColors={['#1890ff']}
+            color={color.infoColor}
+            onChange={({ hex }) => {
+                onColorChange({
+                    infoColor: hex,
+                });
+            }}
+        />
+    );
+    const items = Object.entries({ primary, success, error, warning, info }).map((item) => {
+        const [label, children] = item;
+        return {
+            label,
+            children,
+            key: label,
+        };
+    });
+    const onColorChange = (nextColor: Partial<typeof color>) => {
+        const mergedNextColor = {
+            ...color,
+            ...nextColor,
+        };
+        setColor(mergedNextColor);
+        // 组件共享theme
+        globalStore.setTheme(mergedNextColor);
+        ConfigProvider.config({
+            theme: mergedNextColor,
+        });
+    };
+
+    return (
+        <Tabs animated={true} items={items} />
+    );
+};
+```
+非antd组件的动态换肤
+src/hooks/useTheme.ts
+```js
+import {useStores} from './useStores'
+const useTheme=()=>{
+    const {globalStore} =useStores()
+    const [theme,setTheme]=useState(globalStore.theme)
+    const themeRef=useRef(theme)
+    themeRef.current=theme
+    useEffect(()=>{
+        setTheme(globalStore.theme)
+    })
+    return {theme:themeRef.current}
+}
+export {useTheme}
+```
+## [富文本编辑器](https://www.wangeditor.com/v5/)
+

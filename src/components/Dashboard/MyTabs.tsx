@@ -1,4 +1,4 @@
-import { Tabs, Divider } from 'antd';
+import { Tabs } from 'antd';
 import React, { useRef, useState } from 'react';
 
 const initialItems = [
@@ -22,7 +22,7 @@ export const MyTabs: React.FC = () => {
     const add = () => {
         const newActiveKey = `newTab${newTabIndex.current++}`;
         const newPanes = [...items];
-        newPanes.push({ label: 'New Tab',  key: newActiveKey });
+        newPanes.push({ label: 'New Tab', key: newActiveKey });
         setItems(newPanes);
         setActiveKey(newActiveKey);
     };

@@ -1,10 +1,10 @@
-import {IBreads,IMenu} from '@/types'
+import { IBreads, IMenu } from '@/types';
 const menu: IMenu[] = [
     {
         key: '/home',
         label: 'home',
     },
-      {
+    {
         key: '/waterfall',
         label: 'waterfall',
     },
@@ -13,9 +13,14 @@ const menu: IMenu[] = [
         label: 'button',
     },
     {
+        key: '/editor',
+        label: 'editor',
+    },
+    {
         key: '/login',
         label: 'login',
-    },{
+    },
+    {
         key: '/t',
         label: 't',
     },
@@ -39,11 +44,13 @@ const menu: IMenu[] = [
     },
 ];
 function generateRoutes() {
-    let tmp = JSON.stringify(menu),breads:IBreads[];
-    tmp=tmp.replace(/\"key\":/g, '"path":').replace(/\"label\":/g, '"breadcrumbName":');
-    breads=JSON.parse(tmp)
+    let tmp = JSON.stringify(menu),
+        breads: IBreads[];
+    tmp = tmp.replace(/\"key\":/g, '"path":').replace(/\"label\":/g, '"breadcrumbName":');
+    breads = JSON.parse(tmp);
     return {
-        menu,breads
-    }
+        menu,
+        breads,
+    };
 }
-export {generateRoutes}
+export { generateRoutes };
