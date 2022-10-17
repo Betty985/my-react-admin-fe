@@ -1,4 +1,4 @@
-# Getting Started 
+# Getting Started
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -30,7 +30,8 @@ Your app is ready to be deployed!
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
 ## reference
-- [react-admin](https://github.com/yezihaohao/react-admin)
+
+-   [react-admin](https://github.com/yezihaohao/react-admin)
 
 ## Learn More
 
@@ -61,51 +62,59 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
 # features
-- [ ] 动态可拖拽多级菜单
-- [ ] 数据大屏
-- [ ] 路由守卫
-- [ ] RABC权限控制
-- [ ] 表格
-- [ ] 面包屑
-- [ ] 工具栏：全屏、动态换肤、设置
-- [ ] 新手指引
-- [ ] 响应式
-- [ ] 支持MarkDown的富文本
-- [ ] 轮播图
-- [ ] 标签页
-- [X] 首页：滚动列表
+
+-   [ ] 动态可拖拽多级菜单
+-   [ ] 数据大屏
+-   [ ] 路由守卫
+-   [ ] RABC 权限控制
+-   [ ] 表格
+-   [ ] 面包屑
+-   [ ] 工具栏：全屏、动态换肤、设置
+-   [ ] 新手指引
+-   [ ] 响应式
+-   [ ] 支持 MarkDown 的富文本
+-   [ ] 轮播图
+-   [ ] 标签页
+-   [x] 首页：滚动列表
+
 # Technical solutions
+
 ## [动态换肤](https://ant.design/components/config-provider-cn/#components-config-provider-demo-theme)
+
 src/index.js
+
 ```js
 import 'antd/dist/antd.variable.min.css';
 import { ConfigProvider } from 'antd';
 ConfigProvider.config({
-  theme: {
-    primaryColor: '#25b864',
-  },
+    theme: {
+        primaryColor: '#25b864',
+    },
 });
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <ConfigProvider>
-      <App />
+        <App />
     </ConfigProvider>
 );
 ```
+
 src/components/Dashboard/MyToolbar.tsx
+
 ```js
-const initColor={
+const initColor = {
     primaryColor: '#1890ff',
     errorColor: '#ff4d4f',
     warningColor: '#faad14',
     successColor: '#52c41a',
     infoColor: '#1890ff',
-}
+};
 const ColorChange: FC = () => {
-    const [color, setColor] = useState(()=>initColor);
+    const [color, setColor] = useState(() => initColor);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const {globalStore}=useStores()
+    const { globalStore } = useStores();
     // 配置选项卡内容
     const primary = (
         <SketchPicker
@@ -183,26 +192,71 @@ const ColorChange: FC = () => {
         });
     };
 
+    return <Tabs animated={true} items={items} />;
+};
+```
+
+非 antd 组件的动态换肤
+src/hooks/useTheme.ts
+
+```js
+import { useStores } from './useStores';
+const useTheme = () => {
+    const { globalStore } = useStores();
+    const [theme, setTheme] = useState(globalStore.theme);
+    const themeRef = useRef(theme);
+    themeRef.current = theme;
+    useEffect(() => {
+        setTheme(globalStore.theme);
+    });
+    return { theme: themeRef.current };
+};
+export { useTheme };
+```
+
+## [富文本编辑器](https://www.wangeditor.com/v5/)
+- v1.0 富文本
+- v2.0 目录和markdown
+```js
+import { Editor, Toolbar } from '@wangeditor/editor-for-react';
+export const MyEditor = () => {
+    const [editor, setEditor] = (useState < IDomEditor) | (null > null);
+    const toolbarConfig: Partial<IToolbarConfig> = {};
+    const editorConfig: Partial<IEditorConfig> = {
+        placeholder: '请输入内容。。。',
+    };
+    // 及时销毁editor
+    useEffect(() => {
+        return () => {
+            if (editor == null) return;
+            editor.destroy();
+            setEditor(null);
+        };
+    }, [editor]);
     return (
-        <Tabs animated={true} items={items} />
+        <>
+            <Toolbar
+                editor={editor}
+                defaultConfig={toolbarConfig}
+                mode="default"
+                style={{ borderBottom: '1px solid #ccc' }}
+                data-w-e-toolbar={true}
+            />
+            <Editor
+                defaultConfig={editorConfig}
+                value={html.val}
+                // onCreated属性有问题会使toolbar变成一条线
+                onCreated={setEditor}
+                onChange={(editor) => {
+                    setHTML({ val: editor.getHtml() });
+                    setTEXT({ val: editor.getText() });
+                    setJSON({ val: editor.children });
+                }}
+                style={{ minHeight: '300px' }}
+                mode="default"
+            />
+        </>
     );
 };
 ```
-非antd组件的动态换肤
-src/hooks/useTheme.ts
-```js
-import {useStores} from './useStores'
-const useTheme=()=>{
-    const {globalStore} =useStores()
-    const [theme,setTheme]=useState(globalStore.theme)
-    const themeRef=useRef(theme)
-    themeRef.current=theme
-    useEffect(()=>{
-        setTheme(globalStore.theme)
-    })
-    return {theme:themeRef.current}
-}
-export {useTheme}
-```
-## [富文本编辑器](https://www.wangeditor.com/v5/)
-
+## 前端水印
