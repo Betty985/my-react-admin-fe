@@ -1,22 +1,40 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { TrademarkCircleOutlined } from '@ant-design/icons';
 import { Col } from 'antd';
 import { useToggle } from 'ahooks';
-const style = 'z-50 pointer-events-none absolute top-0 right-0  w-screen h-screen';
-const url =
-    ' url("data:image/png;base64,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") ';
+const style = 'pointer-events-none fixed top-0 right-0  w-screen h-screen';
 export const Watermark: FC = () => {
     const [state, { toggle, setLeft, setRight }] = useToggle();
+    const [base64Url, setBase64Url] = useState('');
+    const generateUrl = (text: string = 'REACT ADMIN', color: string) => {
+        const canvas = document.createElement('canvas');
+        canvas.setAttribute('width', '200px');
+        canvas.setAttribute('height', '200px');
+        const ctx = canvas.getContext('2d');
+        ctx!.font = '20px Microsoft Yahei';
+        ctx!.fillStyle = color;
+        ctx?.rotate((45 * Math.PI) / 180);
+        ctx?.fillText(text, 50, 50);
+        setBase64Url(canvas.toDataURL());
+    };
     return (
-        <Col onClick={toggle}>
+        <Col
+            onClick={() => {
+                toggle();
+                generateUrl(undefined, 'rgba(98, 178, 98, 1)');
+            }}
+        >
             <TrademarkCircleOutlined className="icon" />
             {state && (
                 <div
                     id="Symbol(watermark-dom)"
                     className={style}
-                    style={{ background: url + 'left top repeat' }}
+                    style={{ background: `url("${base64Url}") left top repeat`, zIndex: 10000 }}
                 ></div>
             )}
         </Col>
     );
 };
+function setState(): [any, any] {
+    throw new Error('Function not implemented.');
+}
