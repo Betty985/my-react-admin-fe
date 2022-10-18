@@ -44,6 +44,7 @@ const routes = [
             {
                 path: 'errors',
                 children: [
+                    { index: true, element: <Error_403 /> },
                     {
                         path: '403',
                         element: <Error_403 />,

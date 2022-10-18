@@ -1,8 +1,8 @@
-import React, { FC } from 'react';
-import { Link } from 'react-router-dom';
-import { Breadcrumb, Col, Row } from 'antd';
+import React, { FC, useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Breadcrumb, Row } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
-import { breads } from '@/consts';
+import { useStores } from '@/hooks';
 function itemRender(route: any, params: any, routes: any, paths: string[]) {
     const last = routes.indexOf(route) === routes.length - 1;
     return last ? (
@@ -12,11 +12,26 @@ function itemRender(route: any, params: any, routes: any, paths: string[]) {
     );
 }
 const MyBreadcrumb: FC = () => {
+    const [route, setRoute] = useState();
+    const { globalStore } = useStores();
+    const location = useLocation();
+    useEffect(() => {
+        const str = globalStore.tab.key || 'home';
+        const arr = str.split('/').map((i: string) => {
+            let r = {
+                path: i,
+                breadcrumbName: i,
+            };
+            return r;
+        });
+        setRoute(arr);
+    }, [location]);
+
     return (
-            <Row align="middle" className="breadcrumb">
-                <ExclamationCircleOutlined className='breadcrumbIcon'/>
-                <Breadcrumb routes={breads} itemRender={itemRender} />
-            </Row>
+        <Row align="middle" className="breadcrumb">
+            <ExclamationCircleOutlined className="breadcrumbIcon" />
+            <Breadcrumb routes={route} itemRender={itemRender} />
+        </Row>
     );
 };
 

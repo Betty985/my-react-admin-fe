@@ -21,3 +21,7 @@ export type colorsType = {
     successColor: string;
     infoColor: string;
 };
+export enum tabAction {
+    DELETE,
+    ADD,
+}
