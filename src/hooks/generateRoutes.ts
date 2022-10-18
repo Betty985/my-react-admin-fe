@@ -1,43 +1,43 @@
 import { IBreads, IMenu } from '@/types';
 const menu: IMenu[] = [
     {
-        key: '/home',
+        key: 'home',
         label: 'home',
     },
     {
-        key: '/waterfall',
+        key: 'waterfall',
         label: 'waterfall',
     },
     {
-        key: '/button',
+        key: 'button',
         label: 'button',
     },
     {
-        key: '/editor',
+        key: 'editor',
         label: 'editor',
     },
     {
-        key: '/login',
+        key: 'login',
         label: 'login',
     },
     {
-        key: '/t',
+        key: 't',
         label: 't',
     },
     {
-        key: '/errors',
+        key: 'errors',
         label: 'errors',
         children: [
             {
-                key: '/403',
+                key: '403',
                 label: '403',
             },
             {
-                key: '/404',
+                key: '404',
                 label: '404',
             },
             {
-                key: '/500',
+                key: '500',
                 label: '500',
             },
         ],

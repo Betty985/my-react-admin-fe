@@ -215,8 +215,10 @@ export { useTheme };
 ```
 
 ## [富文本编辑器](https://www.wangeditor.com/v5/)
-- v1.0 富文本
-- v2.0 目录和markdown
+
+-   v1.0 富文本
+-   v2.0 目录和 markdown
+
 ```js
 import { Editor, Toolbar } from '@wangeditor/editor-for-react';
 export const MyEditor = () => {
@@ -259,5 +261,68 @@ export const MyEditor = () => {
     );
 };
 ```
+
 ## [前端水印](https://juejin.cn/post/6964357725652254734#heading-5)
-原理：水印是一个或多个元素，通过[z-index](https://developer.mozilla.org/zh-CN/docs/Web/CSS/z-index)将其设置在上层覆盖所有元素；[pointer-events](pointer-events)设置为none使元素永远不会成为鼠标事件的target。但是，当其后代元素的pointer-events属性指定其他值时，鼠标事件可以指向后代元素，在这种情况下，鼠标事件将在捕获或冒泡阶段触发父元素的事件侦听器。
+
+原理：水印是一个或多个元素，通过[z-index](https://developer.mozilla.org/zh-CN/docs/Web/CSS/z-index)将其设置在上层覆盖所有元素；[pointer-events](pointer-events)设置为 none 使元素永远不会成为鼠标事件的 target。但是，当其后代元素的 pointer-events 属性指定其他值时，鼠标事件可以指向后代元素，在这种情况下，鼠标事件将在捕获或冒泡阶段触发父元素的事件侦听器。
+
+## 多页签
+src/components/Dashboard/MyMenu.tsx
+
+点击 MenuItem时将当前菜单子项的标签和key传给状态管理库
+```js
+import { useStores } from '@/hooks';
+const MyMenu = () => {
+    const navigate = useNavigate();
+     const { globalStore } = useStores();
+    const onHandleClick = (e: any) => {
+        let path = e.keyPath.reverse().join('/');
+        navigate(path);
+        globalStore.setTab({ label: e.key, key: path });
+    };
+    return <Menu onClick={onHandleClick} items={dragItems} mode="inline" theme="dark" />;
+};
+```
+
+src/stores/global.ts
+```js
+const globalStore = makeAutoObservable({
+    tab: { label: '', key: '' },
+    setTab(tab: { label: string; key: string }) {
+        this.tab = tab;
+    },
+});
+```
+src/components/Dashboard/MyTabs.tsx
+
+状态库的当前标签信息改变时，添加标签页；
+```js
+
+export const MyTabs: React.FC = () => {
+
+    const { globalStore } = useStores();
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (globalStore.tab.label !== '' && globalStore.tab.key !== '') {
+            add(globalStore.tab);
+        }
+    }, [globalStore.tab]);
+      const onTabClick = (key: string) => {
+        const regexp = /.+(?=\*\*)/;
+        const res = regexp.exec(key) || [];
+        navigate(res[0] || '');
+    };
+    return (
+        <>
+            <Tabs
+                type="editable-card"
+                onChange={onChange}
+                activeKey={activeKey}
+                onEdit={onEdit}
+                onTabClick={onTabClick}
+                items={items}
+            />
+        </>
+    );
+};
+```

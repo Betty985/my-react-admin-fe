@@ -24,7 +24,7 @@ export const Profile: FC = () => {
             </Col>
             <Col span={8}>
                 <Card title="敬请期待" bordered={false}>
-                敬请期待……
+                    敬请期待……
                 </Card>
             </Col>
         </Row>

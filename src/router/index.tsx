@@ -42,17 +42,23 @@ const routes = [
                 element: <MyButton />,
             },
             {
-                path: '403',
-                element: <Error_403 />,
+                path: 'errors',
+                children: [
+                    {
+                        path: '403',
+                        element: <Error_403 />,
+                    },
+                    {
+                        path: '404',
+                        element: <Error_404 />,
+                    },
+                    {
+                        path: '500',
+                        element: <Error_500 />,
+                    },
+                ],
             },
-            {
-                path: '404',
-                element: <Error_404 />,
-            },
-            {
-                path: '500',
-                element: <Error_500 />,
-            },
+
             {
                 path: 'home',
                 element: <Home />,

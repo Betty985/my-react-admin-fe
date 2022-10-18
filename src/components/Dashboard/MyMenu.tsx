@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Menu } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-import {menu} from '@/consts'
+import { menu } from '@/consts';
+import { useStores } from '@/hooks';
 const items = menu.map((item, index) => {
     let label = (
         <Draggable key={item.label} draggableId={item.label} index={index}>
@@ -25,6 +26,7 @@ const items = menu.map((item, index) => {
 }) as any;
 const MyMenu = () => {
     const [dragItems, setDragItems] = useState<any[]>(items);
+    const { globalStore } = useStores();
     const navigate = useNavigate();
     useEffect(() => {
         setDragItems(items);
@@ -44,14 +46,21 @@ const MyMenu = () => {
         setDragItems(_items);
     };
     const onHandleClick = (e: any) => {
-        navigate(e.key);
+        let path = e.keyPath.reverse().join('/');
+        navigate(path);
+        globalStore.setTab({ label: e.key, key: path });
     };
     return (
         <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId="droppable">
                 {(provided) => (
                     <div ref={provided.innerRef} {...provided.droppableProps}>
-                        <Menu  onClick={onHandleClick} items={dragItems} mode="inline" theme='dark'/>
+                        <Menu
+                            onClick={onHandleClick}
+                            items={dragItems}
+                            mode="inline"
+                            theme="dark"
+                        />
                         {provided.placeholder}
                     </div>
                 )}

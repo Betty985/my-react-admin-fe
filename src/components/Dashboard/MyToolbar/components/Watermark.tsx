@@ -35,6 +35,3 @@ export const Watermark: FC = () => {
         </Col>
     );
 };
-function setState(): [any, any] {
-    throw new Error('Function not implemented.');
-}

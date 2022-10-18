@@ -1,5 +1,4 @@
 import React, { FC, useState } from 'react';
-import { Outlet } from 'react-router-dom';
 import { MyMenu } from './MyMenu';
 import { Layout, Row, Col } from 'antd';
 import { Logo } from '@/assets/logo';
@@ -32,7 +31,6 @@ const Dashboard: FC = () => {
                 </Header>
                 <Content style={{ margin: '0 16px' }}>
                     <MyTabs />
-                    <Outlet />
                 </Content>
             </Layout>
         </Layout>
