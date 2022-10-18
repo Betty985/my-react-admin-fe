@@ -1,6 +1,6 @@
-import React, { FC } from "react";
+import React, { FC } from 'react';
 import { Button, Checkbox, Form, Input } from 'antd';
-import { UserOutlined,LockOutlined } from '@ant-design/icons';
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
 const Login: FC = (props) => {
     const onFinish = (values: any) => {
         console.log('Success:', values);
@@ -12,7 +12,9 @@ const Login: FC = (props) => {
     return (
         <div className="login">
             <div className="login-form">
-                <div className="login-logo"><span className="app-name">React Admin</span></div>
+                <div className="login-logo">
+                    <span className="app-name">React Admin</span>
+                </div>
                 <Form
                     name="basic"
                     labelCol={{ span: 8 }}
@@ -27,7 +29,7 @@ const Login: FC = (props) => {
                         name="username"
                         rules={[{ required: true, message: 'Please input your username!' }]}
                     >
-                        <Input prefix={<UserOutlined />}/>
+                        <Input prefix={<UserOutlined />} />
                     </Form.Item>
 
                     <Form.Item
@@ -35,11 +37,15 @@ const Login: FC = (props) => {
                         name="password"
                         rules={[{ required: true, message: 'Please input your password!' }]}
                     >
-                        <Input.Password prefix={<LockOutlined />}/>
+                        <Input.Password name="pwd" prefix={<LockOutlined />} />
                     </Form.Item>
 
-                    <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
-                        <Checkbox>Remember me</Checkbox>
+                    <Form.Item
+                        name="remember"
+                        valuePropName="checked"
+                        wrapperCol={{ offset: 8, span: 16 }}
+                    >
+                        <Checkbox name="check">Remember me</Checkbox>
                     </Form.Item>
 
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
@@ -48,9 +54,8 @@ const Login: FC = (props) => {
                         </Button>
                     </Form.Item>
                 </Form>
-
             </div>
         </div>
-    )
-}
-export { Login }
+    );
+};
+export { Login };

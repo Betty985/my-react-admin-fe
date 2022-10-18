@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { Form, useLoaderData, useFetcher } from 'react-router-dom';
 import { getContact, updateContact } from '../contacts';
 import { TwitterOutlined, BookFilled, StarTwoTone } from '@ant-design/icons';

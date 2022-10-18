@@ -1,10 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import React from 'react';
-import { MyButton, Dashboard, ErrorPage } from '@/components';
+import { MyButton, Dashboard, ErrorPage, ERROR_403, ERROR_404, ERROR_500 } from '@/components';
 import {
-    Error_403,
-    Error_404,
-    Error_500,
     Home,
     Login,
     Waterfall,
@@ -44,18 +41,18 @@ const routes = [
             {
                 path: 'errors',
                 children: [
-                    { index: true, element: <Error_403 /> },
+                    { index: true, element: <ERROR_403 /> },
                     {
                         path: '403',
-                        element: <Error_403 />,
+                        element: <ERROR_403 />,
                     },
                     {
                         path: '404',
-                        element: <Error_404 />,
+                        element: <ERROR_404 />,
                     },
                     {
                         path: '500',
-                        element: <Error_500 />,
+                        element: <ERROR_500 />,
                     },
                 ],
             },
@@ -74,6 +71,7 @@ const routes = [
             },
             {
                 path: 'profile',
+                errorElement: <ErrorPage />,
                 children: [
                     { index: true, element: <Profile /> },
                     {

@@ -1,44 +1,13 @@
-import { DownOutlined} from '@ant-design/icons';
-import type { SpaceProps} from 'antd';
-import {
-    Alert,
-    Col,
-    ConfigProvider,
-    Divider,
-    Dropdown,
-    Menu,
-    Progress,
-    Row,
-    Space,
-    Spin,
-    Typography,
-} from 'antd';
-import React, { useState } from 'react';
+import { DownOutlined } from '@ant-design/icons';
+import type { SpaceProps } from 'antd';
+import { Alert, Col, Divider, Dropdown, Menu, Progress, Row, Space, Spin, Typography } from 'antd';
+import React from 'react';
 
 const SplitSpace: React.FC<SpaceProps> = (props) => (
     <Space split={<Divider type="vertical" />} size={4} {...props} />
 );
 
 export const T: React.FC = () => {
-    const [color, setColor] = useState({
-        primaryColor: '#1890ff',
-        errorColor: '#ff4d4f',
-        warningColor: '#faad14',
-        successColor: '#52c41a',
-        infoColor: '#1890ff',
-    });
-
-    const onColorChange = (nextColor: Partial<typeof color>) => {
-        const mergedNextColor = {
-            ...color,
-            ...nextColor,
-        };
-        setColor(mergedNextColor);
-        ConfigProvider.config({
-            theme: mergedNextColor,
-        });
-    };
-
     return (
         <Row gutter={16} wrap={false}>
             <Col flex="auto">

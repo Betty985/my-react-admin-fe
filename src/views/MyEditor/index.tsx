@@ -27,7 +27,7 @@ export const MyEditor = () => {
     //    模拟ajax请求，异步设置html
     useEffect(() => {
         setTimeout(() => {
-            setHTML({ val: '<p>hello&nbsp;<strong>world</strong>.</p>\n<p><br></p>' });
+            setHTML({ val: '<p>hello&nbsp;<strong>world</strong>.</p>' });
         }, 1000);
     }, []);
     const toolbarConfig: Partial<IToolbarConfig> = {};
@@ -43,13 +43,13 @@ export const MyEditor = () => {
         };
     }, [editor]);
     const print = (type: Output) => {
-        if (type == Output.HTML) {
+        if (type === Output.HTML) {
             setHTML((prev) => ({ show: !prev.show }));
         }
-        if (type == Output.JSON) {
+        if (type === Output.JSON) {
             setJSON((prev) => ({ show: !prev.show }));
         }
-        if (type == Output.TEXT) {
+        if (type === Output.TEXT) {
             setTEXT((prev) => ({ show: !prev.show }));
         }
     };

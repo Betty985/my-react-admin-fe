@@ -78,7 +78,7 @@ export const Contacts = observer(() => {
                                         />
                                     </Form>
                                 </Col>
-                                <Col>
+                                <Col span={6}>
                                     <Form method="post">
                                         <Button htmlType="submit" type="primary">
                                             New
@@ -121,7 +121,7 @@ export const Contacts = observer(() => {
                                                 </NavLink>
                                             </List.Item>
                                         )}
-                                    ></List>
+                                    />
                                 ) : (
                                     <p>
                                         <i>No contacts</i>
