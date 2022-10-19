@@ -24,7 +24,8 @@ const items = menu.map((item, index) => {
     let tmp = Object.assign({}, item, { label }) as any;
     return tmp;
 }) as any;
-const MyMenu = () => {
+const MyMenu = (props: { theme: 'dark' | 'light' }) => {
+    const { theme } = props;
     const [dragItems, setDragItems] = useState<any[]>(items);
     const { globalStore } = useStores();
     const navigate = useNavigate();
@@ -59,7 +60,7 @@ const MyMenu = () => {
                             onClick={onHandleClick}
                             items={dragItems}
                             mode="inline"
-                            theme="dark"
+                            theme={theme}
                         />
                         {provided.placeholder}
                     </div>
