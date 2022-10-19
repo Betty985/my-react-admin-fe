@@ -1,0 +1,51 @@
+import { DataType } from './index';
+export const data: DataType[] = [
+    {
+        key: '1',
+        name: 'John Brown',
+        account: 32,
+        address: 'New York No. 1 Lake Park',
+        tags: ['nice', 'developer'],
+        date: '2014-12-24 23:12:00',
+    },
+    {
+        key: '2',
+        name: 'Jim Green',
+        account: 42,
+        address: 'London No. 1 Lake Park',
+        tags: ['ui'],
+        date: '2014-12-24 23:12:00',
+    },
+    {
+        key: '3',
+        name: 'Joe Black',
+        account: 31,
+        address: 'Sidney No. 1 Lake Park',
+        tags: ['cool', 'teacher'],
+        date: '2014-12-24 23:12:00',
+    },
+    {
+        key: '1',
+        name: 'John Brown',
+        account: 32,
+        address: 'New York No. 1 Lake Park',
+        tags: ['nice', 'developer'],
+        date: '2014-12-24 23:12:00',
+    },
+    {
+        key: '2',
+        name: 'Jim Green',
+        account: 42,
+        address: 'London No. 1 Lake Park',
+        tags: ['ui'],
+        date: '2014-12-24 23:12:00',
+    },
+    {
+        key: '3',
+        name: 'Joe Black',
+        account: 31,
+        address: 'Sidney No. 1 Lake Park',
+        tags: ['cool', 'teacher'],
+        date: '2014-12-24 23:12:00',
+    },
+];

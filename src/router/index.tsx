@@ -18,6 +18,7 @@ import {
     Index,
     Profile,
     MyEditor,
+    System,
 } from '@/views';
 const routes = [
     {
@@ -102,6 +103,10 @@ const routes = [
                         ],
                     },
                 ],
+            },
+            {
+                path: 'system',
+                element: <System />,
             },
         ],
     },

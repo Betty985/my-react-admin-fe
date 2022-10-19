@@ -35,6 +35,10 @@ const menu: IMenu[] = [
         label: 't',
     },
     {
+        key: 'system',
+        label: 'system',
+    },
+    {
         key: 'errors',
         label: 'errors',
         children: [
