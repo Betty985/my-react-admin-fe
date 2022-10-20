@@ -1,61 +1,145 @@
 import React, { FC } from 'react';
 import { Button, Checkbox, Form, Input } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import {
+    LockOutlined,
+    UserOutlined,
+    EyeInvisibleOutlined,
+    EyeTwoTone,
+    PhoneOutlined,
+} from '@ant-design/icons';
+import { Link } from 'react-router-dom';
+const url =
+    'https://images.unsplash.com/photo-1554629947-334ff61d85dc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1024&amp;h=1280&amp;q=80';
+const Layout = (props: { children: React.ReactNode }) => (
+    <div className="h-screen flex">
+        <div
+            className="basis-6/12 bg-cover bg-white/30"
+            style={{ backgroundImage: `url(${url})` }}
+        ></div>
+        <div className="flex basis-6/12 justify-center items-center">{props.children}</div>
+    </div>
+);
+
 const Login: FC = (props) => {
     const onFinish = (values: any) => {
         console.log('Success:', values);
     };
-
-    const onFinishFailed = (errorInfo: any) => {
-        console.log('Failed:', errorInfo);
-    };
     return (
-        <div className="login">
-            <div className="login-form">
-                <div className="login-logo">
-                    <span className="app-name">React Admin</span>
-                </div>
-                <Form
-                    name="basic"
-                    labelCol={{ span: 8 }}
-                    wrapperCol={{ span: 16 }}
-                    initialValues={{ remember: true }}
-                    onFinish={onFinish}
-                    onFinishFailed={onFinishFailed}
-                    autoComplete="off"
+        <Layout>
+            <Form
+                name="normal_login"
+                className="w-6/12"
+                initialValues={{ remember: true }}
+                onFinish={onFinish}
+                size="large"
+            >
+                <Form.Item
+                    name="username"
+                    rules={[{ required: true, message: 'Please input your Username!' }]}
                 >
-                    <Form.Item
-                        label="Username"
-                        name="username"
-                        rules={[{ required: true, message: 'Please input your username!' }]}
-                    >
-                        <Input prefix={<UserOutlined />} />
+                    <Input prefix={<UserOutlined />} placeholder="Username" />
+                </Form.Item>
+                <Form.Item
+                    name="password"
+                    rules={[{ required: true, message: 'Please input your Password!' }]}
+                >
+                    <Input.Password
+                        prefix={<LockOutlined />}
+                        type="password"
+                        placeholder="Password"
+                        iconRender={(visible) =>
+                            visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+                        }
+                    />
+                </Form.Item>
+                <Form.Item>
+                    <Form.Item name="remember" valuePropName="checked" noStyle>
+                        <Checkbox>Remember me</Checkbox>
                     </Form.Item>
 
-                    <Form.Item
-                        label="Password"
-                        name="password"
-                        rules={[{ required: true, message: 'Please input your password!' }]}
-                    >
-                        <Input.Password name="pwd" prefix={<LockOutlined />} />
-                    </Form.Item>
+                    <a className="login-form-forgot" href="">
+                        Forgot password
+                    </a>
+                </Form.Item>
 
-                    <Form.Item
-                        name="remember"
-                        valuePropName="checked"
-                        wrapperCol={{ offset: 8, span: 16 }}
-                    >
-                        <Checkbox name="check">Remember me</Checkbox>
-                    </Form.Item>
-
-                    <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                        <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
-                            Submit
-                        </Button>
-                    </Form.Item>
-                </Form>
-            </div>
-        </div>
+                <Form.Item>
+                    <Button type="primary" htmlType="submit">
+                        Log in
+                    </Button>
+                    Or <Link to="register">register now!</Link>
+                </Form.Item>
+            </Form>
+        </Layout>
     );
 };
-export { Login };
+const Register: FC = () => {
+    const onFinish = (values: any) => {
+        console.log('Success:', values);
+    };
+    return (
+        <Layout>
+            <Form
+                name="normal_login"
+                className="w-6/12"
+                initialValues={{ remember: true }}
+                onFinish={onFinish}
+                size="large"
+            >
+                <Form.Item
+                    name="username"
+                    rules={[{ required: true, message: 'Please input your Username!' }]}
+                >
+                    <Input prefix={<UserOutlined />} placeholder="Username" />
+                </Form.Item>
+                <Form.Item
+                    name="phone"
+                    rules={[{ required: true, message: 'Please input your Phone!' }]}
+                >
+                    <Input prefix={<PhoneOutlined />} placeholder="Phone" />
+                </Form.Item>
+                <Form.Item
+                    name="password"
+                    rules={[{ required: true, message: 'Please input your Password!' }]}
+                >
+                    <Input.Password
+                        prefix={<LockOutlined />}
+                        type="password"
+                        placeholder="Password"
+                        iconRender={(visible) =>
+                            visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+                        }
+                    />
+                </Form.Item>
+                <Form.Item
+                    name="password"
+                    rules={[{ required: true, message: 'Please input your Password!' }]}
+                >
+                    <Input.Password
+                        prefix={<LockOutlined />}
+                        type="password"
+                        placeholder="confirm the password"
+                        iconRender={(visible) =>
+                            visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+                        }
+                    />
+                </Form.Item>
+                <Form.Item>
+                    <Form.Item name="remember" valuePropName="checked" noStyle>
+                        <Checkbox>
+                            I have carefully read and accept the
+                            <a> Privacy Policy</a>
+                        </Checkbox>
+                    </Form.Item>
+                </Form.Item>
+
+                <Form.Item>
+                    <Button type="primary" htmlType="submit">
+                        Register
+                    </Button>
+                    Or <a href="/login">Log in</a>
+                </Form.Item>
+            </Form>
+        </Layout>
+    );
+};
+export { Login, Register };

@@ -4,6 +4,7 @@ import { MyButton, Dashboard, ErrorPage, ERROR_403, ERROR_404, ERROR_500 } from 
 import {
     Home,
     Login,
+    Register,
     Waterfall,
     T,
     Contacts,
@@ -27,10 +28,7 @@ const routes = [
         errorElement: <ErrorPage />,
         children: [
             { index: true, element: <Home /> },
-            {
-                path: 'login',
-                element: <Login />,
-            },
+
             {
                 path: 'waterfall',
                 element: <Waterfall />,
@@ -107,6 +105,17 @@ const routes = [
             {
                 path: 'system',
                 element: <System />,
+            },
+        ],
+    },
+    {
+        path: '/login',
+        errorElement: <ErrorPage />,
+        children: [
+            { index: true, element: <Login /> },
+            {
+                path: 'register',
+                element: <Register />,
             },
         ],
     },

@@ -20,7 +20,7 @@ const ErrorComponent: FC<IError> = (props) => {
                 <Button
                     type="primary"
                     onClick={() => {
-                        navigate('/login');
+                        navigate('/');
                     }}
                 >
                     Back Home
