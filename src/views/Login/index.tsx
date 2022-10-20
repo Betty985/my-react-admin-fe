@@ -7,7 +7,9 @@ import {
     EyeTwoTone,
     PhoneOutlined,
 } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { setLoginInfo } from './login';
+import { Lock, LockType } from '@/components';
 const url =
     'https://images.unsplash.com/photo-1554629947-334ff61d85dc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1024&amp;h=1280&amp;q=80';
 const Layout = (props: { children: React.ReactNode }) => (
@@ -16,13 +18,21 @@ const Layout = (props: { children: React.ReactNode }) => (
             className="basis-6/12 bg-cover bg-white/30"
             style={{ backgroundImage: `url(${url})` }}
         ></div>
-        <div className="flex basis-6/12 justify-center items-center">{props.children}</div>
+        <div className="flex basis-6/12 justify-center items-center">
+            {props.children}
+
+            <Lock type={LockType.BUTTON}>
+                <Button type="primary"> 仅vip可用</Button>
+            </Lock>
+        </div>
     </div>
 );
 
-const Login: FC = (props) => {
+const Login: FC = () => {
+    const navigate = useNavigate();
     const onFinish = (values: any) => {
-        console.log('Success:', values);
+        setLoginInfo(values);
+        navigate('/');
     };
     return (
         <Layout>

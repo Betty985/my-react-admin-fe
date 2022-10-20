@@ -1,4 +1,4 @@
-import { Button, Form, Input ,Space} from 'antd';
+import { Button, Form, Input, Space } from 'antd';
 import React from 'react';
 import { Form as RForm, useLoaderData, redirect, useNavigate } from 'react-router-dom';
 import { updateContact } from '../contacts';
@@ -60,11 +60,9 @@ export function EditContact() {
                 <TextArea name="notes" defaultValue={contact.notes} rows={6} />
             </Form.Item>
             <Space>
-            <Button htmlType="submit">Save</Button>
+                <Button htmlType="submit">Save</Button>
                 <Button onClick={() => navigate(-1)}>Cancel</Button>
             </Space>
-               
-            
         </RForm>
     );
 }
