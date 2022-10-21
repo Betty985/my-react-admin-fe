@@ -12,6 +12,13 @@ $fontColor:#fafafa;
     background-color: $lightbg;
     color:$darkbg;
 }
+@mixin transition{
+    transition: background .3s,width .3s cubic-bezier(.2,0,0,1) 0s;
+    transition-property: background, width;
+    transition-duration: 0.3s, 0.3s;
+    transition-timing-function: ease, cubic-bezier(0.2, 0, 0, 1);
+    transition-delay: 0s, 0s;
+}
 .logo{
     display: inline-flex;
     height: 64px;
@@ -35,10 +42,13 @@ $fontColor:#fafafa;
     border-radius: 1rem;
 }
 .dark{
-    @include dark()
+    @include dark();
 }
 .light{
-   @include light()
+   @include light();
+}
+.ant-layout-sider,.dark,.light,.ant-layout-sider-trigger{
+    @include transition()
 }
 .breadcrumb{
     background-color: #e2e2e2;
