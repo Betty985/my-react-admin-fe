@@ -27,3 +27,10 @@ export enum tabAction {
     DELETE,
     ADD,
 }
+// 选择器option列表
+export interface OptionProps {
+    label: any;
+    key: any;
+    icon?: ReactNode;
+    children?: OptionProps[];
+}

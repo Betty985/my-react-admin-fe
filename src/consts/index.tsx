@@ -6,6 +6,7 @@ import {
     EditOutlined,
     BugOutlined,
 } from '@ant-design/icons';
+import { OptionProps } from '@/types';
 import React from 'react';
 const MSG_403 = 'Sorry, you are not authorized to access this page.';
 const MSG_404 = 'Sorry, the page you visited does not exist.';
@@ -73,5 +74,20 @@ const menu: IMenu[] = [
         ],
     },
 ];
-
-export { MSG_403, MSG_404, MSG_500, menu, initColor };
+const list = menu
+    .map((i) => {
+        const { label, key, icon, children } = i;
+        if (children) {
+            let child = children.map((j: OptionProps) => {
+                const tmp = j.key;
+                const res = Object.assign({}, j, { key: `${key}/${tmp}` });
+                return res;
+            });
+            let res = [{ label, key, icon }].concat(child);
+            return res;
+        } else {
+            return i;
+        }
+    })
+    .flat(Infinity) as OptionProps[];
+export { MSG_403, MSG_404, MSG_500, menu, initColor, list };
