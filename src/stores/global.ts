@@ -1,5 +1,5 @@
 import { makeAutoObservable } from 'mobx';
-import { initColor } from '@/consts';
+import { initColor } from '@/consts/index';
 import { colorsType } from '@/types';
 
 const globalStore = makeAutoObservable({

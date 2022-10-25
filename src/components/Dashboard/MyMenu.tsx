@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-import { menu } from '@/consts';
+import { menu } from '@/consts/index';
 import { useStores } from '@/hooks';
 const items = menu.map((item, index) => {
     let label = (
