@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
-import { Button, Checkbox, Form, Input } from 'antd';
+import React, { FC, useState } from 'react';
+import { Button, Checkbox, Form, Input, Space } from 'antd';
 import {
     LockOutlined,
     UserOutlined,
@@ -10,6 +10,7 @@ import {
 import { Link, useNavigate } from 'react-router-dom';
 import { setLoginInfo } from './login';
 import { Lock, LockType } from '@/components';
+import { VerificationCode } from './Components';
 const url =
     'https://images.unsplash.com/photo-1554629947-334ff61d85dc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1024&amp;h=1280&amp;q=80';
 const Layout = (props: { children: React.ReactNode }) => (
@@ -18,7 +19,7 @@ const Layout = (props: { children: React.ReactNode }) => (
             className="basis-6/12 bg-cover bg-white/30"
             style={{ backgroundImage: `url(${url})` }}
         ></div>
-        <div className="flex basis-6/12 justify-center items-center">
+        <div className="flex flex-col basis-6/12 justify-center items-center">
             {props.children}
 
             <Lock type={LockType.BUTTON}>
@@ -30,6 +31,7 @@ const Layout = (props: { children: React.ReactNode }) => (
 
 const Login: FC = () => {
     const navigate = useNavigate();
+    const [code, setCode] = useState('');
     const onFinish = (values: any) => {
         setLoginInfo(values);
         navigate('/');
@@ -62,6 +64,27 @@ const Login: FC = () => {
                         }
                     />
                 </Form.Item>
+                <Form.Item
+                    name="code"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please input your verification code!',
+                        },
+                        {
+                            pattern: new RegExp(code),
+
+                            message: 'Wrong verification code!',
+                        },
+                    ]}
+                    hasFeedback
+                >
+                    <Space>
+                        <VerificationCode onChange={(num: any) => setCode(num)} />
+                        <Input placeholder="请输入验证码" />
+                    </Space>
+                </Form.Item>
+
                 <Form.Item>
                     <Form.Item name="remember" valuePropName="checked" noStyle>
                         <Checkbox>Remember me</Checkbox>
@@ -71,7 +94,6 @@ const Login: FC = () => {
                         Forgot password
                     </a>
                 </Form.Item>
-
                 <Form.Item>
                     <Button type="primary" htmlType="submit">
                         Log in
