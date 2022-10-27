@@ -4,6 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { menu } from '@/consts/index';
 import { useStores } from '@/hooks';
+enum menuType {
+    'vertical',
+    'horizontal',
+    'inline',
+}
 const items = menu.map((item, index) => {
     let label = (
         <Draggable key={item.label} draggableId={item.label} index={index}>
@@ -24,8 +29,11 @@ const items = menu.map((item, index) => {
     let tmp = Object.assign({}, item, { label }) as any;
     return tmp;
 }) as any;
-const MyMenu = (props: { theme: 'dark' | 'light' }) => {
-    const { theme } = props;
+const MyMenu = (props: {
+    theme: 'dark' | 'light';
+    mode?: 'vertical' | 'horizontal' | 'inline';
+}) => {
+    const { theme, mode = 'inline' } = props;
     const [dragItems, setDragItems] = useState<any[]>(items);
     const { globalStore } = useStores();
     const navigate = useNavigate();
@@ -52,21 +60,27 @@ const MyMenu = (props: { theme: 'dark' | 'light' }) => {
         globalStore.setTab({ label: e.key, key: path });
     };
     return (
-        <DragDropContext onDragEnd={onDragEnd}>
-            <Droppable droppableId="droppable">
-                {(provided) => (
-                    <div ref={provided.innerRef} {...provided.droppableProps}>
-                        <Menu
-                            onClick={onHandleClick}
-                            items={dragItems}
-                            mode="inline"
-                            theme={theme}
-                        />
-                        {provided.placeholder}
-                    </div>
-                )}
-            </Droppable>
-        </DragDropContext>
+        <>
+            {mode !== 'horizontal' ? (
+                <DragDropContext onDragEnd={onDragEnd}>
+                    <Droppable droppableId="droppable">
+                        {(provided) => (
+                            <div ref={provided.innerRef} {...provided.droppableProps}>
+                                <Menu
+                                    onClick={onHandleClick}
+                                    items={dragItems}
+                                    mode={mode}
+                                    theme={theme}
+                                />
+                                {provided.placeholder}
+                            </div>
+                        )}
+                    </Droppable>
+                </DragDropContext>
+            ) : (
+                <Menu onClick={onHandleClick} items={menu} mode={mode} theme={theme} />
+            )}
+        </>
     );
 };
 export { MyMenu };

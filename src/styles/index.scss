@@ -20,14 +20,13 @@ $fontColor:#fafafa;
     transition-delay: 0s, 0s;
 }
 .logo{
-    display: inline-flex;
     height: 64px;
     font-size: 18px;
     font-weight: 600;
-    text-align: end;
     line-height: 64px;
+    margin-left: 18px;
 }
-.toolbal{
+.toolbar{
     .icon{
         font-size: 1.2rem;
     }   

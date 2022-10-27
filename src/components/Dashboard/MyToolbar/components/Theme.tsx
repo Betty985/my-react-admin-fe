@@ -6,7 +6,7 @@ import { SkinOutlined } from '@ant-design/icons';
 
 import { SketchPicker } from 'react-color';
 
-import { useStores } from '@/hooks';
+import { useTheme } from '@/hooks';
 const initColor = {
     primaryColor: '#1890ff',
     errorColor: '#ff4d4f',
@@ -17,7 +17,7 @@ const initColor = {
 export const Theme: FC = () => {
     const [color, setColor] = useState(() => initColor);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const { globalStore } = useStores();
+    const { setTheme } = useTheme();
     // 配置选项卡内容
     const primary = (
         <SketchPicker
@@ -103,8 +103,9 @@ export const Theme: FC = () => {
             ...color,
             ...nextColor,
         };
+        console.log('themecc', mergedNextColor.primaryColor);
         setColor(mergedNextColor);
-        globalStore.setTheme(mergedNextColor);
+        setTheme(mergedNextColor);
         ConfigProvider.config({
             theme: mergedNextColor,
         });
