@@ -43,9 +43,11 @@ $fontColor:#fafafa;
 }
 .dark{
     @include dark();
+    @include transition()
 }
 .light{
    @include light();
+   @include transition()
 }
 .ant-layout-sider,.dark,.light,.ant-layout-sider-trigger{
     @include transition()

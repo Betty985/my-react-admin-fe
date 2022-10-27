@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import { Badge, Col, Popover, Tabs, List, Avatar } from 'antd';
 
 import { BellOutlined } from '@ant-design/icons';
-
+import { useTheme } from '@/hooks';
 const data = [
     {
         title: 'Lily  回复了你',
@@ -44,12 +44,15 @@ const items = [
     },
 ];
 const content = () => <Tabs defaultActiveKey="1" size="small" items={items} />;
-export const Notification: FC = () => (
-    <Col>
-        <Popover placement="bottomRight" content={content} trigger="click" arrowPointAtCenter>
-            <Badge count={25} overflowCount={99} size="small">
-                <BellOutlined className="icon" />
-            </Badge>
-        </Popover>
-    </Col>
-);
+export const Notification: FC = () => {
+    const { light } = useTheme();
+    return (
+        <Col>
+            <Popover placement="bottomRight" content={content} trigger="click" arrowPointAtCenter>
+                <Badge count={25} overflowCount={99} size="small">
+                    <BellOutlined className={`icon ${light}`} />
+                </Badge>
+            </Popover>
+        </Col>
+    );
+};

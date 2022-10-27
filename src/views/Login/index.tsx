@@ -147,7 +147,7 @@ const Register: FC = () => {
                     />
                 </Form.Item>
                 <Form.Item
-                    name="password"
+                    name="password2"
                     rules={[{ required: true, message: 'Please input your Password!' }]}
                 >
                     <Input.Password

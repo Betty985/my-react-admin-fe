@@ -7,8 +7,11 @@ const globalStore = makeAutoObservable({
     setTheme(theme: colorsType) {
         this.theme = theme;
     },
+    light: 'dark',
+    setLight(sun: 'dark' | 'light') {
+        this.light = sun;
+    },
     tab: { label: '', key: '' },
-
     setTab(tab: { label: string; key: string }) {
         this.tab = tab;
     },
