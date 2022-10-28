@@ -21,6 +21,7 @@ import {
     MyEditor,
     System,
 } from '@/views';
+import { PATH_HOME } from '@/consts';
 const routes = [
     {
         path: '/',
@@ -120,5 +121,5 @@ const routes = [
         ],
     },
 ];
-const router = createBrowserRouter(routes);
+const router = createBrowserRouter(routes, { basename: PATH_HOME });
 export { router };

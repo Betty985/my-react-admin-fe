@@ -14,6 +14,7 @@ import { getContacts, createContact, deleteContact } from './contacts';
 import { TwitterOutlined, BookFilled, StarTwoTone } from '@ant-design/icons';
 import { useTheme } from '@/hooks';
 import { observer } from 'mobx-react-lite';
+import { PATH_HOME } from '@/consts';
 export { contactLoader, Contact, EditContact, editAction, favoriteAction } from './Components';
 const { Text, Title } = Typography;
 export async function contactsLoader({ request }: { request: any }) {
@@ -24,13 +25,13 @@ export async function contactsLoader({ request }: { request: any }) {
 }
 export async function contactsAction() {
     const contact = await createContact();
-    return redirect(`/profile/contacts/${contact.id}/edit`);
+    return redirect(`${PATH_HOME}/profile/contacts/${contact.id}/edit`);
 }
 
 export async function destroyAction({ params }: { params: any }) {
     // throw new Error("oh dang!");
     await deleteContact(params.contactId);
-    return redirect('/profile/contacts');
+    return redirect(`${PATH_HOME}/profile/contacts`);
 }
 type A = {
     contacts: any;
@@ -59,7 +60,7 @@ export const Contacts = observer(() => {
                         <div className="bg-[#fafafa] p-5">
                             <Row justify="space-between" gutter={{ xs: 8, sm: 16, md: 24 }}>
                                 <Col span={18}>
-                                    <Form role="search">
+                                    <Form role="search" action={`${PATH_HOME}/profile/contacts`}>
                                         <Input.Search
                                             id="q"
                                             loading={searching}
@@ -79,7 +80,7 @@ export const Contacts = observer(() => {
                                     </Form>
                                 </Col>
                                 <Col span={6}>
-                                    <Form method="post">
+                                    <Form method="post" action={`${PATH_HOME}/profile/contacts`}>
                                         <Button htmlType="submit" type="primary">
                                             New
                                         </Button>

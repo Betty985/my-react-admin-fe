@@ -8,11 +8,7 @@ import { MyTabs } from './MyTabs';
 import { useStores } from '@/hooks';
 import Icon, { SettingOutlined } from '@ant-design/icons';
 const { useBreakpoint } = Grid;
-enum menuType {
-    'vertical',
-    'horizontal',
-    'inline',
-}
+
 const { Header, Content, Sider } = Layout;
 const Dashboard: FC = () => {
     const { globalStore } = useStores();
@@ -52,6 +48,7 @@ const Dashboard: FC = () => {
                     justify="space-between"
                     gutter={{ xs: 8, sm: 16, md: 24 }}
                     className="toolbar"
+                    wrap={false}
                 >
                     <Col>{!collapsed && <span className={`logo ${theme}`}>REACT ADMIN</span>}</Col>
                     <Col>{mode === 'horizontal' && <MyMenu theme={theme} mode={mode} />}</Col>

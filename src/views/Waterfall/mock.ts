@@ -1,8 +1,6 @@
 export const urls = [
     'https://tailwindcss.com/_next/static/media/docs@tinypng.d9e4dcdc.png',
 
-    'https://tailwindcss.com/_next/static/media/docs-dark@tinypng.1bbe175e.png',
-
     'https://images.unsplash.com/photo-1454496522488-7a8e488e8606?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2952&q=80',
 
     'https://images.unsplash.com/photo-1434394354979-a235cd36269d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2902&q=80',
@@ -46,4 +44,6 @@ export const urls = [
     'https://images.unsplash.com/photo-1617369120004-4fc70312c5e6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1587&q=80',
 
     'https://images.unsplash.com/photo-1518892096458-a169843d7f7f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80',
+
+    'https://tailwindcss.com/_next/static/media/docs-dark@tinypng.1bbe175e.png',
 ];

@@ -103,7 +103,6 @@ export const Theme: FC = () => {
             ...color,
             ...nextColor,
         };
-        console.log('themecc', mergedNextColor.primaryColor);
         setColor(mergedNextColor);
         setTheme(mergedNextColor);
         ConfigProvider.config({

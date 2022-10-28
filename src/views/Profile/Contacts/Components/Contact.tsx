@@ -2,9 +2,10 @@ import React from 'react';
 import { Form, useLoaderData, useFetcher } from 'react-router-dom';
 import { getContact, updateContact } from '../contacts';
 import { TwitterOutlined, BookFilled, StarTwoTone } from '@ant-design/icons';
-import { Row, Col, Button, Image, Space, Typography } from 'antd';
+import { Row, Col, Button, Image, Space, Typography, Modal } from 'antd';
 import { useTheme } from '@/hooks';
 const { Text, Link, Title } = Typography;
+const { confirm } = Modal;
 export async function contactLoader({ params }: any) {
     const contact = await getContact(params.contactId);
     if (!contact) {
@@ -70,7 +71,7 @@ export function Contact() {
                     )}
 
                     <Space>
-                        <Form action="edit">
+                        <Form action={`edit`}>
                             <Button htmlType="submit">Edit</Button>
                         </Form>
                         <Form
@@ -78,9 +79,9 @@ export function Contact() {
                             action="destroy"
                             onSubmit={(event) => {
                                 if (
-                                    !window.confirm(
-                                        'Please confirm you want to delete this record.'
-                                    )
+                                    !confirm({
+                                        title: 'Please confirm you want to delete this record.',
+                                    })
                                 ) {
                                     event.preventDefault();
                                 }

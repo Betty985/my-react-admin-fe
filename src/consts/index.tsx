@@ -8,6 +8,7 @@ import {
 } from '@ant-design/icons';
 import { OptionProps } from '@/types';
 import React from 'react';
+export * from './url';
 const MSG_403 = 'Sorry, you are not authorized to access this page.';
 const MSG_404 = 'Sorry, the page you visited does not exist.';
 const MSG_500 = 'Sorry, something went wrong.';
