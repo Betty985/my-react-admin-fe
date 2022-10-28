@@ -1,19 +1,25 @@
+import { PATH_HOME } from '@/consts';
 import { Button, Form, Input, Space } from 'antd';
 import React from 'react';
-import { Form as RForm, useLoaderData, redirect, useNavigate } from 'react-router-dom';
+import { Form as RForm, useLoaderData, redirect, useNavigate, useLocation } from 'react-router-dom';
 import { updateContact } from '../contacts';
 const { TextArea } = Input;
 export async function editAction({ request, params }: { request: any; params: any }) {
     const formData = await request.formData();
     const updates = Object.fromEntries(formData);
     await updateContact(params.contactId, updates);
-    return redirect(`/profile/contacts/${params.contactId}`);
+    return redirect(`${PATH_HOME}/profile/contacts/${params.contactId}`);
 }
 export function EditContact() {
     const contact = useLoaderData() as any;
     const navigate = useNavigate();
+    const location = useLocation();
     return (
-        <RForm method="post" className="ant-form ant-form-horizontal">
+        <RForm
+            method="post"
+            className="ant-form ant-form-horizontal"
+            action={`${PATH_HOME}${location.pathname}`}
+        >
             <Form.Item
                 label="Name"
                 name="username"
@@ -39,7 +45,6 @@ export function EditContact() {
                 </Form.Item>
             </Form.Item>
             <Form.Item label="Twitter">
-                {' '}
                 <Input
                     type="text"
                     name="twitter"

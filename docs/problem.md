@@ -16,3 +16,5 @@
   }
 ```
 # 可拖拽菜单仅支持inline模式
+# basename与Form
+` const location = useLocation();`加上basename后，react-router的location没有记录basename。而form的action直接拼接pathname，导致接口访问问题。

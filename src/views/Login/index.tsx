@@ -14,7 +14,7 @@ import { VerificationCode } from './Components';
 const url =
     'https://images.unsplash.com/photo-1554629947-334ff61d85dc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1024&amp;h=1280&amp;q=80';
 const formUrl = 'https://tailwindcss.com/_next/static/media/docs@tinypng.d9e4dcdc.png';
-const Layout = (props: { children: React.ReactNode }) => (
+const Layout1 = (props: { children: React.ReactNode }) => (
     <div className="h-screen flex">
         <div
             className="basis-6/12 bg-cover bg-white/30 shadow-xl shadow-zinc-500 "
@@ -32,7 +32,24 @@ const Layout = (props: { children: React.ReactNode }) => (
         </div>
     </div>
 );
+const Layout = (props: { children: React.ReactNode }) => (
+    <div className="h-screen">
+        <div
+            className="h-60 basis-6/12 bg-cover bg-white/30 shadow-xl shadow-zinc-500 bg-bottom"
+            style={{ backgroundImage: `url(${url})` }}
+        ></div>
+        <div
+            className="flex flex-col basis-6/12 justify-center items-center  bg-cover bg-right-bottom"
+            style={{ backgroundImage: `url(${formUrl})` }}
+        >
+            {props.children}
 
+            <Lock type={LockType.BUTTON}>
+                <Button type="primary"> 仅vip可用</Button>
+            </Lock>
+        </div>
+    </div>
+);
 const Login: FC = () => {
     const navigate = useNavigate();
     const [code, setCode] = useState('');

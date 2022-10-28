@@ -1,9 +1,11 @@
 import React from 'react';
-import { Form, useLoaderData, useFetcher } from 'react-router-dom';
+import { Form, useLoaderData, useFetcher, useLocation } from 'react-router-dom';
 import { getContact, updateContact } from '../contacts';
 import { TwitterOutlined, BookFilled, StarTwoTone } from '@ant-design/icons';
 import { Row, Col, Button, Image, Space, Typography, Modal } from 'antd';
 import { useTheme } from '@/hooks';
+import { PATH_HOME } from '@/consts';
+
 const { Text, Link, Title } = Typography;
 const { confirm } = Modal;
 export async function contactLoader({ params }: any) {
@@ -18,12 +20,15 @@ export async function contactLoader({ params }: any) {
 }
 export async function favoriteAction({ request, params }: { request: any; params: any }) {
     let formData = await request.formData();
+    console.log(request);
     return updateContact(params.contactId, {
         favorite: formData.get('favorite') === 'true',
     });
 }
 export function Contact() {
     const contact = useLoaderData() as any;
+    const location = useLocation();
+
     return (
         <Row gutter={{ xs: 8, sm: 16, md: 24 }} className="w-full">
             <Col span={8}>
@@ -71,12 +76,12 @@ export function Contact() {
                     )}
 
                     <Space>
-                        <Form action={`edit`}>
+                        <Form action={`${PATH_HOME}${location.pathname}/edit`}>
                             <Button htmlType="submit">Edit</Button>
                         </Form>
                         <Form
                             method="post"
-                            action="destroy"
+                            action={`${PATH_HOME}${location.pathname}/destroy`}
                             onSubmit={(event) => {
                                 if (
                                     !confirm({
@@ -100,12 +105,17 @@ export function Contact() {
 const Favorite = ({ contact }: any) => {
     let favorite = contact.favorite;
     const fetcher = useFetcher();
+    const location = useLocation();
     if (fetcher.formData) {
         favorite = fetcher.formData.get('favorite') === 'true';
     }
     const { theme } = useTheme();
     return (
-        <fetcher.Form method="post" className="inline-block">
+        <fetcher.Form
+            method="post"
+            className="inline-block"
+            action={`${PATH_HOME}/profile/contacts/`}
+        >
             <Button
                 name="favorite"
                 value={favorite ? 'false' : 'true'}
