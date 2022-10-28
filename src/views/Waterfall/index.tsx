@@ -30,7 +30,7 @@ export const Waterfall: FC = () => {
                     { xs: 4, sm: 8, md: 12 },
                 ]}
                 // TODO
-                className="gridbg"
+                className="plaid"
             >
                 {urls.map((i, index) => (
                     <Col key={index} xs={24} md={8} xl={6}>

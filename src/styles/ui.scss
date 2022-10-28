@@ -1,0 +1,12 @@
+// 网格背景
+$line:#ededee;
+$bg:#f8fafc;
+
+.plaid {
+    background:
+        repeating-linear-gradient(90deg, transparent, transparent 50px,
+            $line 52px),
+        repeating-linear-gradient(0deg, transparent, transparent 50px,
+            $line 52px);
+    background-color: $bg;
+}
