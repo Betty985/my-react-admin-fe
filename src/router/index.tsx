@@ -107,6 +107,10 @@ const routes = [
                 path: 'system',
                 element: <System />,
             },
+            {
+                path: '*',
+                element: <ERROR_404 />,
+            },
         ],
     },
     {

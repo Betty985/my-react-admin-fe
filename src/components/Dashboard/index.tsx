@@ -1,25 +1,52 @@
 import React, { FC, useEffect, useState } from 'react';
 import { MyMenu } from './MyMenu';
-import { Layout, Row, Col, Switch, Grid, Tooltip } from 'antd';
+import { Layout, Row, Col, Switch, Grid, Tooltip, Drawer, Dropdown, Avatar, Menu } from 'antd';
 import { Logo } from '@/assets/logo';
 import { MyBreadcrumb } from './MyBreadcrumb';
 import { MyToolBar } from './MyToolbar';
 import { MyTabs } from './MyTabs';
 import { useStores } from '@/hooks';
 import Icon, { SettingOutlined } from '@ant-design/icons';
+import { setReactionScheduler } from 'mobx/dist/internal';
+import { Link } from 'react-router-dom';
 const { useBreakpoint } = Grid;
 
 const { Header, Content, Sider } = Layout;
+/**
+ * 用户菜单
+ */
+const menu = (
+    <Menu
+        items={[
+            {
+                key: '1',
+                label: <Link to="/profile">个人中心</Link>,
+            },
+            {
+                key: '2',
+                label: <span>退出</span>,
+            },
+        ]}
+    />
+);
 const Dashboard: FC = () => {
     const { globalStore } = useStores();
     const [collapsed, setCollapsed] = useState(false);
     const [theme, setTheme] = useState<'dark' | 'light'>('dark');
     const [mode, setMode] = useState<'vertical' | 'horizontal' | 'inline'>('inline');
     const screens = useBreakpoint();
+    const [open, setOpen] = useState(false);
     const changeTheme = (value: boolean) => {
         const sun = value ? 'dark' : 'light';
         setTheme(sun);
         globalStore.setLight(sun);
+    };
+    const showDrawer = () => {
+        setOpen(true);
+    };
+
+    const onClose = () => {
+        setOpen(false);
     };
     useEffect(() => {
         if (!screens.xl) {
@@ -57,9 +84,9 @@ const Dashboard: FC = () => {
                             <MyBreadcrumb />
                         </Col>
                     ) : null}
-                    <Col>
+                    <Col flex="none">
                         <Row justify="end" gutter={{ xs: 8, sm: 16, md: 24 }}>
-                            <MyToolBar />
+                            {screens.lg && <MyToolBar />}
                             <Col>
                                 <Switch
                                     checked={theme === 'dark'}
@@ -69,7 +96,26 @@ const Dashboard: FC = () => {
                                 />
                             </Col>
                             <Col>
-                                <SettingOutlined className="icon" />
+                                <Dropdown
+                                    overlay={menu}
+                                    placement="bottom"
+                                    arrow={{ pointAtCenter: true }}
+                                >
+                                    <Avatar src="https://joeschmoe.io/api/v1/random" />
+                                </Dropdown>
+                            </Col>
+                            <Col>
+                                {!screens.lg && (
+                                    <SettingOutlined className="icon" onClick={showDrawer} />
+                                )}
+                                <Drawer
+                                    title="工具箱"
+                                    placement="right"
+                                    onClose={onClose}
+                                    open={open}
+                                >
+                                    <MyToolBar box={true} />
+                                </Drawer>
                             </Col>
                         </Row>
                     </Col>
@@ -87,7 +133,7 @@ const Dashboard: FC = () => {
                         <MyMenu theme={theme} mode={mode} />
                     </Sider>
                 )}
-                <Content style={{ margin: '0 16px' }}>
+                <Content style={{ margin: '0 16px', overflowY: 'scroll' }}>
                     <MyTabs />
                 </Content>
             </Layout>

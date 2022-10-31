@@ -1,40 +1,43 @@
 import React, { FC } from 'react';
-import { Col, Row, Tabs, List, Avatar, Dropdown, Menu } from 'antd';
-import { Link } from 'react-router-dom';
 import { Theme, Fullscreen, Notification, Watermark, Search } from './components';
-
-/**
- * 用户菜单
- */
-const menu = (
-    <Menu
-        items={[
-            {
-                key: '1',
-                label: <Link to="/profile">个人中心</Link>,
-            },
-            {
-                key: '2',
-                label: <span>退出</span>,
-            },
-        ]}
-    />
-);
-
-const MyToolBar: FC = () => {
-    return (
-        <>
-            <Search />
-            <Watermark />
-            <Theme />
-            <Fullscreen />
-            <Notification />
-            <Col>
-                <Dropdown overlay={menu} placement="bottom" arrow={{ pointAtCenter: true }}>
-                    <Avatar src="https://joeschmoe.io/api/v1/random" />
-                </Dropdown>
-            </Col>
-        </>
-    );
+import { Descriptions } from 'antd';
+const MyToolBar: FC<{ box?: boolean }> = (props) => {
+    const { box = false } = props;
+    if (box) {
+        return (
+            <>
+                <Descriptions
+                    bordered
+                    column={{ xxl: 4, xl: 3, lg: 3, md: 3, sm: 2, xs: 1 }}
+                    layout="vertical"
+                >
+                    <Descriptions.Item label="搜索">
+                        <Search />
+                    </Descriptions.Item>
+                    <Descriptions.Item label="水印">
+                        <Watermark />
+                    </Descriptions.Item>
+                    <Descriptions.Item label="换肤">
+                        <Theme />
+                    </Descriptions.Item>
+                    <Descriptions.Item label="全屏">
+                        <Fullscreen />
+                    </Descriptions.Item>
+                    <Descriptions.Item label="通知">
+                        <Notification />
+                    </Descriptions.Item>
+                </Descriptions>
+            </>
+        );
+    } else
+        return (
+            <>
+                <Search />
+                <Watermark />
+                <Theme />
+                <Fullscreen />
+                <Notification />
+            </>
+        );
 };
 export { MyToolBar };

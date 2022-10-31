@@ -8,6 +8,8 @@ export const VerificationCode: FC<{ onChange: Function }> = (props) => {
         const canvas = document.getElementById('code') as HTMLCanvasElement;
         const ctx = canvas?.getContext('2d');
         ctx?.clearRect(0, 0, canvas.width, canvas.height);
+        ctx!.fillStyle = '#fff';
+        ctx?.fillRect(0, 0, canvas.width, canvas.height);
         let code = '';
         /*绘制4位验证码*/
         for (let i = 4; i > 0; i--) {

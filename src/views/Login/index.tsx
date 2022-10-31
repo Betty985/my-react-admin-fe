@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { Button, Checkbox, Form, Input, Space } from 'antd';
+import { Button, Checkbox, Form, Input, Space, Grid } from 'antd';
 import {
     LockOutlined,
     UserOutlined,
@@ -9,50 +9,12 @@ import {
 } from '@ant-design/icons';
 import { Link, useNavigate } from 'react-router-dom';
 import { setLoginInfo } from './login';
-import { Lock, LockType } from '@/components';
-import { VerificationCode } from './Components';
-const url =
-    'https://images.unsplash.com/photo-1554629947-334ff61d85dc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1024&amp;h=1280&amp;q=80';
-const formUrl = 'https://tailwindcss.com/_next/static/media/docs@tinypng.d9e4dcdc.png';
-const Layout1 = (props: { children: React.ReactNode }) => (
-    <div className="h-screen flex">
-        <div
-            className="basis-6/12 bg-cover bg-white/30 shadow-xl shadow-zinc-500 "
-            style={{ backgroundImage: `url(${url})` }}
-        ></div>
-        <div
-            className="flex flex-col basis-6/12 justify-center items-center  bg-cover bg-right-top"
-            style={{ backgroundImage: `url(${formUrl})` }}
-        >
-            {props.children}
-
-            <Lock type={LockType.BUTTON}>
-                <Button type="primary"> 仅vip可用</Button>
-            </Lock>
-        </div>
-    </div>
-);
-const Layout = (props: { children: React.ReactNode }) => (
-    <div className="h-screen">
-        <div
-            className="h-60 basis-6/12 bg-cover bg-white/30 shadow-xl shadow-zinc-500 bg-bottom"
-            style={{ backgroundImage: `url(${url})` }}
-        ></div>
-        <div
-            className="flex flex-col basis-6/12 justify-center items-center  bg-cover bg-right-bottom"
-            style={{ backgroundImage: `url(${formUrl})` }}
-        >
-            {props.children}
-
-            <Lock type={LockType.BUTTON}>
-                <Button type="primary"> 仅vip可用</Button>
-            </Lock>
-        </div>
-    </div>
-);
+import { VerificationCode, Layout } from './Components';
+const { useBreakpoint } = Grid;
 const Login: FC = () => {
     const navigate = useNavigate();
     const [code, setCode] = useState('');
+    const screens = useBreakpoint();
     const onFinish = (values: any) => {
         setLoginInfo(values);
         navigate('/');
@@ -100,7 +62,7 @@ const Login: FC = () => {
                     ]}
                     hasFeedback
                 >
-                    <Space>
+                    <Space direction={screens.xxl ? 'horizontal' : 'vertical'}>
                         <VerificationCode onChange={(num: any) => setCode(num)} />
                         <Input placeholder="请输入验证码" />
                     </Space>
