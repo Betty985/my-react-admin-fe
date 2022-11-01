@@ -1,9 +1,10 @@
 /** mock 数据 */
-import React, { FC } from 'react';
+import React from 'react';
 import { Badge, Col, Popover, Tabs, List, Avatar } from 'antd';
 
 import { BellOutlined } from '@ant-design/icons';
 import { useTheme } from '@/hooks';
+import { observer } from 'mobx-react';
 const data = [
     {
         title: 'Lily  回复了你',
@@ -44,7 +45,7 @@ const items = [
     },
 ];
 const content = () => <Tabs defaultActiveKey="1" size="small" items={items} />;
-export const Notification: FC = () => {
+export const Notification = observer(() => {
     const { light } = useTheme();
     return (
         <Col>
@@ -55,4 +56,4 @@ export const Notification: FC = () => {
             </Popover>
         </Col>
     );
-};
+});

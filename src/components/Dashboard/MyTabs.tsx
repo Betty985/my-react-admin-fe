@@ -1,15 +1,27 @@
 import { Tabs } from 'antd';
 import React, { useEffect, useRef, useState } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useStores } from '@/hooks';
+import { useTransition, animated, AnimatedProps, useSpringRef } from '@react-spring/web';
 const initialItems = [{ label: '首页', key: 'home**0', closable: false, children: <Outlet /> }];
 
 export const MyTabs: React.FC = () => {
+    const location = useLocation();
     const [activeKey, setActiveKey] = useState('home**0');
     const [items, setItems] = useState(initialItems);
     const newTabIndex = useRef(1);
     const { globalStore } = useStores();
+    const transitions = useTransition(location, {
+        keys: null,
+        from: { opacity: 0, transform: 'translate3d(100%,0,0)' },
+        enter: { opacity: 1, transform: 'translate3d(0%,0,0)' },
+    });
     const navigate = useNavigate();
+    const newPage = transitions((props) => (
+        <animated.div style={props}>
+            <Outlet />
+        </animated.div>
+    ));
     useEffect(() => {
         if (globalStore.tab.label !== '' && globalStore.tab.key !== '') {
             add(globalStore.tab);
@@ -22,7 +34,7 @@ export const MyTabs: React.FC = () => {
     const add = ({ label, key }: { label: string; key: string }) => {
         const newActiveKey = `${key}**${newTabIndex.current++}`;
         const newPanes = [...items];
-        newPanes.push({ label, key: newActiveKey, children: <Outlet />, closable: true });
+        newPanes.push({ label, key: newActiveKey, children: newPage, closable: true });
         setItems(newPanes);
         setActiveKey(newActiveKey);
     };
