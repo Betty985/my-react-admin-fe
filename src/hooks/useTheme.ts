@@ -13,13 +13,11 @@ const useTheme = () => {
     const [light, setLight] = useState<'dark' | 'light'>(globalStore.light);
     const [flag, setFlag] = useState(false);
     const themeRef = useRef(theme);
-    const lightRef = useRef(light);
     themeRef.current = theme;
-    lightRef.current = light;
     useEffect(() => {
         setTheme(globalStore.theme);
         setLight(globalStore.light);
-    }, [flag]);
+    }, [globalStore.theme, globalStore.light, flag]);
     const changeTheme = (theme: colorsType) => {
         setTheme(theme);
         setFlag((i) => !i);
@@ -32,7 +30,7 @@ const useTheme = () => {
     };
     return {
         theme: themeRef.current,
-        light: lightRef.current,
+        light,
         setTheme: changeTheme,
         setLight: changLight,
     };

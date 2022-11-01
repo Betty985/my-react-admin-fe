@@ -5,9 +5,8 @@ import { Logo } from '@/assets/logo';
 import { MyBreadcrumb } from './MyBreadcrumb';
 import { MyToolBar } from './MyToolbar';
 import { MyTabs } from './MyTabs';
-import { useStores } from '@/hooks';
+import { useTheme } from '@/hooks';
 import Icon, { SettingOutlined } from '@ant-design/icons';
-import { setReactionScheduler } from 'mobx/dist/internal';
 import { Link } from 'react-router-dom';
 const { useBreakpoint } = Grid;
 
@@ -30,16 +29,16 @@ const menu = (
     />
 );
 const Dashboard: FC = () => {
-    const { globalStore } = useStores();
     const [collapsed, setCollapsed] = useState(false);
     const [theme, setTheme] = useState<'dark' | 'light'>('dark');
     const [mode, setMode] = useState<'vertical' | 'horizontal' | 'inline'>('inline');
     const screens = useBreakpoint();
     const [open, setOpen] = useState(false);
+    const { setLight } = useTheme();
     const changeTheme = (value: boolean) => {
         const sun = value ? 'dark' : 'light';
         setTheme(sun);
-        globalStore.setLight(sun);
+        setLight(sun);
     };
     const showDrawer = () => {
         setOpen(true);

@@ -3,11 +3,12 @@ import type { SpaceProps } from 'antd';
 import { Alert, Col, Divider, Dropdown, Menu, Progress, Row, Space, Spin, Typography } from 'antd';
 import React from 'react';
 import { Lock, LockType } from '@/components';
+import { Mouse } from './components';
 const SplitSpace: React.FC<SpaceProps> = (props) => (
     <Space split={<Divider type="vertical" />} size={4} {...props} />
 );
 
-export const T: React.FC = () => {
+const Demo: React.FC = () => {
     return (
         <Lock type={LockType.PAGE}>
             <Row gutter={16} wrap={false}>
@@ -46,7 +47,7 @@ export const T: React.FC = () => {
                                     />
                                 }
                             >
-                                <a onClick={(e) => e.preventDefault()}>
+                                <a onClick={(e) => e.preventDefault()} href="">
                                     <Space>
                                         Hover me
                                         <DownOutlined />
@@ -91,5 +92,13 @@ export const T: React.FC = () => {
                 </Col>
             </Row>
         </Lock>
+    );
+};
+export const T: React.FC = () => {
+    return (
+        <>
+            <Demo />
+            <Mouse />
+        </>
     );
 };
