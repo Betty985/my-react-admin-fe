@@ -140,7 +140,7 @@ const Dashboard: FC = () => {
         }
     }, [screens]);
     return (
-        <Layout style={{ minHeight: '100vh' }} className="layout">
+        <Layout style={{ height: '100vh' }} className="layout hidden">
             <Header className={`${theme}`}>
                 {screens.sm ? (
                     <Tooltip
@@ -197,7 +197,7 @@ const Dashboard: FC = () => {
                         <MyMenu theme={theme} mode={mode} />
                     </Sider>
                 )}
-                <Content style={{ margin: '0 16px' }}>
+                <Content style={{ margin: '0 16px', overflow: 'hidden' }}>
                     <MyTabs />
                 </Content>
             </Layout>

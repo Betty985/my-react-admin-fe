@@ -18,7 +18,7 @@ export const MyTabs: React.FC = () => {
     });
     const navigate = useNavigate();
     const newPage = transitions((props) => (
-        <animated.div style={props}>
+        <animated.div style={{ ...props, height: 'calc(100vh - 120px)', overflow: 'auto' }}>
             <Outlet />
         </animated.div>
     ));

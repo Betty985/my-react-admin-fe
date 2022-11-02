@@ -1,7 +1,6 @@
 import React, { FC, Suspense } from 'react';
-import { Image, Skeleton, Space, Row, Col, Grid } from 'antd';
+import { Image, Skeleton, Space, Row, Col } from 'antd';
 import { urls } from './mock';
-const { useBreakpoint } = Grid;
 const Spin: FC<{ active?: boolean }> = ({ active = true }) => (
     <>
         <Skeleton active={active}>
@@ -21,7 +20,6 @@ const Spin: FC<{ active?: boolean }> = ({ active = true }) => (
     </>
 );
 export const Waterfall: FC = () => {
-    const screens = useBreakpoint();
     return (
         <Suspense fallback={<Spin />}>
             <Row
@@ -30,12 +28,12 @@ export const Waterfall: FC = () => {
                     { xs: 4, sm: 8, md: 12 },
                 ]}
                 // TODO
-                className="plaid"
+                className="plaid w-full"
             >
                 {urls.map((i, index) => (
                     <Col key={index} xs={24} md={8} xl={6}>
                         <Image
-                            className="w-full rounded-lg shadow-inner"
+                            className="rounded-lg shadow-inner"
                             placeholder={
                                 <Image
                                     preview={false}
