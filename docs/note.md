@@ -356,3 +356,4 @@ export const MyTabs: React.FC = () => {
             ctx?.fill();
         }
 ```
+### [自定义滚动条](https://stackblitz.com/edit/react-ts-ugtfyw?file=README.md)

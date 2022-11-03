@@ -3,8 +3,8 @@ import { Mouse, Demo, Scroll } from './components';
 export const T: React.FC = () => {
     return (
         <>
-            {/* <Demo />
-            <Mouse /> */}
+            <Demo />
+            <Mouse />
             <Scroll />
         </>
     );

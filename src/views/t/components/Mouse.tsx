@@ -1,4 +1,4 @@
-import React, { FC, MouseEventHandler, useEffect, useState } from 'react';
+import React, { FC, MouseEventHandler, useEffect, useRef, useState } from 'react';
 import { gc } from '@/hooks';
 class Ob {
     x;
@@ -39,10 +39,10 @@ export const Mouse: FC<{ width?: number; height?: number }> = (props) => {
     const { width = 600, height = 600 } = props;
     const [size, setSize] = useState({ width, height });
     const [m, setM] = useState({ x: width / 2, y: height / 2 });
+    const canvasRef = useRef<HTMLCanvasElement>(null);
     let a: any[] = [];
     useEffect(() => {
-        const canvas = document.querySelector('#load') as HTMLCanvasElement;
-        const ctx = canvas?.getContext('2d');
+        const ctx = canvasRef.current?.getContext('2d');
         if (ctx) {
             onLoad(ctx);
         }
@@ -75,7 +75,7 @@ export const Mouse: FC<{ width?: number; height?: number }> = (props) => {
     return (
         <>
             <canvas
-                id="load"
+                ref={canvasRef}
                 onMouseMove={onMouseMove}
                 width={size.width}
                 height={size.height}
