@@ -91,4 +91,20 @@ const list = menu
         }
     })
     .flat(Infinity) as OptionProps[];
-export { MSG_403, MSG_404, MSG_500, menu, initColor, list };
+const colorArray = [
+    ['UI', 'volcano'],
+    ['FE', 'purple'],
+    ['SERVER', 'blue'],
+    ['PM', 'gold'],
+    ['QA', 'red'],
+    ['TEACHER', 'lime'],
+];
+const colorMap = new Map([
+    ['UI', 'volcano'],
+    ['FE', 'purple'],
+    ['SERVER', 'blue'],
+    ['PM', 'gold'],
+    ['QA', 'red'],
+    ['TEACHER', 'lime'],
+]);
+export { MSG_403, MSG_404, MSG_500, menu, initColor, list, colorMap, colorArray };

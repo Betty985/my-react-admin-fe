@@ -6,6 +6,7 @@ export const data: DataType[] = [
         account: 32,
         address: 'New York No. 1 Lake Park',
         tags: ['nice', 'developer'],
+        state: true,
         date: '2014-12-24 23:12:00',
     },
     {
@@ -15,6 +16,7 @@ export const data: DataType[] = [
         address: 'London No. 1 Lake Park',
         tags: ['ui'],
         date: '2014-12-24 23:12:00',
+        state: true,
     },
     {
         key: '3',
@@ -23,6 +25,7 @@ export const data: DataType[] = [
         address: 'Sidney No. 1 Lake Park',
         tags: ['cool', 'teacher'],
         date: '2014-12-24 23:12:00',
+        state: false,
     },
     {
         key: '11',
@@ -31,6 +34,7 @@ export const data: DataType[] = [
         address: 'New York No. 1 Lake Park',
         tags: ['nice', 'developer'],
         date: '2014-12-24 23:12:00',
+        state: false,
     },
     {
         key: '21',
@@ -39,6 +43,7 @@ export const data: DataType[] = [
         address: 'London No. 1 Lake Park',
         tags: ['ui'],
         date: '2014-12-24 23:12:00',
+        state: true,
     },
     {
         key: '31',
@@ -47,5 +52,6 @@ export const data: DataType[] = [
         address: 'Sidney No. 1 Lake Park',
         tags: ['cool', 'teacher'],
         date: '2014-12-24 23:12:00',
+        state: false,
     },
 ];

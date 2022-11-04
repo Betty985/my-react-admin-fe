@@ -18,6 +18,7 @@ import type { ColumnsType } from 'antd/es/table';
 import React, { FC, useState } from 'react';
 import { data } from './mock';
 import { Title } from './components';
+import { colorMap } from '@/consts';
 const { Option } = Select;
 const { useBreakpoint } = Grid;
 export interface DataType {
@@ -28,6 +29,7 @@ export interface DataType {
     tags: string[];
     note?: string;
     date?: string;
+    state: boolean;
 }
 const onhandleSwitch = (e: boolean) => {
     const s = e ? '启用' : '禁用';
@@ -55,6 +57,11 @@ export const System: FC<{ pageSize?: number }> = (props) => {
         setDataSource(newData);
         setTotal(newData.length);
     };
+    const handleAdd = (item: DataType) => {
+        const newData = [...dataSource, item];
+        setDataSource(newData);
+        setTotal(newData.length);
+    };
     const [current, setCurrent] = useState(3);
 
     const onPaginationChange: PaginationProps['onChange'] = (page) => {
@@ -75,11 +82,11 @@ export const System: FC<{ pageSize?: number }> = (props) => {
         {
             title: 'State',
             key: 'state',
-            render: (_) => (
+            render: (_, { state }) => (
                 <Switch
                     checkedChildren="已启用"
                     unCheckedChildren="已禁用"
-                    defaultChecked
+                    defaultChecked={state}
                     onClick={onhandleSwitch}
                 />
             ),
@@ -96,10 +103,7 @@ export const System: FC<{ pageSize?: number }> = (props) => {
             render: (_, { tags }) => (
                 <>
                     {tags.map((tag) => {
-                        let color = tag.length > 5 ? 'geekblue' : 'green';
-                        if (tag === 'ui') {
-                            color = 'volcano';
-                        }
+                        const color = colorMap.get(tag.toUpperCase()) || 'orange';
                         return (
                             <Tag color={color} key={tag}>
                                 {tag.toUpperCase()}
@@ -162,7 +166,7 @@ export const System: FC<{ pageSize?: number }> = (props) => {
                     </Form.Item>
                 </Form>
             </Card>
-            <Card title={<Title />} hoverable>
+            <Card title={<Title handleAdd={handleAdd} />} hoverable>
                 <Table
                     columns={columns}
                     dataSource={dataSource}
