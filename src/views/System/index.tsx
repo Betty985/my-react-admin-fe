@@ -11,8 +11,7 @@ import {
     Select,
     Grid,
     Popconfirm,
-    Row,
-    Drawer,
+    PaginationProps,
 } from 'antd';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
@@ -35,10 +34,13 @@ const onhandleSwitch = (e: boolean) => {
     message.success(`角色状态已切换为${s}`);
 };
 
-export const System: FC = () => {
+export const System: FC<{ pageSize?: number }> = (props) => {
+    const { pageSize = 4 } = props;
+    const [dataSource, setDataSource] = useState<DataType[]>(data);
+    const [total, setTotal] = useState(data.length);
+
     const [form] = Form.useForm();
     const screens = useBreakpoint();
-    const [dataSource, setDataSource] = useState<any[]>(data);
     const onReset = () => {
         form.resetFields();
     };
@@ -49,8 +51,14 @@ export const System: FC = () => {
         console.log(values);
     };
     const handleDelete = (key: React.Key) => {
-        const newData = data.filter((item) => item.key !== key);
+        const newData = dataSource.filter((item) => item.key !== key);
         setDataSource(newData);
+        setTotal(newData.length);
+    };
+    const [current, setCurrent] = useState(3);
+
+    const onPaginationChange: PaginationProps['onChange'] = (page) => {
+        setCurrent(page);
     };
     const columns: ColumnsType<DataType> = [
         {
@@ -155,7 +163,17 @@ export const System: FC = () => {
                 </Form>
             </Card>
             <Card title={<Title />} hoverable>
-                <Table columns={columns} dataSource={dataSource} />
+                <Table
+                    columns={columns}
+                    dataSource={dataSource}
+                    pagination={{
+                        current: current,
+                        total: total,
+                        pageSize: pageSize,
+                        onChange: onPaginationChange,
+                        showTotal: (total) => `Total ${total} items`,
+                    }}
+                />
             </Card>
         </Space>
     );
