@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import styles from './index.module.scss';
+import './index.module.scss';
 const Scrollbar = ({ children, className, ...props }: React.ComponentPropsWithoutRef<'div'>) => {
     const contentRef = useRef<HTMLDivElement>(null);
     const scrollTrackRef = useRef<HTMLDivElement>(null);
@@ -128,7 +128,7 @@ const Scrollbar = ({ children, className, ...props }: React.ComponentPropsWithou
     }, [handleThumbMousemove, handleThumbMouseup]);
 
     return (
-        <div className={styles['custom_scrollbars__container']}>
+        <div className="custom_scrollbars__container">
             <div className="custom-scrollbars__content" ref={contentRef} {...props}>
                 {children}
             </div>
@@ -167,4 +167,4 @@ const Scrollbar = ({ children, className, ...props }: React.ComponentPropsWithou
     );
 };
 
-export default Scrollbar;
+export { Scrollbar };

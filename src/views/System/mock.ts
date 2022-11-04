@@ -25,7 +25,7 @@ export const data: DataType[] = [
         date: '2014-12-24 23:12:00',
     },
     {
-        key: '1',
+        key: '11',
         name: 'John Brown',
         account: 32,
         address: 'New York No. 1 Lake Park',
@@ -33,7 +33,7 @@ export const data: DataType[] = [
         date: '2014-12-24 23:12:00',
     },
     {
-        key: '2',
+        key: '21',
         name: 'Jim Green',
         account: 42,
         address: 'London No. 1 Lake Park',
@@ -41,7 +41,7 @@ export const data: DataType[] = [
         date: '2014-12-24 23:12:00',
     },
     {
-        key: '3',
+        key: '31',
         name: 'Joe Black',
         account: 31,
         address: 'Sidney No. 1 Lake Park',

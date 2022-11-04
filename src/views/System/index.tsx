@@ -1,9 +1,26 @@
-import { Space, Table, Tag, Card, Switch, message, Button, Form, Input, Select } from 'antd';
+import {
+    Space,
+    Table,
+    Tag,
+    Card,
+    Switch,
+    message,
+    Button,
+    Form,
+    Input,
+    Select,
+    Grid,
+    Popconfirm,
+    Row,
+    Drawer,
+} from 'antd';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { data } from './mock';
+import { Title } from './components';
 const { Option } = Select;
+const { useBreakpoint } = Grid;
 export interface DataType {
     key: string;
     name: string;
@@ -17,91 +34,105 @@ const onhandleSwitch = (e: boolean) => {
     const s = e ? '启用' : '禁用';
     message.success(`角色状态已切换为${s}`);
 };
-const columns: ColumnsType<DataType> = [
-    {
-        title: 'Name',
-        dataIndex: 'name',
-        key: 'name',
-        render: (text) => <a>{text}</a>,
-    },
-    {
-        title: 'Account',
-        dataIndex: 'account',
-        key: 'account',
-    },
-    {
-        title: 'State',
-        key: 'state',
-        render: (_) => (
-            <Switch
-                checkedChildren="已启用"
-                unCheckedChildren="已禁用"
-                defaultChecked
-                onClick={onhandleSwitch}
-            />
-        ),
-    },
-    {
-        title: 'Address',
-        dataIndex: 'address',
-        key: 'address',
-    },
-    {
-        title: 'Tags',
-        key: 'tags',
-        dataIndex: 'tags',
-        render: (_, { tags }) => (
-            <>
-                {tags.map((tag) => {
-                    let color = tag.length > 5 ? 'geekblue' : 'green';
-                    if (tag === 'ui') {
-                        color = 'volcano';
-                    }
-                    return (
-                        <Tag color={color} key={tag}>
-                            {tag.toUpperCase()}
-                        </Tag>
-                    );
-                })}
-            </>
-        ),
-    },
-    {
-        title: 'Date',
-        key: 'date',
-        dataIndex: 'date',
-    },
-    {
-        title: 'Action',
-        key: 'action',
-        render: (_) => (
-            <Space className="action">
-                <Button type="link" icon={<EditOutlined className="icon" />} />
-                <Button type="link" danger>
-                    <DeleteOutlined className="icon" />
-                </Button>
-            </Space>
-        ),
-    },
-];
 
 export const System: FC = () => {
     const [form] = Form.useForm();
+    const screens = useBreakpoint();
+    const [dataSource, setDataSource] = useState<any[]>(data);
     const onReset = () => {
         form.resetFields();
     };
     const onChange = (value: string) => {
         console.log(`selected ${value}`);
     };
-
+    const onFinish = (values: any) => {
+        console.log(values);
+    };
+    const handleDelete = (key: React.Key) => {
+        const newData = data.filter((item) => item.key !== key);
+        setDataSource(newData);
+    };
+    const columns: ColumnsType<DataType> = [
+        {
+            title: 'Name',
+            dataIndex: 'name',
+            key: 'name',
+            render: (text) => <a>{text}</a>,
+        },
+        {
+            title: 'Account',
+            dataIndex: 'account',
+            key: 'account',
+        },
+        {
+            title: 'State',
+            key: 'state',
+            render: (_) => (
+                <Switch
+                    checkedChildren="已启用"
+                    unCheckedChildren="已禁用"
+                    defaultChecked
+                    onClick={onhandleSwitch}
+                />
+            ),
+        },
+        {
+            title: 'Address',
+            dataIndex: 'address',
+            key: 'address',
+        },
+        {
+            title: 'Tags',
+            key: 'tags',
+            dataIndex: 'tags',
+            render: (_, { tags }) => (
+                <>
+                    {tags.map((tag) => {
+                        let color = tag.length > 5 ? 'geekblue' : 'green';
+                        if (tag === 'ui') {
+                            color = 'volcano';
+                        }
+                        return (
+                            <Tag color={color} key={tag}>
+                                {tag.toUpperCase()}
+                            </Tag>
+                        );
+                    })}
+                </>
+            ),
+        },
+        {
+            title: 'Date',
+            key: 'date',
+            dataIndex: 'date',
+        },
+        {
+            title: 'Action',
+            key: 'action',
+            render: (_, record: { key: React.Key }) =>
+                data.length >= 1 ? (
+                    <Space className="action">
+                        <Button type="link" icon={<EditOutlined className="icon" />} />
+                        <Popconfirm
+                            title="Sure to delete?"
+                            onConfirm={() => handleDelete(record.key)}
+                        >
+                            <Button type="link" danger>
+                                <DeleteOutlined className="icon" />
+                            </Button>
+                        </Popconfirm>
+                    </Space>
+                ) : null,
+        },
+    ];
     return (
         <Space direction="vertical" className="w-full">
             <Card>
-                <Form form={form} layout="inline">
-                    <Form.Item label="角色名称：">
+                <Form form={form} layout={screens.lg ? 'inline' : 'vertical'} onFinish={onFinish}>
+                    <Form.Item label="角色名称：" name="role">
                         <Input placeholder="input name" />
                     </Form.Item>
-                    <Form.Item label="状态">
+                    <Form.Item label="状态" name="state">
                         <Select
                             placeholder="Select a state"
                             optionFilterProp="children"
@@ -123,8 +154,8 @@ export const System: FC = () => {
                     </Form.Item>
                 </Form>
             </Card>
-            <Card title="角色列表" hoverable>
-                <Table columns={columns} dataSource={data} />
+            <Card title={<Title />} hoverable>
+                <Table columns={columns} dataSource={dataSource} />
             </Card>
         </Space>
     );
