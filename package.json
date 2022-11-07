@@ -18,7 +18,7 @@
     "@wangeditor/editor": "^5.0.1",
     "@wangeditor/editor-for-react": "^1.0.2",
     "ahooks": "^3.7.1",
-    "antd": "^4.23.2",
+    "antd": "^4.24.1",
     "babel-jest": "^27.4.2",
     "babel-loader": "^8.2.3",
     "babel-plugin-named-asset-import": "^0.3.8",

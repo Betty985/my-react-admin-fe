@@ -155,6 +155,7 @@ export const RoleForm: FC<{ action: Function; close: Function; initData?: any; r
                     }
                     type="info"
                     closable
+                    style={{ marginBottom: '1rem' }}
                     afterClose={() => setVisible(false)}
                 />
             ) : null}
