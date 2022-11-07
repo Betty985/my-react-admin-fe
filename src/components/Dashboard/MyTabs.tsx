@@ -2,9 +2,18 @@ import { Tabs } from 'antd';
 import React, { useEffect, useRef, useState } from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useStores } from '@/hooks';
-import { useTransition, animated, AnimatedProps, useSpringRef } from '@react-spring/web';
+import { useTransition, animated } from '@react-spring/web';
+import 'nprogress/nprogress.css';
+import NProgress from 'nprogress';
 const initialItems = [{ label: '首页', key: 'home**0', closable: false, children: <Outlet /> }];
-
+NProgress.configure({
+    // 动画方式
+    easing: 'ease',
+    // 是否显示加载ico
+    showSpinner: false,
+    // 初始化时的最小百分比
+    minimum: 0.3,
+});
 export const MyTabs: React.FC = () => {
     const location = useLocation();
     const [activeKey, setActiveKey] = useState('home**0');
@@ -17,7 +26,7 @@ export const MyTabs: React.FC = () => {
         enter: { opacity: 1, transform: 'translate3d(0%,0,0)' },
     });
     const navigate = useNavigate();
-    const newPage = transitions((props) => (
+    const animationPage = transitions((props) => (
         <animated.div
             style={{
                 ...props,
@@ -29,6 +38,13 @@ export const MyTabs: React.FC = () => {
             <Outlet />
         </animated.div>
     ));
+    NProgress.start();
+    const NewPage = () => {
+        useEffect(() => {
+            NProgress.done();
+        }, []);
+        return <>{animationPage}</>;
+    };
     useEffect(() => {
         if (globalStore.tab.label !== '' && globalStore.tab.key !== '') {
             add(globalStore.tab);
@@ -41,7 +57,7 @@ export const MyTabs: React.FC = () => {
     const add = ({ label, key }: { label: string; key: string }) => {
         const newActiveKey = `${key}**${newTabIndex.current++}`;
         const newPanes = [...items];
-        newPanes.push({ label, key: newActiveKey, children: newPage, closable: true });
+        newPanes.push({ label, key: newActiveKey, children: <NewPage />, closable: true });
         setItems(newPanes);
         setActiveKey(newActiveKey);
     };

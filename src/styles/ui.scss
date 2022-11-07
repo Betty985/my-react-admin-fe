@@ -10,3 +10,6 @@ $bg:#f8fafc;
             $line 52px);
     background-color: $bg;
 }
+#nprogress .bar {
+    background-color: var(--ant-primary-color);
+}
