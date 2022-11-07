@@ -104,7 +104,7 @@ const Trigger: FC<{ collapsed: boolean; setCollapsed: Function }> = (props) => {
                 <MenuUnfoldOutlined
                     className="icon ml-7"
                     onClick={() => {
-                        if (screens.sm) {
+                        if (screens.md) {
                             setCollapsed((collapsed: boolean) => !collapsed);
                         } else {
                             setOpen(true);
@@ -177,7 +177,11 @@ const Dashboard: FC = () => {
                     </Col>
 
                     {/* 水平导航栏 */}
-                    <Col>{mode === 'horizontal' && <MyMenu theme={theme} mode={mode} />}</Col>
+                    <Col>
+                        {mode === 'horizontal' && screens.md && (
+                            <MyMenu theme={theme} mode={mode} />
+                        )}
+                    </Col>
 
                     {screens.xl && mode !== 'horizontal' ? (
                         <Col>
@@ -194,7 +198,7 @@ const Dashboard: FC = () => {
                         <MyMenu theme={theme} mode={mode} />
                     </Sider>
                 )}
-                <Content style={{ margin: '0 16px', overflow: 'hidden' }}>
+                <Content style={{ margin: 0, overflow: 'hidden' }}>
                     <MyTabs />
                 </Content>
             </Layout>

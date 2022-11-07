@@ -111,17 +111,20 @@ export const System: FC<{ pageSize?: number }> = (props) => {
         {
             title: 'Name',
             dataIndex: 'name',
+            width: 120,
             key: 'name',
             render: (text) => <a>{text}</a>,
         },
         {
             title: 'Account',
             dataIndex: 'account',
+            width: 80,
             key: 'account',
         },
         {
             title: 'State',
             key: 'state',
+            width: 100,
             render: (_, record, row) => (
                 <Switch
                     checkedChildren="已启用"
@@ -139,11 +142,13 @@ export const System: FC<{ pageSize?: number }> = (props) => {
         {
             title: 'Address',
             dataIndex: 'address',
+            width: 200,
             key: 'address',
         },
         {
             title: 'Tags',
             key: 'tags',
+            width: 160,
             dataIndex: 'tags',
             render: (_, { tags }) => (
                 <>
@@ -161,11 +166,14 @@ export const System: FC<{ pageSize?: number }> = (props) => {
         {
             title: 'Date',
             key: 'date',
+            width: 160,
             dataIndex: 'date',
         },
         {
             title: 'Action',
             key: 'action',
+            fixed: 'right',
+            width: 106,
             render: (_, record: { key: React.Key }, row) =>
                 data.length >= 1 ? (
                     <Space wrap>
@@ -190,6 +198,7 @@ export const System: FC<{ pageSize?: number }> = (props) => {
                     columns={columns}
                     dataSource={filterData === null ? dataSource : filterData}
                     size={size}
+                    scroll={{ x: 1300 }}
                     pagination={{
                         current: current,
                         total: total,
