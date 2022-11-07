@@ -12,6 +12,7 @@ import {
     Grid,
     Popconfirm,
     PaginationProps,
+    Drawer,
 } from 'antd';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
@@ -19,6 +20,7 @@ import React, { FC, useState } from 'react';
 import { data } from './mock';
 import { Title } from './components';
 import { colorMap } from '@/consts';
+import { RoleForm } from './components/RoleForm';
 const { Option } = Select;
 const { useBreakpoint } = Grid;
 export interface DataType {
@@ -31,31 +33,52 @@ export interface DataType {
     date?: string;
     state: boolean;
 }
-const onhandleSwitch = (e: boolean) => {
-    const s = e ? '启用' : '禁用';
-    message.success(`角色状态已切换为${s}`);
-};
 
 export const System: FC<{ pageSize?: number }> = (props) => {
     const { pageSize = 4 } = props;
     const [dataSource, setDataSource] = useState<DataType[]>(data);
+    const [filterData, setFilterData] = useState<DataType[] | null>();
     const [total, setTotal] = useState(data.length);
 
     const [form] = Form.useForm();
     const screens = useBreakpoint();
     const onReset = () => {
         form.resetFields();
+        setFilterData(null);
     };
     const onChange = (value: string) => {
         console.log(`selected ${value}`);
     };
     const onFinish = (values: any) => {
-        console.log(values);
+        const filterD = dataSource.filter((value) => {
+            if (values.name && values.state) {
+                return value.name === values.name && value.state === values.state;
+            } else if (values.name) {
+                return value.name === values.name;
+            } else if (values.state) {
+                return value.state === values.state;
+            } else {
+                return true;
+            }
+        });
+        setFilterData(filterD);
+        setTotal(filterD.length);
     };
     const handleDelete = (key: React.Key) => {
         const newData = dataSource.filter((item) => item.key !== key);
         setDataSource(newData);
         setTotal(newData.length);
+    };
+    const handleEdit = (item: DataType, row: number) => {
+        const newData = dataSource.map((data, index) => {
+            const curRow = (current - 1) * pageSize + row;
+            if (index === curRow) {
+                return item;
+            } else {
+                return data;
+            }
+        });
+        setDataSource(newData);
     };
     const handleAdd = (item: DataType) => {
         const newData = [...dataSource, item];
@@ -66,6 +89,27 @@ export const System: FC<{ pageSize?: number }> = (props) => {
 
     const onPaginationChange: PaginationProps['onChange'] = (page) => {
         setCurrent(page);
+    };
+    const EditButton: FC<{ action: Function; record: any; row: number }> = (props) => {
+        const { action, record, row } = props;
+        // 抽屉
+        const [open, setOpen] = useState(false);
+        const showDrawer = () => {
+            setOpen(true);
+        };
+
+        const onClose = () => {
+            setOpen(false);
+        };
+
+        return (
+            <>
+                <Drawer open={open} onClose={onClose} title="编辑角色">
+                    <RoleForm action={action} close={onClose} initData={record} row={row} />
+                </Drawer>
+                <Button type="link" icon={<EditOutlined className="icon" />} onClick={showDrawer} />
+            </>
+        );
     };
     const columns: ColumnsType<DataType> = [
         {
@@ -82,12 +126,17 @@ export const System: FC<{ pageSize?: number }> = (props) => {
         {
             title: 'State',
             key: 'state',
-            render: (_, { state }) => (
+            render: (_, record, row) => (
                 <Switch
                     checkedChildren="已启用"
                     unCheckedChildren="已禁用"
-                    defaultChecked={state}
-                    onClick={onhandleSwitch}
+                    defaultChecked={record.state}
+                    onClick={(state) => {
+                        const newRecord = Object.assign({}, record, { state });
+                        handleEdit(newRecord, row);
+                        const s = state ? '启用' : '禁用';
+                        message.success(`角色状态已切换为${s}`);
+                    }}
                 />
             ),
         },
@@ -121,10 +170,10 @@ export const System: FC<{ pageSize?: number }> = (props) => {
         {
             title: 'Action',
             key: 'action',
-            render: (_, record: { key: React.Key }) =>
+            render: (_, record: { key: React.Key }, row) =>
                 data.length >= 1 ? (
-                    <Space className="action">
-                        <Button type="link" icon={<EditOutlined className="icon" />} />
+                    <Space wrap>
+                        <EditButton action={handleEdit} record={record} row={row} />
                         <Popconfirm
                             title="Sure to delete?"
                             onConfirm={() => handleDelete(record.key)}
@@ -141,7 +190,7 @@ export const System: FC<{ pageSize?: number }> = (props) => {
         <Space direction="vertical" className="w-full">
             <Card>
                 <Form form={form} layout={screens.lg ? 'inline' : 'vertical'} onFinish={onFinish}>
-                    <Form.Item label="角色名称：" name="role">
+                    <Form.Item label="角色名称：" name="name">
                         <Input placeholder="input name" />
                     </Form.Item>
                     <Form.Item label="状态" name="state">
@@ -150,8 +199,8 @@ export const System: FC<{ pageSize?: number }> = (props) => {
                             optionFilterProp="children"
                             onChange={onChange}
                         >
-                            <Option value="open">启用</Option>
-                            <Option value="close">禁用</Option>
+                            <Option value={true}>启用</Option>
+                            <Option value={false}>禁用</Option>
                         </Select>
                     </Form.Item>
                     <Form.Item>
@@ -169,7 +218,8 @@ export const System: FC<{ pageSize?: number }> = (props) => {
             <Card title={<Title handleAdd={handleAdd} />} hoverable>
                 <Table
                     columns={columns}
-                    dataSource={dataSource}
+                    dataSource={filterData ? filterData : dataSource}
+                    size="small"
                     pagination={{
                         current: current,
                         total: total,

@@ -29,7 +29,7 @@ export const data: DataType[] = [
     },
     {
         key: '11',
-        name: 'John Brown',
+        name: 'attribute',
         account: 32,
         address: 'New York No. 1 Lake Park',
         tags: ['nice', 'developer'],
@@ -38,7 +38,7 @@ export const data: DataType[] = [
     },
     {
         key: '21',
-        name: 'Jim Green',
+        name: 'attribute',
         account: 42,
         address: 'London No. 1 Lake Park',
         tags: ['ui'],
@@ -47,7 +47,7 @@ export const data: DataType[] = [
     },
     {
         key: '31',
-        name: 'Joe Black',
+        name: ' provide an href',
         account: 31,
         address: 'Sidney No. 1 Lake Park',
         tags: ['cool', 'teacher'],
