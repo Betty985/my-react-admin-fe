@@ -15,20 +15,17 @@ const { Header, Content, Sider } = Layout;
 /**
  * 用户菜单
  */
-const menu = (
-    <Menu
-        items={[
-            {
-                key: '1',
-                label: <Link to="/profile">个人中心</Link>,
-            },
-            {
-                key: '2',
-                label: <span>退出</span>,
-            },
-        ]}
-    />
-);
+
+const items = [
+    {
+        key: '1',
+        label: <Link to="/profile">个人中心</Link>,
+    },
+    {
+        key: '2',
+        label: <span>退出</span>,
+    },
+];
 const Toolbar: FC<{ theme: 'dark' | 'light'; changeTheme: SwitchChangeEventHandler }> = (props) => {
     const { theme, changeTheme } = props;
     const [open, setOpen] = useState(false);
@@ -53,7 +50,7 @@ const Toolbar: FC<{ theme: 'dark' | 'light'; changeTheme: SwitchChangeEventHandl
                     />
                 </Col>
                 <Col>
-                    <Dropdown overlay={menu} placement="bottom" arrow={{ pointAtCenter: true }}>
+                    <Dropdown menu={{ items }} placement="bottom" arrow={{ pointAtCenter: true }}>
                         <Avatar src="https://joeschmoe.io/api/v1/random" />
                     </Dropdown>
                 </Col>

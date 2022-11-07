@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Theme, Fullscreen, Notification, Watermark, Search } from './components';
-import { Descriptions } from 'antd';
+import { Descriptions, Space } from 'antd';
 const MyToolBar: FC<{ box?: boolean }> = (props) => {
     const { box = false } = props;
     if (box) {
@@ -11,17 +11,27 @@ const MyToolBar: FC<{ box?: boolean }> = (props) => {
                     column={{ xxl: 4, xl: 3, lg: 3, md: 3, sm: 2, xs: 1 }}
                     layout="vertical"
                 >
-                    <Descriptions.Item label="搜索">
-                        <Search />
+                    <Descriptions.Item
+                        label={
+                            <Space>
+                                搜索： <Search />
+                            </Space>
+                        }
+                    >
+                        <Space>
+                            水印： <Watermark />
+                        </Space>
                     </Descriptions.Item>
-                    <Descriptions.Item label="水印">
-                        <Watermark />
-                    </Descriptions.Item>
-                    <Descriptions.Item label="换肤">
-                        <Theme />
-                    </Descriptions.Item>
-                    <Descriptions.Item label="全屏">
-                        <Fullscreen />
+                    <Descriptions.Item
+                        label={
+                            <Space>
+                                换肤: <Theme />
+                            </Space>
+                        }
+                    >
+                        <Space>
+                            全屏: <Fullscreen />
+                        </Space>
                     </Descriptions.Item>
                     <Descriptions.Item label="通知">
                         <Notification />

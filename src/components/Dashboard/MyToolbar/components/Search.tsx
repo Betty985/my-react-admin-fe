@@ -1,14 +1,37 @@
-import { Col, Modal, Select } from 'antd';
-import React, { FC, ReactNode, useState } from 'react';
-import { SearchOutlined } from '@ant-design/icons';
+import { Col, Modal, Row, Select } from 'antd';
+import React, { FC, useState } from 'react';
+import Icon, { SearchOutlined } from '@ant-design/icons';
 import { list } from '@/consts';
 import { useNavigate } from 'react-router-dom';
 import { useStores } from '@/hooks';
 import { OptionProps } from '@/types';
+import { EnterSvg, ESCSvg, DownSvg, UpSvg } from '@/assets';
+import styles from './index.module.scss';
 const { Option } = Select;
+const Footer = () => {
+    return (
+        <footer>
+            <Row justify={'space-around'}>
+                <Col>
+                    <Icon component={EnterSvg} className={styles.searchSvg} />
+                    <span>to select</span>
+                </Col>
+                <Col>
+                    <Icon component={DownSvg} className={styles.searchSvg} />
+                    <Icon component={UpSvg} className={styles.searchSvg} />
 
-const MySelect: FC<{ placeholder: any; width?: any; handleOk: any }> = (props) => {
-    const { placeholder, width = 500, handleOk } = props;
+                    <span>to navigate</span>
+                </Col>
+                <Col>
+                    <Icon component={ESCSvg} className={styles.searchSvg} />
+                    <span>to close</span>
+                </Col>
+            </Row>
+        </footer>
+    );
+};
+const MySelect: FC<{ placeholder: any; handleOk: any }> = (props) => {
+    const { placeholder, handleOk } = props;
     const { globalStore } = useStores();
     const navigate = useNavigate();
     const handleChange = (value: string) => {
@@ -20,7 +43,7 @@ const MySelect: FC<{ placeholder: any; width?: any; handleOk: any }> = (props) =
     return (
         <>
             <Select
-                style={{ width: width }}
+                className="w-11/12"
                 onChange={handleChange}
                 showArrow={false}
                 showSearch
@@ -61,7 +84,7 @@ export const Search = () => {
                 open={isModalOpen}
                 onOk={handleOk}
                 onCancel={handleCancel}
-                footer={'hhhh'}
+                footer={<Footer />}
                 keyboard
                 width={600}
                 bodyStyle={{ minHeight: '400px' }}

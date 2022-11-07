@@ -39,16 +39,14 @@ const MyMenu: FC = () => {
     const handleMenuClick = (e: any) => {
         console.log('click', e);
     };
-    return (
-        <Menu onClick={handleMenuClick} items={menu}/>
-    );
+    return <Menu onClick={handleMenuClick} items={menu} />;
 };
 const MyButton: FC = () => {
     const [size, setSize] = useState<ButtonSize>('middle');
     const [loading, setLoading] = useState(false);
     const [iconLoading, setIconLoading] = useState(false);
     return (
-        <div  className={`${styles["button-demo"]}  ${styles["gutter-demo"]}`}>
+        <div className={`${styles['button-demo']}  ${styles['gutter-demo']}`}>
             <Breadcrumb>
                 {breads.map((i) => (
                     <Breadcrumb.Item key={i.key}>{i.label}</Breadcrumb.Item>
@@ -117,11 +115,6 @@ const MyButton: FC = () => {
                     <Card bordered={false}>
                         <Button type="primary">primary</Button>
                         <Button>secondary</Button>
-                        <Dropdown overlay={<MyMenu />}>
-                            <Button>
-                                more <DownOutlined />
-                            </Button>
-                        </Dropdown>
                     </Card>
                 </Col>
                 <Col>
