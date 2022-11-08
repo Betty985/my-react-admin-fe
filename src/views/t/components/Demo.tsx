@@ -1,8 +1,10 @@
 import { DownOutlined } from '@ant-design/icons';
-import type { SpaceProps } from 'antd';
+import { Button, SpaceProps } from 'antd';
 import { Alert, Col, Divider, Dropdown, Menu, Progress, Row, Space, Spin, Typography } from 'antd';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Lock, LockType } from '@/components';
+import { useTransition, animated } from '@react-spring/web';
+import nProgress from 'nprogress';
 const SplitSpace: React.FC<SpaceProps> = (props) => (
     <Space split={<Divider type="vertical" />} size={4} {...props} />
 );
@@ -85,9 +87,68 @@ export const Demo: React.FC = () => {
                                 <Progress type="circle" percent={100} />
                             </Col>
                         </Row>
+                        {/* animation */}
+                        <Row gutter={16}>
+                            <Demo1 />
+                        </Row>
                     </Space>
                 </Col>
             </Row>
         </Lock>
+    );
+};
+export const Demo1: React.FC = () => {
+    const [r, sr] = useState(true);
+    const transitions = useTransition(r, {
+        keys: null,
+        from: { opacity: 0, transform: 'translate3d(100%,0,0)' },
+        enter: { opacity: 1, transform: 'translate3d(0%,0,0)' },
+    });
+    const dd = (
+        <Row gutter={16}>
+            {/* Progress */}
+            <Col flex="auto">
+                <Progress percent={30} />
+                <Progress percent={70} status="exception" />
+                <Progress percent={100} />
+            </Col>
+            <Col flex="none">
+                <Progress type="circle" percent={75} />
+                <Progress type="circle" percent={70} status="exception" />
+                <Progress type="circle" percent={100} />
+            </Col>
+        </Row>
+    );
+    useEffect(() => {
+        if (r) {
+            nProgress.start();
+        } else {
+            nProgress.done();
+        }
+    });
+    return (
+        <>
+            <Row className="mb-8" justify={'center'}>
+                <Button onClick={() => sr((r) => !r)}>reload</Button>
+            </Row>
+            <Row justify={'center'}>
+                {r ? (
+                    <Spin size="large" />
+                ) : (
+                    transitions((props) => (
+                        <animated.div
+                            style={{
+                                ...props,
+                                height: 'calc(100vh - 120px)',
+                                overflowY: 'auto',
+                                overflowX: 'hidden',
+                            }}
+                        >
+                            {dd}
+                        </animated.div>
+                    ))
+                )}
+            </Row>
+        </>
     );
 };
