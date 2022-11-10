@@ -1,3 +1,4 @@
+
 'use strict';
 const fs = require('fs');
 const path = require('path');
@@ -24,7 +25,8 @@ const ForkTsCheckerWebpackPlugin =
     ? require('react-dev-utils/ForkTsCheckerWarningWebpackPlugin')
     : require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
-
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const WebpackBar = require("webpackbar")
 const createEnvironmentHash = require('./webpack/persistentCache/createEnvironmentHash');
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
@@ -244,6 +246,15 @@ module.exports = function (webpackEnv) {
       level: 'none',
     },
     optimization: {
+      // splitChunks: {
+      //   cacheGroups: {
+      //     commons: {
+      //       test: /[\\/]node_modules[\\/]/,
+      //       name: 'vendors',
+      //       chunks: 'all',
+      //     },
+      //   },
+      // },
       minimize: isEnvProduction,
       minimizer: [
         // This is only used in production mode
@@ -551,6 +562,8 @@ module.exports = function (webpackEnv) {
       ].filter(Boolean),
     },
     plugins: [
+      new BundleAnalyzerPlugin({ analyzerPort: 8081 }),
+      new WebpackBar(),
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin(
         Object.assign(
@@ -741,3 +754,4 @@ module.exports = function (webpackEnv) {
     performance: false,
   };
 };
+

@@ -137,7 +137,7 @@ const Dashboard: FC = () => {
         }
     }, [screens]);
     return (
-        <Layout style={{ height: '100vh' }} className="layout hidden">
+        <Layout style={{ height: '100vh' }}>
             <Header className={`${theme}`}>
                 {screens.sm ? (
                     <Tooltip

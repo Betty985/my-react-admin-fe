@@ -1,0 +1,35 @@
+$bgUrl: 'https://echarts.apache.org/examples/data-gl/asset/starfield.jpg';
+.screen {
+    transform-origin: 0 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: grid;
+    gap: 1rem;
+    width: 100%;
+    border: 2px sandybrown solid;
+    grid-template-areas:
+        '. head .'
+        's0  main s1'
+        's2  main  s3'
+        's4  main  s5';
+    grid-template-rows: 3rem 300px repeat(2, 1fr);
+    grid-template-columns: 330px 1fr 330px;
+    align-items: center;
+    justify-items: center;
+    background: url($bgUrl);
+}
+.screenContainer {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    position: relative;
+}
+.header {
+    color: snow;
+    font-size: large;
+    font-weight: 800;
+    grid-area: head;
+    text-align: center;
+    line-height: 3rem;
+}

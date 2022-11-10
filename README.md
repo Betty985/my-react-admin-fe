@@ -74,8 +74,10 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 -   [ ] 工具栏：全屏、动态换肤、设置
 -   [ ] 新手指引
 -   [ ] 响应式
--   [ ] 支持 MarkDown 的富文本
--   [ ] 轮播图
+-   [x] 富文本
+-   [x] 轮播图
 -   [x] 标签页
 -   [x] 首页：滚动列表
+-   [ ] 文件上传
+
 

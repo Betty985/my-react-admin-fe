@@ -357,3 +357,4 @@ export const MyTabs: React.FC = () => {
         }
 ```
 ### [自定义滚动条](https://stackblitz.com/edit/react-ts-ugtfyw?file=README.md)
+### [数据大屏](https://juejin.cn/post/7148733509744459790)

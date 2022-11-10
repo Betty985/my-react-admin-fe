@@ -5,3 +5,4 @@ export * from './t';
 export * from './Profile';
 export * from './MyEditor';
 export * from './System';
+export * from './BigScreen';

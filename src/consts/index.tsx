@@ -5,6 +5,7 @@ import {
     SettingOutlined,
     EditOutlined,
     BugOutlined,
+    AreaChartOutlined,
 } from '@ant-design/icons';
 import { OptionProps } from '@/types';
 import React from 'react';
@@ -29,6 +30,11 @@ const menu: IMenu[] = [
         key: 'waterfall',
         label: 'waterfall',
         icon: <PictureOutlined />,
+    },
+    {
+        key: 'bigSreen',
+        label: 'bigSreen',
+        icon: <AreaChartOutlined />,
     },
     {
         key: 'button',

@@ -5,7 +5,7 @@ import './styles/index.scss'
 import NProgress from 'nprogress'
 import { useEffect, useState } from 'react';
 import { Spin } from 'antd'
-
+NProgress.configure({ showSpinner: false });
 function App() {
   const [load, setLoad] = useState(true);
   if (load) {

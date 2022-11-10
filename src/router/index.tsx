@@ -20,6 +20,7 @@ import {
     Profile,
     MyEditor,
     System,
+    BigScreen,
 } from '@/views';
 import { PATH_HOME } from '@/consts';
 const routes = [
@@ -60,6 +61,10 @@ const routes = [
             {
                 path: 'home',
                 element: <Home />,
+            },
+            {
+                path: 'bigSreen',
+                element: <BigScreen />,
             },
             {
                 path: 'editor',
