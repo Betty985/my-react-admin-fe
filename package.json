@@ -163,6 +163,7 @@
     "@types/react-window": "^1.8.5",
     "commitlint": "^17.1.2",
     "cz-customizable": "^7.0.0",
+    "hard-source-webpack-plugin": "^0.13.1",
     "node-sass": "^7.0.3",
     "prettier": "^2.7.1",
     "sass": "^1.54.9",

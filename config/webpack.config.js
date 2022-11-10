@@ -27,6 +27,8 @@ const ForkTsCheckerWebpackPlugin =
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const WebpackBar = require("webpackbar")
+// TODO:
+// const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
 const createEnvironmentHash = require('./webpack/persistentCache/createEnvironmentHash');
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
@@ -246,15 +248,15 @@ module.exports = function (webpackEnv) {
       level: 'none',
     },
     optimization: {
-      // splitChunks: {
-      //   cacheGroups: {
-      //     commons: {
-      //       test: /[\\/]node_modules[\\/]/,
-      //       name: 'vendors',
-      //       chunks: 'all',
-      //     },
-      //   },
-      // },
+      splitChunks: {
+        cacheGroups: {
+          commons: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendors',
+            chunks: 'all',
+          },
+        },
+      },
       minimize: isEnvProduction,
       minimizer: [
         // This is only used in production mode
@@ -562,7 +564,25 @@ module.exports = function (webpackEnv) {
       ].filter(Boolean),
     },
     plugins: [
-      new BundleAnalyzerPlugin({ analyzerPort: 8081 }),
+      new BundleAnalyzerPlugin({ analyzerPort: 8089 }),
+
+      // new HardSourceWebpackPlugin({
+      //   // cacheDirectory 默认情况下将缓存存储在 node_modules 下的目录中，因此如果清除了node_modules，则缓存也是如此
+      //   cacheDirectory: "node_modules/.cache/hard-source/[confighash]",
+      //   recordsPath: "node_modules/.cache/hard-source/[confighash]/records.json",
+      //   // configHash 在启动 webpack 实例时转换 webpack 配置，并用于cacheDirectory 为不同的 webpack 配置构建不同的缓存
+      //   configHash: function (webpackConfig) {
+      //     return require("node-object-hash")({ sort: false }).hash(webpackConfig);
+      //   },
+      //   // 当加载器、插件、其他构建时脚本或其他动态依赖项发生更改时，hard-source 需要替换缓存以确保输出正确。
+      //   // environmentHash 被用来确定这一点。如果散列与先前的构建不同，则将使用新的缓存
+      //   environmentHash: {
+      //     root: process.cwd(),
+      //     directories: [],
+      //     files: ["package-lock.json", "yarn.lock"]
+      //   }
+      // })
+      ,
       new WebpackBar(),
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin(
@@ -752,6 +772,12 @@ module.exports = function (webpackEnv) {
     // Turn off performance processing because we utilize
     // our own hints via the FileSizeReporter
     performance: false,
+    externals: {
+      "react": "React",   // 左边引入时的自定义名字，右边全局变量名
+      "react-dom": "ReactDOM",
+      "echarts": "echarts",
+      "xlsx": 'xlsx',
+    }
   };
 };
 
