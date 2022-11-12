@@ -248,15 +248,15 @@ module.exports = function (webpackEnv) {
       level: 'none',
     },
     optimization: {
-      splitChunks: {
-        cacheGroups: {
-          commons: {
-            test: /[\\/]node_modules[\\/]/,
-            name: 'vendors',
-            chunks: 'all',
-          },
-        },
-      },
+      // splitChunks: {
+      //   cacheGroups: {
+      //     commons: {
+      //       test: /[\\/]node_modules[\\/]/,
+      //       name: 'vendors',
+      //       chunks: 'all',
+      //     },
+      //   },
+      // },
       minimize: isEnvProduction,
       minimizer: [
         // This is only used in production mode
@@ -564,7 +564,7 @@ module.exports = function (webpackEnv) {
       ].filter(Boolean),
     },
     plugins: [
-      new BundleAnalyzerPlugin({ analyzerPort: 8089 }),
+      // new BundleAnalyzerPlugin({ analyzerPort: 8089 }),
 
       // new HardSourceWebpackPlugin({
       //   // cacheDirectory 默认情况下将缓存存储在 node_modules 下的目录中，因此如果清除了node_modules，则缓存也是如此
@@ -776,7 +776,7 @@ module.exports = function (webpackEnv) {
       "react": "React",   // 左边引入时的自定义名字，右边全局变量名
       "react-dom": "ReactDOM",
       "echarts": "echarts",
-      "xlsx": 'xlsx',
+      "xlsx": 'XLSX',
     }
   };
 };

@@ -7,8 +7,13 @@ export * from './Contacts';
 export const Profile: FC = () => {
     const navigate = useNavigate();
     return (
-        <Row gutter={16}>
-            <Col span={4}>
+        <Row
+            gutter={[
+                { xs: 8, sm: 16, md: 24 },
+                { xs: 8, sm: 16, md: 24 },
+            ]}
+        >
+            <Col span={4} xs={24} sm={12} md={6} lg={4} xl={3}>
                 <Card
                     onClick={() => navigate('contacts')}
                     hoverable
@@ -22,7 +27,7 @@ export const Profile: FC = () => {
                     <Meta title="通讯录" description="在这里管理您的联系人" />
                 </Card>
             </Col>
-            <Col span={8}>
+            <Col span={4} xs={24} sm={12} md={6} lg={4} xl={3}>
                 <Card title="敬请期待" bordered={false}>
                     敬请期待……
                 </Card>
