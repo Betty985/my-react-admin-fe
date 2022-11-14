@@ -4,6 +4,7 @@ import { Card, Col, Row } from 'antd';
 import { useNavigate } from 'react-router-dom';
 const { Meta } = Card;
 export * from './Contacts';
+export * from './TicTacToe';
 export const Profile: FC = () => {
     const navigate = useNavigate();
     return (
@@ -28,8 +29,17 @@ export const Profile: FC = () => {
                 </Card>
             </Col>
             <Col span={4} xs={24} sm={12} md={6} lg={4} xl={3}>
-                <Card title="敬请期待" bordered={false}>
-                    敬请期待……
+                <Card
+                    onClick={() => navigate('tictactoe')}
+                    hoverable
+                    cover={
+                        <img
+                            alt="example"
+                            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+                        />
+                    }
+                >
+                    <Meta title="井字游戏" description="同一种棋子三点一线即为胜利" />
                 </Card>
             </Col>
         </Row>

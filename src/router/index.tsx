@@ -21,6 +21,7 @@ import {
     MyEditor,
     System,
     BigScreen,
+    Game,
 } from '@/views';
 import { PATH_HOME } from '@/consts';
 const routes = [
@@ -105,6 +106,10 @@ const routes = [
                                 errorElement: <div>Oops! There was an error.</div>,
                             },
                         ],
+                    },
+                    {
+                        path: 'tictactoe',
+                        element: <Game />,
                     },
                 ],
             },
