@@ -1,5 +1,5 @@
-import { Dropdown, MenuProps, Space, Tabs, Spin, Row } from 'antd';
-import React, { FC, useEffect, useRef, useState } from 'react';
+import { Dropdown, MenuProps, Space, Tabs, Spin, Row, BackTop } from 'antd';
+import React, { FC, useEffect, useState } from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useStores } from '@/hooks';
 import { useTransition, animated } from '@react-spring/web';
@@ -87,6 +87,7 @@ const ContentPage = () => {
             ) : (
                 transitions((props) => (
                     <animated.div
+                        id="content"
                         style={{
                             ...props,
                             height: 'calc(100vh - 120px)',
@@ -180,6 +181,9 @@ export const MyTabs: React.FC = () => {
                 onTabClick={onTabClick}
                 items={items}
                 tabBarExtraContent={<Tool actions={{ remove: removeCur, removeAll, reload }} />}
+            />
+            <BackTop
+                target={() => (document.querySelector('#content') as HTMLDivElement) ?? window}
             />
             <ContentPage />
         </>
