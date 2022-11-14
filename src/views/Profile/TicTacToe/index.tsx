@@ -3,6 +3,7 @@ import { Button, Card, Col, List, Row, Space } from 'antd';
 import React, { FC, useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import { CaretUpOutlined, CaretDownOutlined } from '@ant-design/icons';
+import { MyCard } from '../components';
 function calculateWinner(squares: any[]) {
     const lines = [
         [0, 1, 2],
@@ -161,7 +162,7 @@ export const Game = () => {
         </Space>
     );
     return (
-        <>
+        <MyCard>
             <Row justify="center">
                 {/* info */}
                 <div className={styles.info}>{status.info}</div>
@@ -181,6 +182,6 @@ export const Game = () => {
                     </Card>
                 </Col>
             </Row>
-        </>
+        </MyCard>
     );
 };

@@ -6,6 +6,7 @@ import { useTransition, animated } from '@react-spring/web';
 import 'nprogress/nprogress.css';
 import NProgress from 'nprogress';
 import { DownOutlined, ReloadOutlined, CloseOutlined, MinusOutlined } from '@ant-design/icons';
+import { PATH_HOME } from '@/consts';
 // 下拉菜单
 const items: MenuProps['items'] = [
     {
@@ -108,7 +109,7 @@ export const MyTabs: React.FC = () => {
     const initialItems = [{ label: 'home', key: 'home', closable: false }];
     const [items, setItems] = useState(initialItems);
     const navigate = useNavigate();
-
+    const location = useLocation();
     useEffect(() => {
         if (globalStore.tab.label !== '' && globalStore.tab.key !== '') {
             add(globalStore.tab);
@@ -168,7 +169,7 @@ export const MyTabs: React.FC = () => {
         setActiveKey('home');
     };
     const reload = () => {
-        navigate(activeKey);
+        navigate(PATH_HOME + location.pathname);
     };
     return (
         <>

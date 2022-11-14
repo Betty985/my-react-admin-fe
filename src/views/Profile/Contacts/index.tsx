@@ -9,12 +9,12 @@ import {
     useSubmit,
     Link,
 } from 'react-router-dom';
-import { Row, Col, Button, Image, Space, Card, Divider, Input, List, Typography } from 'antd';
+import { Row, Col, Button, Space, Card, Divider, Input, List } from 'antd';
 import { getContacts, createContact, deleteContact } from './contacts';
-import { TwitterOutlined, BookFilled, StarTwoTone } from '@ant-design/icons';
 import { useTheme } from '@/hooks';
 import { observer } from 'mobx-react-lite';
 import { PATH_HOME } from '@/consts';
+import { MyCard } from '../components';
 export {
     contactLoader,
     Contact,
@@ -60,94 +60,89 @@ export const Contacts = observer(() => {
         dom.value = q;
     }, [q]);
     return (
-        <div className="rounded h-full">
-            <Card title="通讯录" extra={<Link to="/profile">关闭</Link>} hoverable>
-                <Row gutter={24}>
-                    <Col span={6}>
-                        <div className="bg-[#fafafa] p-5">
-                            <Row justify="space-between" gutter={{ xs: 8, sm: 16, md: 24 }}>
-                                <Col span={18}>
-                                    <Form role="search" action={`${PATH_HOME}/profile/contacts`}>
-                                        <Input.Search
-                                            id="q"
-                                            loading={searching}
-                                            aria-label="Search contacts"
-                                            placeholder="Search"
-                                            type="search"
-                                            name="q"
-                                            allowClear
-                                            defaultValue={q}
-                                            onChange={(e) => {
-                                                const isFirstSearch = q === null;
-                                                submit(e.currentTarget.form, {
-                                                    replace: !isFirstSearch,
-                                                });
-                                            }}
-                                        />
-                                    </Form>
-                                </Col>
-                                <Col span={6}>
-                                    <Form method="post" action={`${PATH_HOME}/profile/contacts`}>
-                                        <Button htmlType="submit" type="primary">
-                                            New
-                                        </Button>
-                                    </Form>
-                                </Col>
-                            </Row>
-                            <Divider />
-                            <nav>
-                                {contacts.length ? (
-                                    <List
-                                        dataSource={contacts}
-                                        split={false}
-                                        renderItem={(contact: any) => (
-                                            <List.Item key={contact.id} style={{ padding: '0' }}>
-                                                <NavLink
-                                                    to={`${contact.id}`}
-                                                    className={({ isActive, isPending }) => {
-                                                        const all = 'block w-full p-3 rounded-lg';
-                                                        if (isActive) {
-                                                            return 'ant-btn-primary ' + all;
-                                                        } else if (isPending) {
-                                                            return 'ant-btn-default ' + all;
-                                                        } else {
-                                                            return 'ant-btn-text ' + all;
-                                                        }
-                                                    }}
-                                                >
-                                                    <Space align="center">
-                                                        {contact.first || contact.last ? (
-                                                            <>
-                                                                {contact.first}
-                                                                {contact.last}
-                                                            </>
-                                                        ) : (
-                                                            <>No Name</>
-                                                        )}
-                                                        {contact.favorite && <span>★</span>}
-                                                    </Space>
-                                                </NavLink>
-                                            </List.Item>
-                                        )}
+        <MyCard>
+            <Row gutter={24}>
+                <Col span={6}>
+                    <div className="bg-[#fafafa] p-5">
+                        <Row justify="space-between" gutter={{ xs: 8, sm: 16, md: 24 }}>
+                            <Col span={18}>
+                                <Form role="search" action={`${PATH_HOME}/profile/contacts`}>
+                                    <Input.Search
+                                        id="q"
+                                        loading={searching}
+                                        aria-label="Search contacts"
+                                        placeholder="Search"
+                                        type="search"
+                                        name="q"
+                                        allowClear
+                                        defaultValue={q}
+                                        onChange={(e) => {
+                                            const isFirstSearch = q === null;
+                                            submit(e.currentTarget.form, {
+                                                replace: !isFirstSearch,
+                                            });
+                                        }}
                                     />
-                                ) : (
-                                    <p>
-                                        <i>No contacts</i>
-                                    </p>
-                                )}
-                            </nav>
-                        </div>
-                    </Col>
-                    <Col span={16}>
-                        <div
-                            id="detail"
-                            className={navigation.state === 'loading' ? 'loading' : ''}
-                        >
-                            <Outlet />
-                        </div>
-                    </Col>
-                </Row>
-            </Card>
-        </div>
+                                </Form>
+                            </Col>
+                            <Col span={6}>
+                                <Form method="post" action={`${PATH_HOME}/profile/contacts`}>
+                                    <Button htmlType="submit" type="primary">
+                                        New
+                                    </Button>
+                                </Form>
+                            </Col>
+                        </Row>
+                        <Divider />
+                        <nav>
+                            {contacts.length ? (
+                                <List
+                                    dataSource={contacts}
+                                    split={false}
+                                    renderItem={(contact: any) => (
+                                        <List.Item key={contact.id} style={{ padding: '0' }}>
+                                            <NavLink
+                                                to={`${contact.id}`}
+                                                className={({ isActive, isPending }) => {
+                                                    const all = 'block w-full p-3 rounded-lg';
+                                                    if (isActive) {
+                                                        return 'ant-btn-primary ' + all;
+                                                    } else if (isPending) {
+                                                        return 'ant-btn-default ' + all;
+                                                    } else {
+                                                        return 'ant-btn-text ' + all;
+                                                    }
+                                                }}
+                                            >
+                                                <Space align="center">
+                                                    {contact.first || contact.last ? (
+                                                        <>
+                                                            {contact.first}
+                                                            {contact.last}
+                                                        </>
+                                                    ) : (
+                                                        <>No Name</>
+                                                    )}
+                                                    {contact.favorite && <span>★</span>}
+                                                </Space>
+                                            </NavLink>
+                                        </List.Item>
+                                    )}
+                                />
+                            ) : (
+                                <p>
+                                    <i>No contacts</i>
+                                </p>
+                            )}
+                        </nav>
+                    </div>
+                </Col>
+                <Col span={16}>
+                    <div id="detail" className={navigation.state === 'loading' ? 'loading' : ''}>
+                        <Outlet />
+                    </div>
+                </Col>
+            </Row>
+        </MyCard>
     );
 });
