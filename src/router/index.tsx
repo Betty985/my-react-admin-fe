@@ -22,6 +22,7 @@ import {
     System,
     BigScreen,
     Game,
+    ChatRoom,
 } from '@/views';
 import { PATH_HOME } from '@/consts';
 const routes = [
@@ -66,6 +67,10 @@ const routes = [
             {
                 path: 'bigSreen',
                 element: <BigScreen />,
+            },
+            {
+                path: 'chatroom',
+                element: <ChatRoom />,
             },
             {
                 path: 'editor',
