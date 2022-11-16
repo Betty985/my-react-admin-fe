@@ -71,6 +71,8 @@
     "resolve-url-loader": "^4.0.0",
     "screenfull": "^6.0.2",
     "semver": "^7.3.5",
+    "socket.io": "^4.5.3",
+    "socket.io-client": "^4.5.3",
     "sort-by": "^0.0.2",
     "source-map-loader": "^3.0.0",
     "style-loader": "^3.3.1",

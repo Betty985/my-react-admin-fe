@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { io } from 'socket.io-client';
 import { nanoid } from 'nanoid';
-import useUrlState from '@ahooksjs/use-url-state';
-import { Alert, Button, Card, Col, message, Row, Input, List } from 'antd';
+import { Alert, Button, Card, Col, message, Row, Input, List, Space } from 'antd';
+import { SendSvg } from '@/assets';
+import Icon from '@ant-design/icons';
+import styles from './index.module.scss';
 const host = '',
     port = 3000;
 type contentType = {
@@ -76,34 +78,40 @@ export const ChatRoom = () => {
             <h2>ChatRoom</h2>
             {/* <h2>id:{userInfo.current.id}</h2> */}
             <Row justify="space-around">
-                <Col>
-                    {content.map((item, index) => {
-                        const { id, message, type } = item;
-                        return (
-                            <div key={`${id}-${index}`}>
-                                {type === 'tip' ? (
-                                    <Alert message={message} />
-                                ) : (
-                                    <>
-                                        {id}:{message}
-                                    </>
-                                )}
-                            </div>
-                        );
-                    })}
-                    <Input.TextArea
-                        cols={76}
-                        rows={10}
-                        value={msg}
-                        onChange={handleChange}
-                        onPressEnter={handleSend}
-                        showCount
-                    />
-                    <Button onClick={handleSend}>发送</Button>
+                <Col className={styles.container}>
+                    <div className={styles.content}>
+                        {content.map((item, index) => {
+                            const { id, message, type } = item;
+                            return (
+                                <div key={`${id}-${index}`}>
+                                    {type === 'tip' ? (
+                                        <Alert message={message} />
+                                    ) : (
+                                        <>
+                                            {id}:{message}
+                                        </>
+                                    )}
+                                </div>
+                            );
+                        })}
+                    </div>
+                    <Space direction="horizontal">
+                        <Input.TextArea
+                            cols={76}
+                            rows={1}
+                            value={msg}
+                            onChange={handleChange}
+                            onPressEnter={handleSend}
+                        />
+                        <Button onClick={handleSend}>
+                            <Icon component={SendSvg} />
+                            发送
+                        </Button>
+                    </Space>
                 </Col>
                 <Col>
                     <p>
-                        在线：{userList?.length}人<Button onClick={handleQuit}>离开</Button>
+                        在线：{userList?.length}人 <Button onClick={handleQuit}>离开</Button>
                     </p>
 
                     <List dataSource={userList} renderItem={(item, index) => item} />
