@@ -1,5 +1,5 @@
 import { Button, Result } from 'antd';
-import { ResultStatusType } from 'antd/lib/result';
+import { ResultStatusType } from 'antd/es/result';
 import React, { FC } from 'react';
 import { MSG_403, MSG_404, MSG_500 } from '@/consts/index';
 import { useNavigate, useRouteError } from 'react-router-dom';

@@ -7,6 +7,9 @@ import {
     BugOutlined,
     AreaChartOutlined,
     MessageOutlined,
+    ExperimentOutlined,
+    RocketOutlined,
+    LoginOutlined,
 } from '@ant-design/icons';
 import { OptionProps } from '@/types';
 import React from 'react';
@@ -55,17 +58,22 @@ const menu: IMenu[] = [
     {
         key: 'login',
         label: 'login',
-        icon: <BugOutlined />,
+        icon: <LoginOutlined />,
     },
     {
         key: 't',
         label: 't',
-        icon: <BugOutlined />,
+        icon: <ExperimentOutlined />,
     },
     {
         key: 'system',
         label: 'system',
         icon: <SettingOutlined />,
+    },
+    {
+        key: 'guide',
+        label: 'guide',
+        icon: <RocketOutlined />,
     },
     {
         key: 'errors',

@@ -7,7 +7,7 @@ import {
     RightOutlined,
     PoweroffOutlined,
 } from '@ant-design/icons';
-import type { ButtonSize } from 'antd/lib/button';
+import type { ButtonSize } from 'antd/es/button';
 import styles from './index.module.scss';
 // MOCK
 const menu = [

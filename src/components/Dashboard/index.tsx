@@ -8,7 +8,7 @@ import { MyTabs } from './MyTabs';
 import { useTheme } from '@/hooks';
 import Icon, { SettingOutlined, MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
-import { SwitchChangeEventHandler } from 'antd/lib/switch';
+import { SwitchChangeEventHandler } from 'antd/es/switch';
 const { useBreakpoint } = Grid;
 
 const { Header, Content, Sider } = Layout;
@@ -74,7 +74,7 @@ const Toolbar: FC<{ theme: 'dark' | 'light'; changeTheme: SwitchChangeEventHandl
 const AdminLogo: FC = () => (
     <>
         <Icon component={Logo} className="fixed left-0.5 top-0.5" />
-        <span className="ml-8 bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-l">
+        <span className="ml-8 text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-l">
             REACT ADMIN
         </span>
     </>
@@ -113,7 +113,7 @@ const Trigger: FC<{ collapsed: boolean; setCollapsed: Function }> = (props) => {
                 />
             ) : (
                 <MenuFoldOutlined
-                    className="icon ml-4"
+                    className="ml-4 icon"
                     onClick={() => setCollapsed((collapsed: boolean) => !collapsed)}
                 />
             )}

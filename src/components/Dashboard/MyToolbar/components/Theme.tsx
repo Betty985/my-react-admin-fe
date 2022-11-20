@@ -7,6 +7,7 @@ import { SkinOutlined } from '@ant-design/icons';
 import { SketchPicker } from 'react-color';
 
 import { useTheme } from '@/hooks';
+import { observer } from 'mobx-react';
 const initColor = {
     primaryColor: '#1890ff',
     errorColor: '#ff4d4f',
@@ -14,7 +15,8 @@ const initColor = {
     successColor: '#52c41a',
     infoColor: '#1890ff',
 };
-export const Theme: FC = () => {
+export const Theme: FC = observer(() => {
+    const { light } = useTheme();
     const [color, setColor] = useState(() => initColor);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const { setTheme } = useTheme();
@@ -112,7 +114,7 @@ export const Theme: FC = () => {
 
     return (
         <Col>
-            <SkinOutlined className="icon" onClick={showModal} />
+            <SkinOutlined className={`icon ${light}`} onClick={showModal} />
             <Modal
                 title="请选择主题颜色"
                 open={isModalOpen}
@@ -123,4 +125,4 @@ export const Theme: FC = () => {
             </Modal>
         </Col>
     );
-};
+});

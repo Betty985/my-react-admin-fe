@@ -7,6 +7,8 @@ import { useStores } from '@/hooks';
 import { OptionProps } from '@/types';
 import { EnterSvg, ESCSvg, DownSvg, UpSvg } from '@/assets';
 import styles from './index.module.scss';
+import { useTheme } from '@/hooks';
+import { observer } from 'mobx-react';
 const { Option } = Select;
 const Footer = () => {
     return (
@@ -62,7 +64,8 @@ const MySelect: FC<{ placeholder: any; handleOk: any }> = (props) => {
         </>
     );
 };
-export const Search = () => {
+export const Search = observer(() => {
+    const { light } = useTheme();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const showModal = () => {
@@ -79,7 +82,7 @@ export const Search = () => {
 
     return (
         <Col>
-            <SearchOutlined className="icon" onClick={showModal} />
+            <SearchOutlined className={`icon ${light}`} onClick={showModal} />
             <Modal
                 open={isModalOpen}
                 onOk={handleOk}
@@ -93,4 +96,4 @@ export const Search = () => {
             </Modal>
         </Col>
     );
-};
+});

@@ -7,3 +7,4 @@ export * from './MyEditor';
 export * from './System';
 export * from './BigScreen';
 export * from './ChatRoom';
+export * from './Guide';

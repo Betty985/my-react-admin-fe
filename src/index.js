@@ -1,25 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import 'antd/dist/antd.variable.min.css';
+import 'antd/dist/reset.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ConfigProvider } from 'antd';
-import { Provider } from 'mobx-react'
-import stores from '@/stores'
-ConfigProvider.config({
-  theme: {
-    primaryColor: '#25b864',
-  },
-});
+import { Provider } from 'mobx-react';
+import stores from '@/stores';
+const data = {
+    colorPrimary: '#25b864',
+    borderRadius: 6,
+};
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <Provider {...stores}>
-    <ConfigProvider>
-      <App />
-    </ConfigProvider>
-  </Provider>
-
+    <Provider {...stores}>
+        <ConfigProvider
+            theme={{ token: { colorPrimary: data.colorPrimary, borderRadius: data.borderRadius } }}
+        >
+            <App />
+        </ConfigProvider>
+    </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function

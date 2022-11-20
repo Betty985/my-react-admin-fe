@@ -23,6 +23,7 @@ import {
     BigScreen,
     Game,
     ChatRoom,
+    Guide,
 } from '@/views';
 import { PATH_HOME } from '@/consts';
 const routes = [
@@ -121,6 +122,10 @@ const routes = [
             {
                 path: 'system',
                 element: <System />,
+            },
+            {
+                path: 'guide',
+                element: <Guide />,
             },
             {
                 path: '*',

@@ -1,4 +1,4 @@
-import { Dropdown, MenuProps, Space, Tabs, Spin, Row, BackTop } from 'antd';
+import { Dropdown, MenuProps, Space, Tabs, Spin, Row, FloatButton } from 'antd';
 import React, { FC, useEffect, useState } from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useStores } from '@/hooks';
@@ -7,6 +7,7 @@ import 'nprogress/nprogress.css';
 import NProgress from 'nprogress';
 import { DownOutlined, ReloadOutlined, CloseOutlined, MinusOutlined } from '@ant-design/icons';
 import { PATH_HOME } from '@/consts';
+const { BackTop } = FloatButton;
 // 下拉菜单
 const items: MenuProps['items'] = [
     {
