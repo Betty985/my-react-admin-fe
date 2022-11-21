@@ -68,52 +68,108 @@ const items = [
         label: <span>退出</span>,
     },
 ];
-const ToolBar: FC<{
-    theme: 'dark' | 'light';
-    changeTheme: SwitchChangeEventHandler;
-    ref: Ref<HTMLDivElement> | undefined;
-}> = (props) => {
-    const { theme, changeTheme, ref } = props;
-    const [open, setOpen] = useState(false);
-    const screens = useBreakpoint();
-    const showDrawer = () => {
-        setOpen(true);
-    };
+const ToolBar = React.forwardRef(
+    (
+        props: {
+            theme: 'dark' | 'light';
+            changeTheme: SwitchChangeEventHandler;
+        },
+        ref: Ref<HTMLDivElement>
+    ) => {
+        const { theme, changeTheme } = props;
+        const [open, setOpen] = useState(false);
+        const screens = useBreakpoint();
+        const showDrawer = () => {
+            setOpen(true);
+        };
 
-    const onClose = () => {
-        setOpen(false);
-    };
-    return (
-        <Col flex="none">
-            <Row justify="end" gutter={{ xs: 8, sm: 16, md: 24 }} ref={ref}>
-                {screens.lg && <MyToolBar />}
-                <Col>
-                    <Switch
-                        checked={theme === 'dark'}
-                        onChange={changeTheme}
-                        checkedChildren="dark"
-                        unCheckedChildren="light"
-                    />
-                </Col>
-                <Col>
-                    <Dropdown menu={{ items }} placement="bottom" arrow={{ pointAtCenter: true }}>
-                        <Avatar src="https://joeschmoe.io/api/v1/random" />
-                    </Dropdown>
-                </Col>
-                <Col>
-                    {!screens.lg && <SettingOutlined className="icon" onClick={showDrawer} />}
-                    <Drawer
-                        title="工具箱"
-                        placement="right"
-                        onClose={onClose}
-                        open={open}
-                        contentWrapperStyle={{ width: '50vw' }}
-                    >
-                        <MyToolBar box={true} />
-                    </Drawer>
-                </Col>
-            </Row>
-        </Col>
-    );
-};
+        const onClose = () => {
+            setOpen(false);
+        };
+        return (
+            <Col flex="none">
+                <Row justify="end" gutter={{ xs: 8, sm: 16, md: 24 }} ref={ref}>
+                    {screens.lg && <MyToolBar />}
+                    <Col>
+                        <Switch
+                            checked={theme === 'dark'}
+                            onChange={changeTheme}
+                            checkedChildren="dark"
+                            unCheckedChildren="light"
+                        />
+                    </Col>
+                    <Col>
+                        <Dropdown
+                            menu={{ items }}
+                            placement="bottom"
+                            arrow={{ pointAtCenter: true }}
+                        >
+                            <Avatar src="https://joeschmoe.io/api/v1/random" />
+                        </Dropdown>
+                    </Col>
+                    <Col>
+                        {!screens.lg && <SettingOutlined className="icon" onClick={showDrawer} />}
+                        <Drawer
+                            title="工具箱"
+                            placement="right"
+                            onClose={onClose}
+                            open={open}
+                            contentWrapperStyle={{ width: '50vw' }}
+                        >
+                            <MyToolBar box={true} />
+                        </Drawer>
+                    </Col>
+                </Row>
+            </Col>
+        );
+    }
+);
+// const ToolBar: FC<{
+//     theme: 'dark' | 'light';
+//     changeTheme: SwitchChangeEventHandler;
+//     ref: Ref<HTMLDivElement>;
+// }> = (props) => {
+//     const { theme, changeTheme } = props;
+//     const [open, setOpen] = useState(false);
+//     const screens = useBreakpoint();
+//     const showDrawer = () => {
+//         setOpen(true);
+//     };
+
+//     const onClose = () => {
+//         setOpen(false);
+//     };
+//     return (
+//         <Col flex="none">
+//             <Row justify="end" gutter={{ xs: 8, sm: 16, md: 24 }} ref={props.ref}>
+//                 {screens.lg && <MyToolBar />}
+//                 <Col>
+//                     <Switch
+//                         checked={theme === 'dark'}
+//                         onChange={changeTheme}
+//                         checkedChildren="dark"
+//                         unCheckedChildren="light"
+//                     />
+//                 </Col>
+//                 <Col>
+//                     <Dropdown menu={{ items }} placement="bottom" arrow={{ pointAtCenter: true }}>
+//                         <Avatar src="https://joeschmoe.io/api/v1/random" />
+//                     </Dropdown>
+//                 </Col>
+//                 <Col>
+//                     {!screens.lg && <SettingOutlined className="icon" onClick={showDrawer} />}
+//                     <Drawer
+//                         title="工具箱"
+//                         placement="right"
+//                         onClose={onClose}
+//                         open={open}
+//                         contentWrapperStyle={{ width: '50vw' }}
+//                     >
+//                         <MyToolBar box={true} />
+//                     </Drawer>
+//                 </Col>
+//             </Row>
+//         </Col>
+//     );
+// };
 export { ToolBar };
