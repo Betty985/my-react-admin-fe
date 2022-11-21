@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const { Meta } = Card;
 export * from './Contacts';
 export * from './TicTacToe';
+export * from './Gobang';
 export const Profile: FC = () => {
     const navigate = useNavigate();
     return (
@@ -40,6 +41,20 @@ export const Profile: FC = () => {
                     }
                 >
                     <Meta title="井字游戏" description="同一种棋子三点一线即为胜利" />
+                </Card>
+            </Col>
+            <Col span={4} xs={24} sm={12} md={6} lg={4} xl={3}>
+                <Card
+                    onClick={() => navigate('gobang')}
+                    hoverable
+                    cover={
+                        <img
+                            alt="example"
+                            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+                        />
+                    }
+                >
+                    <Meta title="五子棋游戏" description="同一种棋子五点一线即为胜利" />
                 </Card>
             </Col>
         </Row>

@@ -24,6 +24,7 @@ import {
     Game,
     ChatRoom,
     Guide,
+    Gobang,
 } from '@/views';
 import { PATH_HOME } from '@/consts';
 const routes = [
@@ -116,6 +117,10 @@ const routes = [
                     {
                         path: 'tictactoe',
                         element: <Game />,
+                    },
+                    {
+                        path: 'gobang',
+                        element: <Gobang />,
                     },
                 ],
             },
