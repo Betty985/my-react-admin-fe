@@ -1,6 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 import { initColor } from '@/consts/index';
 import { colorsType } from '@/types';
+import { ReactNode } from 'react';
 
 const globalStore = makeAutoObservable({
     theme: initColor,
@@ -14,6 +15,10 @@ const globalStore = makeAutoObservable({
     tab: { label: '', key: '' },
     setTab(tab: { label: string; key: string }) {
         this.tab = tab;
+    },
+    guide: [] as ReactNode[],
+    setGuide(props: ReactNode[]) {
+        this.guide = props;
     },
 });
 export default globalStore;

@@ -1,75 +1,17 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { MyMenu } from './MyMenu';
 import { Layout, Row, Col, Switch, Grid, Tooltip, Drawer, Dropdown, Avatar, Menu } from 'antd';
 import { Logo } from '@/assets/logo';
 import { MyBreadcrumb } from './MyBreadcrumb';
-import { MyToolBar } from './MyToolbar';
+import { ToolBar } from './MyToolbar';
 import { MyTabs } from './MyTabs';
-import { useTheme } from '@/hooks';
-import Icon, { SettingOutlined, MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
-import { SwitchChangeEventHandler } from 'antd/es/switch';
+import { useTheme, useStores } from '@/hooks';
+import Icon, { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 const { useBreakpoint } = Grid;
 
 const { Header, Content, Sider } = Layout;
-/**
- * 用户菜单
- */
+let guide = [];
 
-const items = [
-    {
-        key: '1',
-        label: <Link to="/profile">个人中心</Link>,
-    },
-    {
-        key: '2',
-        label: <span>退出</span>,
-    },
-];
-const Toolbar: FC<{ theme: 'dark' | 'light'; changeTheme: SwitchChangeEventHandler }> = (props) => {
-    const { theme, changeTheme } = props;
-    const [open, setOpen] = useState(false);
-    const screens = useBreakpoint();
-    const showDrawer = () => {
-        setOpen(true);
-    };
-
-    const onClose = () => {
-        setOpen(false);
-    };
-    return (
-        <Col flex="none">
-            <Row justify="end" gutter={{ xs: 8, sm: 16, md: 24 }}>
-                {screens.lg && <MyToolBar />}
-                <Col>
-                    <Switch
-                        checked={theme === 'dark'}
-                        onChange={changeTheme}
-                        checkedChildren="dark"
-                        unCheckedChildren="light"
-                    />
-                </Col>
-                <Col>
-                    <Dropdown menu={{ items }} placement="bottom" arrow={{ pointAtCenter: true }}>
-                        <Avatar src="https://joeschmoe.io/api/v1/random" />
-                    </Dropdown>
-                </Col>
-                <Col>
-                    {!screens.lg && <SettingOutlined className="icon" onClick={showDrawer} />}
-                    <Drawer
-                        title="工具箱"
-                        placement="right"
-                        onClose={onClose}
-                        open={open}
-                        contentWrapperStyle={{ width: '50vw' }}
-                    >
-                        <MyToolBar box={true} />
-                    </Drawer>
-                </Col>
-            </Row>
-        </Col>
-    );
-};
 /** logo */
 const AdminLogo: FC = () => (
     <>
@@ -126,6 +68,20 @@ const Dashboard: FC = () => {
     const [mode, setMode] = useState<'vertical' | 'horizontal' | 'inline'>('inline');
     const screens = useBreakpoint();
     const { setLight } = useTheme();
+    const { globalStore } = useStores();
+    const ref1 = useRef(null),
+        ref2 = useRef(null),
+        ref3 = useRef(null);
+    const handleClick = screens.sm
+        ? () =>
+              setMode((i) => {
+                  if (i === 'inline') {
+                      return 'horizontal';
+                  }
+                  return 'inline';
+              })
+        : () => {};
+
     const changeTheme = (value: boolean) => {
         const sun = value ? 'dark' : 'light';
         setTheme(sun);
@@ -136,32 +92,13 @@ const Dashboard: FC = () => {
             setCollapsed(true);
         }
     }, [screens]);
+    useEffect(() => {
+        globalStore.setGuide([ref1.current, ref2.current, ref3.current]);
+    }, []);
     return (
         <Layout style={{ height: '100vh' }}>
             <Header className={`${theme}`}>
-                {screens.sm ? (
-                    <Tooltip
-                        title="点击切换菜单位置"
-                        color={'var(--ant-primary-color)'}
-                        defaultOpen
-                    >
-                        <Icon
-                            component={Logo}
-                            className="fixed left-2"
-                            onClick={() =>
-                                setMode((i) => {
-                                    if (i === 'inline') {
-                                        return 'horizontal';
-                                    }
-                                    return 'inline';
-                                })
-                            }
-                        />
-                    </Tooltip>
-                ) : (
-                    <Icon component={Logo} className="fixed left-2" />
-                )}
-
+                <Icon ref={ref1} component={Logo} className="fixed left-2" onClick={handleClick} />
                 <Row
                     align="middle"
                     justify="space-between"
@@ -188,7 +125,7 @@ const Dashboard: FC = () => {
                             <MyBreadcrumb />
                         </Col>
                     ) : null}
-                    <Toolbar theme={theme} changeTheme={changeTheme} />
+                    <ToolBar theme={theme} changeTheme={changeTheme} ref={ref2} />
                 </Row>
             </Header>
 
@@ -198,7 +135,7 @@ const Dashboard: FC = () => {
                         <MyMenu theme={theme} mode={mode} />
                     </Sider>
                 )}
-                <Content style={{ margin: 0, overflow: 'hidden' }}>
+                <Content style={{ margin: 0, overflow: 'hidden' }} ref={ref3}>
                     <MyTabs />
                 </Content>
             </Layout>

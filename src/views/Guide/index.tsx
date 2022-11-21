@@ -1,31 +1,28 @@
-import React, { useRef, useState } from 'react';
-import { Button, Divider, Space, Tour } from 'antd';
+import React, { useState } from 'react';
+import { Button, Divider, Tour } from 'antd';
 import type { TourProps } from 'antd';
-import { EllipsisOutlined } from '@ant-design/icons';
-
+import { useStores } from '@/hooks';
 export const Guide: React.FC = () => {
-    const ref1 = useRef(null);
-    const ref2 = useRef(null);
-    const ref3 = useRef(null);
+    const { globalStore } = useStores();
+    const [t1, t2, t3] = globalStore.guide;
 
     const [open, setOpen] = useState<boolean>(false);
 
     const steps: TourProps['steps'] = [
         {
-            title: 'Upload File',
-            description: 'Put your files here.',
-
-            target: () => ref1.current,
+            title: 'change',
+            description: '点击切换菜单类型',
+            target: () => t1,
         },
         {
-            title: 'Save',
-            description: 'Save your changes.',
-            target: () => ref2.current,
+            title: 'toolbar',
+            description: '工具栏。含换肤、全屏、搜索等',
+            target: () => t2,
         },
         {
-            title: 'Other Actions',
-            description: 'Click to see other actions.',
-            target: () => ref3.current,
+            title: 'content',
+            description: '标签页和内容区',
+            target: () => t3,
         },
     ];
 
@@ -37,15 +34,7 @@ export const Guide: React.FC = () => {
 
             <Divider />
 
-            <Space>
-                <Button ref={ref1}> Upload</Button>
-                <Button ref={ref2} type="primary">
-                    Save
-                </Button>
-                <Button ref={ref3} icon={<EllipsisOutlined />} />
-            </Space>
-
-            <Tour open={open} onClose={() => setOpen(false)} steps={steps} />
+            <Tour open={open} onClose={() => setOpen(false)} steps={steps} arrow={false} />
         </>
     );
 };
