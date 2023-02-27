@@ -3,6 +3,9 @@ const primaryColor = 'black'
 module.exports = {
   content: ["./src/**/*.{html,js,tsx}"],
   theme: {
+    spacing: {
+      'some key': '16px',
+    },
     extend: {
       zIndex: {
         '-1': '-1',
@@ -22,6 +25,6 @@ module.exports = {
   },
   corePlugins: {
     preflight: false,
-   }
+  }
 }
 

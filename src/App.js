@@ -1,7 +1,7 @@
 import { RouterProvider } from 'react-router-dom';
 import { router } from './router'
-import "nprogress/nprogress.css";
 import './styles/index.scss'
+import "nprogress/nprogress.css";
 import NProgress from 'nprogress'
 import { useEffect, useState } from 'react';
 import { Spin } from 'antd'

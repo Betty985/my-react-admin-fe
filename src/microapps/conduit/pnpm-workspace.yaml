@@ -1,0 +1,4 @@
+prefer-workspace-packages: true
+packages:
+# 可以写多个
+  - 'packages /*'

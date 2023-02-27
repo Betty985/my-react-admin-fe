@@ -1,0 +1,14 @@
+.error-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.error {
+    display: inline-block;
+    margin: 20px auto;
+    border-radius: 4px;
+    padding: 8px 15px;
+    color: rgb(240, 45, 45);
+    font-weight: bold;
+    background-color: rgba(240, 45, 45, 0.1);
+}
