@@ -2,13 +2,12 @@ import './public-path';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './app';
-import ReactDOM from 'react-dom';
+import { root } from 'postcss';
 interface IProps {
     container?: HTMLElement;
 }
 function render(props: IProps) {
     const { container } = props;
-    console.log(props);
     const root = createRoot(
         container
             ? container.querySelector('#conduit-root')
@@ -32,7 +31,10 @@ export async function mount(props) {
 
 export async function unmount(props) {
     const { container } = props;
-    ReactDOM.unmountComponentAtNode(
-        container ? container.querySelector('#root') : document.getElementById('root')
+    const root = createRoot(
+        container
+            ? container.querySelector('#conduit-root')
+            : document.getElementById('conduit-root')
     );
+    root.unmount();
 }

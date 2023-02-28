@@ -1,5 +1,4 @@
 import type { EChartsOption } from './component';
-const ROOT_PATH = 'https://echarts.apache.org/examples';
 export const stackedOpt: EChartsOption = {
     tooltip: {
         trigger: 'axis',
@@ -61,31 +60,20 @@ export const stackedOpt: EChartsOption = {
         },
     ],
 };
-export const earthOpt: EChartsOption = {
-    backgroundColor: 'transparent',
-    globe: {
-        baseTexture: ROOT_PATH + '/data-gl/asset/world.topo.bathy.200401.jpg',
-        // heightTexture: ROOT_PATH + '/data-gl/asset/world.topo.bathy.200401.jpg',
-        displacementScale: 0.04,
-        shading: 'realistic',
-        // environment: ROOT_PATH + '/data-gl/asset/starfield.jpg',
-        realisticMaterial: {
-            roughness: 0.9,
-        },
-        postEffect: {
-            enable: true,
-        },
-        light: {
-            main: {
-                intensity: 5,
-                shadow: true,
-            },
-            ambientCubemap: {
-                texture: ROOT_PATH + '/data-gl/asset/pisa.hdr',
-                diffuseIntensity: 0.2,
-            },
-        },
+export const testOpt: EChartsOption = {
+    xAxis: {
+        type: 'category',
+        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
     },
+    yAxis: {
+        type: 'value',
+    },
+    series: [
+        {
+            data: [150, 230, 224, 218, 135, 147, 260],
+            type: 'line',
+        },
+    ],
 };
 export const mapOpt: any = {
     visualMap: {
