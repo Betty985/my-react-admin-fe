@@ -79,7 +79,7 @@ const routes = [
                 element: <MyEditor />,
             },
             {
-                path: 't',
+                path: 'conduit/*',
                 element: <T />,
             },
             {

@@ -11,7 +11,7 @@ function useProfile() {
     const profileRef = useRef(profile);
     profileRef.current = profile;
     const [isAuthor, setIsAuthor] = useState(
-        () => params.username === userStore.currentUser.username
+        () => params?.username === userStore.currentUser?.username
     );
     const [isLoadingProfile, setLoadingProfile] = useState(true);
     const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {

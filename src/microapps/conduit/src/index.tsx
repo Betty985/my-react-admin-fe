@@ -8,8 +8,11 @@ interface IProps {
 }
 function render(props: IProps) {
     const { container } = props;
+    console.log(props);
     const root = createRoot(
-        container ? container.querySelector('#root') : document.getElementById('root')
+        container
+            ? container.querySelector('#conduit-root')
+            : document.getElementById('conduit-root')
     );
     root.render(<App />);
 }
@@ -19,7 +22,7 @@ if (!(window as any).__POWERED_BY_QIANKUN__) {
 }
 
 export async function bootstrap() {
-    console.log('[react16] react app bootstraped');
+    console.log('[react18] react app bootstraped');
 }
 
 export async function mount(props) {

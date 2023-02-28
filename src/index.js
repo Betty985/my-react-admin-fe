@@ -6,7 +6,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ConfigProvider } from 'antd';
 import { Provider } from 'mobx-react';
-import { registerMicroApps, start } from 'qiankun';
+import { registerMicroApps, start, setDefaultMountApp } from 'qiankun';
 import stores from '@/stores';
 const data = {
     colorPrimary: '#25b864',
@@ -25,7 +25,7 @@ root.render(
 registerMicroApps([
     {
         name: 'conduit',
-        entry: 'http://localhost:8001',
+        entry: '//localhost:7900',
         container: '#container',
         activeRule: '/conduit',
     },
@@ -36,6 +36,10 @@ registerMicroApps([
         activeRule: '/app-vue',
     },
 ]);
+/**
+ * Step3 设置默认进入的子应用
+ */
+setDefaultMountApp('/conduit');
 // 启动 qiankun
 start();
 

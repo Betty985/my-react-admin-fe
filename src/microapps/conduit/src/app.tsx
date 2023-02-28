@@ -30,5 +30,4 @@ const App = () => (
         </Provider>
     </ErrorBoundary>
 );
-const A = () => <h1>hello</h1>;
-export default A;
+export default App;

@@ -187,6 +187,9 @@ module.exports = function (webpackEnv) {
   };
 
   return {
+    devServer: {
+      port: '7900'
+    },
     target: ['browserslist'],
     // Webpack noise constrained to errors and warnings
     stats: 'errors-warnings',
