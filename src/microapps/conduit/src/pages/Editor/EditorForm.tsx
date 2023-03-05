@@ -1,13 +1,13 @@
-import useStores from "../../hooks/useStores";
-import React, { FC, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import ListErrors from "../../components/ListErrors";
-import useSubmit from "../../hooks/useSubmit";
-import { SubmitCaller } from "../../typings";
+import useStores from '../../hooks/useStores';
+import React, { FC, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import ListErrors from '../../components/ListErrors';
+import useSubmit from '../../hooks/useSubmit';
+import { SubmitCaller } from '../../typings';
 const EditorForm: FC = () => {
     const params = useParams();
-    const [tagList, setTagList] = useState([])
-    const { editorStore } = useStores()
+    const [tagList, setTagList] = useState([]);
+    const { editorStore } = useStores();
     const {
         err,
         inProgress,
@@ -20,10 +20,10 @@ const EditorForm: FC = () => {
         handleTitleChange,
         handleDescriptionChange,
         handleBodyChange,
-        handleTagInputChange
+        handleTagInputChange,
     } = useSubmit(SubmitCaller.EDITOR);
 
-    const handleTagInputKeyDown = e => {
+    const handleTagInputKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (e) => {
         switch (e.keyCode) {
             case 13: // Enter
             case 9: // Tab
@@ -39,20 +39,20 @@ const EditorForm: FC = () => {
     const handleAddTag = () => {
         if (tagInput) {
             editorStore.addTag(tagInput.trim());
-            setTagInput('')
-            setTagList(editorStore.tagList)
+            setTagInput('');
+            setTagList(editorStore.tagList);
         }
     };
 
-    const handleRemoveTag = tag => {
+    const handleRemoveTag = (tag: string) => {
         if (editorStore.inProgress) return;
         editorStore.removeTag(tag);
-        setTagList(editorStore.tagList)
+        setTagList(editorStore.tagList);
     };
     useEffect(() => {
         editorStore.setArticleSlug(params.slug);
         editorStore.loadInitialData();
-    }, [params.slug])
+    }, [params.slug]);
     return (
         <>
             <ListErrors errors={err} />
@@ -104,7 +104,7 @@ const EditorForm: FC = () => {
                         />
 
                         <div className="tag-list">
-                            {tagList.map(tag => {
+                            {tagList.map((tag) => {
                                 return (
                                     <span className="tag-default tag-pill" key={tag}>
                                         <i
@@ -124,11 +124,11 @@ const EditorForm: FC = () => {
                         disabled={inProgress}
                         onClick={handleSubmitForm}
                     >
-                       Publish Article
+                        Publish Article
                     </button>
                 </fieldset>
             </form>
         </>
-    )
-}
-export default EditorForm
+    );
+};
+export default EditorForm;

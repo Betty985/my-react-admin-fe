@@ -188,7 +188,10 @@ module.exports = function (webpackEnv) {
 
   return {
     devServer: {
-      port: '7900'
+      port: '7900',
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      }
     },
     target: ['browserslist'],
     // Webpack noise constrained to errors and warnings
