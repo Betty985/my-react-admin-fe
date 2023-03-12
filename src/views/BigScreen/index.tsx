@@ -1,7 +1,7 @@
 import React, { FC, ReactNode, useEffect, useRef, useState } from 'react';
 import styles from './index.module.scss';
 import { Chart } from './component/Chart';
-import { stackedOpt, mapOpt } from './options';
+import { testOpt, stackedOpt } from './options';
 export const ScreenContainer: FC<{
     designDraftWidth?: number;
     designDraftHeight?: number;
@@ -48,13 +48,13 @@ export const BigScreen = () => {
     return (
         <ScreenContainer>
             <header className={styles.header}>大数据可视化展示平台</header>
-            <Chart id="s0" options={stackedOpt} title="指标S0" />
-            <Chart id="s1" options={stackedOpt} title="指标S1" />
-            <Chart id="s2" options={stackedOpt} title="指标S2" height={150} />
-            <Chart id="s3" options={stackedOpt} title="指标S3" height={150} />
-            <Chart id="s4" options={stackedOpt} title="指标S4" height={100} />
-            <Chart id="s5" options={stackedOpt} title="指标S5" height={100} />
-            <Chart id="main" options={mapOpt} height={300} />
+            <Chart id="s0" options={testOpt} title="指标S0" />
+            <Chart id="s1" options={testOpt} title="指标S1" />
+            <Chart id="s2" options={testOpt} title="指标S2" height={150} />
+            <Chart id="s3" options={testOpt} title="指标S3" height={150} />
+            <Chart id="s4" options={testOpt} title="指标S4" height={100} />
+            <Chart id="s5" options={testOpt} title="指标S5" height={100} />
+            <Chart id="main" options={stackedOpt} height={640} width={700} />
         </ScreenContainer>
     );
 };

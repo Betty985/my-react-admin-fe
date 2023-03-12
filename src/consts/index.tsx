@@ -61,7 +61,7 @@ const menu: IMenu[] = [
         icon: <LoginOutlined />,
     },
     {
-        key: 't',
+        key: 'conduit',
         label: 't',
         icon: <ExperimentOutlined />,
     },

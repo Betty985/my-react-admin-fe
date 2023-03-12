@@ -17,15 +17,17 @@ export const Chart: FC<{
     const { title = 'GL Hello World', id, width = 320, height = 240, options } = props;
     const chartRef = useRef<HTMLDivElement | null>(null);
     const [load, setLoad] = useState(true);
-    const chartDom = document.querySelector(`#${id}`) as HTMLElement;
+
     const bg = id === 'main' ? 'transparent' : `url(${bgUrl})`;
     useEffect(() => {
+        const chartDom = chartRef.current;
         if (chartDom) {
             const myChart = echarts.init(chartDom, 'dark', {
                 renderer: 'svg', // 必须使用 SVG 模式
                 width, // 需要指明高和宽
                 height,
             });
+            console.log(myChart);
             myChart.setOption(options);
             setLoad(false);
             window.onresize = function () {

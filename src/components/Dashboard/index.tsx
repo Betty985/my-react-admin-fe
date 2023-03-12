@@ -98,7 +98,6 @@ const Dashboard: FC = () => {
     return (
         <Layout style={{ height: '100vh' }}>
             <Header className={`${theme}`}>
-                <Icon ref={ref1} component={Logo} className="fixed left-2" onClick={handleClick} />
                 <Row
                     align="middle"
                     justify="space-between"
@@ -107,10 +106,15 @@ const Dashboard: FC = () => {
                     wrap={false}
                 >
                     <Col>
+                        <Icon
+                            ref={ref1}
+                            component={Logo}
+                            className="fixed left-2"
+                            onClick={handleClick}
+                        />
                         {!collapsed && screens.sm && (
                             <span className={`logo ${theme}`}>REACT ADMIN</span>
                         )}
-                        <Trigger collapsed={collapsed} setCollapsed={setCollapsed} />
                     </Col>
 
                     {/* 水平导航栏 */}
@@ -131,7 +135,12 @@ const Dashboard: FC = () => {
 
             <Layout>
                 {mode === 'inline' && screens.sm && (
-                    <Sider trigger={null} collapsible collapsed={collapsed} theme={theme}>
+                    <Sider
+                        collapsible
+                        collapsed={collapsed}
+                        theme={theme}
+                        onCollapse={(value) => setCollapsed(value)}
+                    >
                         <MyMenu theme={theme} mode={mode} />
                     </Sider>
                 )}
