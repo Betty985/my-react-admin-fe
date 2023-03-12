@@ -30,7 +30,7 @@ const MyBreadcrumb: FC = () => {
     return (
         <Row align="middle" className="breadcrumb">
             <ExclamationCircleOutlined className="breadcrumbIcon" />
-            <Breadcrumb routes={route} itemRender={itemRender} />
+            <Breadcrumb items={route} itemRender={itemRender} />
         </Row>
     );
 };

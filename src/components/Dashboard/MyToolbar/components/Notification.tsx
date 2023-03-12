@@ -49,7 +49,7 @@ export const Notification = observer(() => {
     const { light } = useTheme();
     return (
         <Col>
-            <Popover placement="bottomRight" content={content} trigger="click" arrowPointAtCenter>
+            <Popover placement="bottomRight" content={content} trigger="click" arrow>
                 <Badge count={25} overflowCount={99} size="small">
                     <BellOutlined className={`icon ${light}`} />
                 </Badge>
